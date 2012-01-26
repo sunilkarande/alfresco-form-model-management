@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Create a file</shortname>
+	<description></description>
+	<url>/utils/create-file</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

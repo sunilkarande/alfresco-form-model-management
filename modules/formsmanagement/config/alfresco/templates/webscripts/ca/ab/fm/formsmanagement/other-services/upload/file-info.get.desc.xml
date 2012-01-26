@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>UofA File info</shortname>
+	<description>Show metadata about a file</description>
+	<url>/uofa/file/info</url>
+	<family>Uploader</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

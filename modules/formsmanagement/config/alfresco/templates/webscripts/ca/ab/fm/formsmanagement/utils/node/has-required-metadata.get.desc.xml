@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Node Profile Validation</shortname>
+	<description>Validates a node against required metadata in a profile</description>
+	<url>/form-management/node/has-required-metadata</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

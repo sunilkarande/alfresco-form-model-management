@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Convert profile to properties</shortname>
+	<description>Take a profile and find each aspect property from model</description>
+	<url>/model/aspects/profiletoproperty</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

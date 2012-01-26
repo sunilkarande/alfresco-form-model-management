@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Update Profile</shortname>
+	<description>Merges a new profile object into the contraint</description>
+	<url>/constraint/update-profile</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

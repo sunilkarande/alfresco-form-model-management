@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Form Management Move Nodes</shortname>
+	<description></description>
+	<url>/form-management/formdata/move</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

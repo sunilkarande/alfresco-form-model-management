@@ -1,0 +1,10 @@
+<webscript>
+	<shortname>Gmail User settings</shortname>
+	<description>Settings for server info, labels etc</description>
+	<url>/gmail/save-user-settings</url> 
+	<family>Gmail</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
+

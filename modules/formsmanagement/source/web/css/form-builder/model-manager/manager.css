@@ -1,0 +1,129 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}
+li{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:'';}
+abbr,acronym {border:0;font-variant:normal;}
+sup {vertical-align:text-top;}
+sub {vertical-align:text-bottom;}
+input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
+legend{color:#000;}
+
+
+.model-wrapper {
+	padding-left:10px;
+	margin-bottom:20px;
+	padding-top:20px;
+}
+.fm-model-wrapper {
+     float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 15px;
+}
+.ico-model-add {
+	width: 119px;
+	height: 119px;
+	background: #EBEBEB url('../images/ico-plus-grey.png') no-repeat center center;
+	border:1px solid #ccc;
+	cursor:pointer;
+}
+.ico-model {
+	width: 120px;
+	height: 120px;
+	background:url("../images/meta.png") no-repeat scroll center center #FFFFFF;
+	margin-left: 7px;
+	border:1px solid #DADADA;
+	cursor:pointer;
+}
+
+.fm-model input {
+	background: none;
+    border: 1px none transparent;
+    color: #333333;
+    font-family: arial,sans-serif;
+    font-size: 13px;
+    padding: 4px;
+    text-align: center;
+    width: 128px;  margin-top: 1px;
+}
+.input-active-focus {
+	background:#fff!important;
+	border:1px solid #ccc!important;
+	width: 126px!important;
+}
+
+/* Open Styles */
+.fm-tools {
+	font: 13px arial,sans-serif;
+	font-family: arial,sans-serif;
+}
+.fm-tools .jfk-button {
+	float:left;
+}
+.fm-model-wrapper.open {
+	background: none repeat scroll 0 0 #EBEBEB;
+    width: 94% !important;
+    padding:20px;
+    margin-bottom:20px;
+}
+.fm-tools, .fm-model-content, .clear-open { display:none; }
+.open .clear-open {
+	clear:both; margin:0; padding:0;
+}
+.open .fm-tools, .open .fm-model-content, .open .clear-open {
+	display:block!important;
+}
+.open .ico-model {
+    height: 95px;
+    width: 95px;
+    float:left;
+}
+.open .fm-model-content {
+	margin-top:20px; padding-top:20px; border-top:1px solid #ccc;
+}
+.open .fm-aspect span {
+	 color: #999999;
+    display: block;
+    font-family: arial,sans-serif;
+    font-size: 13px;
+    padding-top: 5px;
+	width:98px;   
+}
+.open .fm-aspect {
+	 float: left;  height: 173px;
+    margin-bottom: 7px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+.open .ico-aspect {
+ 	background:url("../images/form.png") no-repeat scroll center center #FFFFFF;
+    border: 1px solid #DADADA;
+    height: 95px;
+    width: 95px;
+}
+.open .fm-filename {
+	color: #468AF8;
+    float: left;
+    font-size: 19px !important;
+     text-align: left !important;
+     margin-left:20px;
+     width:300px!important;
+}
+.open .fm-tools  {
+	float:right;
+}
+.open .fm-aspect {
+	position:relative;
+}
+.fmDeleteAspect {
+	cursor: pointer;
+    position: absolute;
+    right: -6px;
+    top: -5px;
+}
+.fmAddRow span { display:none; }

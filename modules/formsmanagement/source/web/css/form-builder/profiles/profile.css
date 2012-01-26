@@ -1,0 +1,38 @@
+.aspect-picker-wrapper {
+  padding-left: 20px;
+  font-family:arial, sans-serif;
+  font-size:12px;
+}
+.aspect-picker-wrapper div {
+	float: left;
+    margin-right: 20px;
+    width: 318px;
+}
+.aspect-picker-wrapper span {
+	 display: block;
+    font-size: 13px;
+    font-weight: 700;
+    padding-bottom: 11px;
+}
+.aspect-picker-wrapper ul {
+	  background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    height: 200px;
+    margin: 0;
+    overflow: auto;
+    padding: 10px 0;
+}
+.aspect-picker-wrapper ul li {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px dashed #CCCCCC;
+    margin: 0;
+    padding: 10px; }
+
+.fm-aspect-assigned ul li { background:#E5F0FF!important; }
+
+.ico-model { background:url("../images/form_input_select_multiple.png") no-repeat scroll center center #FFFFFF; }
+
+.fm-sidebar a span {
+	  background: url("../images/ico-drop.png") no-repeat scroll 0 -4px transparent;
+    padding-left: 36px;
+}

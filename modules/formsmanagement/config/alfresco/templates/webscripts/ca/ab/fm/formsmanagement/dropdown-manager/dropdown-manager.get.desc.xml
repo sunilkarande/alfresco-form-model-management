@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Dropdown Manager</shortname>
+	<description></description>
+	<url>/form-builder/dropdown-manager</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

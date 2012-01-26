@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Abstractive File Upload</shortname>
+	<description>File uploader for alfresco</description>
+	<url>/toolkit/file/upload</url>
+	<family>Uploader</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

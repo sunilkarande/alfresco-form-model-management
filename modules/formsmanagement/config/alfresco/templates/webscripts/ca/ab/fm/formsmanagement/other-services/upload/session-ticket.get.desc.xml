@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Abstractive File Upload Ticket</shortname>
+	<description>File uploader for alfresco ticket info</description>
+	<url>/toolkit/file/ticket</url>
+	<family>Uploader</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
