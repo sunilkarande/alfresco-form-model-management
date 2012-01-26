@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Validates changes to the model realtime</shortname>
+	<description>Test</description>
+	<url>/model/validate-change</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

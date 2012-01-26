@@ -1,0 +1,610 @@
+.frm_slider ul { 
+	margin:0; padding:0;
+}
+.frm_slider li {
+	color: #686868;
+    font-size: 12terpx;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: -21px;
+} 
+
+.portlet-content form#my-frm  .slider-wrapper {
+	padding-bottom: 0;
+    padding-left: 73px;
+    padding-right: 73px;
+    padding-top: 16px !important;
+} 
+.portlet-content form#my-frm .slidernum .slider-value {
+    border: 1px dashed #CCCCCC;
+    color: #111111;
+    float: right;
+    font-size: 41px;
+    padding: 2px;
+    position: relative;
+    text-align: center;
+    top: -20px;
+    width: 58px;
+}
+
+form#my-frm .slidervalCss select {
+	display:none; 
+}
+#formBuilderObj .slidervalCss select {
+	display:block!important; 
+}
+.slidervalCss {  padding-bottom: 40px !important; } 
+form#my-frm .slidervalCss .ui-slider {
+    text-decoration: none !important;
+} 
+form#my-frm .slidervalCss .ui-slider-horizontal {
+    height: 0.8em;
+	padding:0!important; 
+} 
+form#my-frm .slidervalCss .ui-slider {
+    position: relative;
+    text-align: left;
+} 
+form#my-frm .slidervalCss .ui-widget-content {
+	background: url("images/ui-bg_inset-hard_100_fcfdfd_1x100.png") repeat-x scroll 50% bottom #FCFDFD;
+	border: 1px solid #A6C9E2;
+	color: #222222;
+}
+form#my-frm .slidervalCss .ui-slider .ui-slider-handle {
+    overflow: visible !important;
+} 
+form#my-frm .slidervalCss .ui-slider-horizontal .ui-slider-handle {
+    margin-left: -0.6em;
+    top: -0.3em;
+} 
+form#my-frm .slidervalCss .ui-slider .ui-slider-handle {
+    cursor: default;
+    height: 1.2em;
+    position: absolute;
+    width: 1.2em;
+    z-index: 2;
+} 
+form#my-frm .slidervalCss .ui-state-default, form#my-frm .slidervalCss .ui-widget-content .ui-state-default {
+    background: url("images/ui-bg_glass_85_dfeffc_1x400.png") repeat-x scroll 50% 50% #DFEFFC;
+    border: 1px solid #C5DBEC;
+    color: #2E6E9E;
+    font-weight: bold;
+    outline: medium none;
+}  /*NEW SLIDER STYLES FOR SCALE, ETC*/
+/* slider widget */
+form#my-frm .slidervalCss .ui-slider  {
+	text-decoration: none !important;
+}
+form#my-frm .slidervalCss.ui-slider .ui-slider-handle  {
+	overflow: visible !important;
+}
+form#my-frm .slidervalCss .ui-slider .ui-slider-tooltip {
+	display: none;
+}
+form#my-frm .slidervalCss .ui-slider .screenReaderContext {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	left: -999999999px;
+}
+form#my-frm .slidervalCss .ui-slider .ui-state-active .ui-slider-tooltip, form#my-frm .slidervalCss .ui-slider .ui-state-focus .ui-slider-tooltip, form#my-frm .slidervalCss .ui-slider .ui-state-hover .ui-slider-tooltip {
+	display: block;
+	position: absolute;
+	bottom: 2.5em;
+	text-align: center;
+	padding: .3em .2em .4em;
+	font-size: .9em;
+	width: 8em;
+	margin-left: -3.7em;
+}
+form#my-frm .slidervalCss .ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down, form#my-frm .slidervalCss .ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down-inner {
+	position: absolute; 
+	display: block;
+	width:0; 
+	height:0; 
+	border-bottom-width: 0;
+	background: none;
+}
+form#my-frm .slidervalCss .ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down {	
+	border-left: 7px dashed transparent; 
+	border-right: 7px dashed transparent;
+	border-top-width: 8px;
+	bottom:	-8px;
+	right: auto;
+	left: 50%;
+	margin-left: -7px;
+}
+form#my-frm .slidervalCss .ui-slider .ui-slider-tooltip .ui-tooltip-pointer-down-inner {
+	border-left: 6px dashed transparent; 
+	border-right: 6px dashed transparent;
+	border-top: 7px solid #fff;
+	bottom:	auto;
+	top: -9px;
+	left: -6px;
+}
+form#my-frm .slidervalCss .ui-slider a {
+	text-decoration: none;
+}
+form#my-frm .slidervalCss .ui-slider ol, .ui-slider li, .ui-slider dl, .ui-slider dd, .ui-slider dt {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+form#my-frm .slidervalCss .ui-slider ol, .ui-slider dl {
+	position: relative;
+	top: 1.3em;
+	width: 100%;
+}
+form#my-frm .slidervalCss .ui-slider dt {
+	top: 1.5em;
+	position: absolute;
+	padding-top: .2em;
+	text-align: center;
+	border-bottom: 1px dotted #ddd;
+	height: .7em;
+	color: #999;
+}
+form#my-frm .slidervalCss .ui-slider dt span {
+	background: #fff;
+	padding: 0 .5em;
+}
+form#my-frm .slidervalCss .ui-slider li, .ui-slider dd {
+	position: absolute;
+	overflow: visible;
+	color: #666;
+}
+form#my-frm .slidervalCss .ui-slider span.ui-slider-label {
+	position: absolute;
+}
+form#my-frm .slidervalCss .ui-slider li span.ui-slider-label, form#my-frm .slidervalCss .ui-slider dd span.ui-slider-label {
+	display: none;
+}
+form#my-frm .slidervalCss .ui-slider li span.ui-slider-label-show, form#my-frm .slidervalCss .ui-slider dd span.ui-slider-label-show {
+	display: block;
+}
+form#my-frm .slidervalCss .ui-slider span.ui-slider-tic {
+	position: absolute;
+	left: 0;
+	height: .8em;
+	top: -1.3em;
+}
+form#my-frm .slidervalCss .ui-slider li span.ui-widget-content, form#my-frm .slidervalCss .ui-slider dd span.ui-widget-content {
+	border-right: 0;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-top: 0;
+	border-bottom: 0;
+}
+form#my-frm .slidervalCss .ui-slider .first .ui-slider-tic, form#my-frm .slidervalCss .ui-slider .last .ui-slider-tic {
+	display: none;
+}
+/* NUMBER SLIDER */
+form#my-frm .slidernum .slider-value {
+	border: 1px dashed #CCCCCC;
+    color: #111111;
+    font-size: 15px;
+    padding: 2px;
+    position: relative;
+    text-align: center;
+    top: -8px;
+    width: 23px;
+}
+form#my-frm .slidernum .sliderForm {
+	background: none repeat scroll 0 0 #FFFFFF!important;
+    border: 1px solid #DDDDDD!important;
+    color: #333333;
+}
+form#my-frm .slidernum .sliderForm .ui-state-default, form#my-frm .slidernum .ui-widget-content .ui-state-default {
+    background: #F6F6F6;
+    border: 1px solid #CCCCCC;
+    color: #1C94C4;
+    font-weight: bold;
+    outline: medium none;
+} 
+form#my-frm .slidernum .sliderForm .ui-slider-handle {
+    cursor: e-resize!important;
+    height: 1.2em!important;
+    position: absolute!important;
+    width: 1.2em!important;
+    z-index: 2!important;
+}
+form#my-frm .slidernum .ui-slider-horizontal {
+	height: 0.8em!important;
+    padding: 0 !important;
+}
+
+.snaQuiz label { font-weight:normal ; }
+.snaQuiz .group { border-bottom:1px dashed #CCC; padding-bottom:10px; }
+form#my-frm .slidernum .ui-slider { position:relative; }
+form#my-frm .slidernum .ui-slider-horizontal .ui-slider-handle {
+    margin-left: -0.6em!important;
+    top: -0.3em!important;
+} 
+form#my-frm .slidernum .sliderForm { float:left; display:block; width:55%;   }
+form#my-frm .slidernum .slider-start { display: block;
+	float: left;
+	padding: 0 20px 0 10px;
+	text-align: right;
+	width: 13%;
+	font-weight:bold;
+} 
+form#my-frm .slidernum .slider-end { 
+	display: block;
+    float: left;
+    padding: 0 10px 0 20px;
+    text-align: left;
+	font-weight:bold;
+    width: 13%;
+}
+
+form#my-frm .slidernum .ui-slider .ui-slider-range {
+    background-position: 0 0;
+    border: 0 none;
+    display: block;
+    font-size: 0.7em;
+    position: absolute;
+    z-index: 1;
+}
+
+form#my-frm .slidernum  .ui-widget-header {
+    background: #686868; 
+    color: #FFFFFF;
+    font-weight: bold;
+}
+form#my-frm .slidernum   .ui-slider-horizontal .ui-slider-range {
+    height: 100%;
+    top: 0;
+	padding:0!important;
+}
+
+.checkboxLbl {
+      left: 15px;
+    position: relative;
+    top: -2px;
+}
+.checkbox {
+    width: 20px !important;
+}
+.inputMinLen { margin-left:15px !important; }
+.inputMaxLen {   margin-left: 11px !important; }
+
+.ui-helper {
+    background: none repeat scroll 0 0 #DFEEFF;
+    border: 1px dotted #9BB3CF;
+}
+a {
+    outline: medium none !important;
+}
+.delField, .delOption {
+    background: url("images/modal-close.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 14px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 14px;
+}
+.delField span, .delOption span {
+    display: none;
+}
+.f_b_root p {
+    position: relative;
+}
+.optionSortable {
+    margin: 0;
+    padding: 0;
+}
+.optionSortable li {
+    background: none repeat scroll 0 0 #C3D0DF;
+    border-bottom: 1px solid #FFFFFF;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+hr {
+    color: #EFF6FF;
+}
+.optToggle {
+    background: none repeat scroll 0 0 #C3D0DF;
+    border-bottom: 1px solid #FFFFFF;
+    padding: 5px;
+}
+.hover-state {
+    background: #EDF5FF;
+}
+span.fld-lbl {
+    display: inline-block;
+    width: 59px;
+}
+.prg-frm-button-wrapper {
+	margin-top:15px;
+	border-top:1px solid #ccc;
+	padding-top:10px;
+	text-align:right;
+}
+#tabs-3 a:hover {
+    text-decoration: underline;
+}
+.ui-accordion-header {
+ border: 1px solid #B6CEDB;
+    display: block;
+    font-size: 13px;
+    margin: 0 0 5px;
+    outline: medium none !important;
+    position: relative;
+}
+#accordion .ui-state-active, #accordion-tab1 .ui-state-active {
+    background: #C9DEEA!important;
+}
+
+.default .errHandleBox {
+    background: none repeat scroll 0 0 #FFDFE0;
+    border: 2px solid #6F0004;
+    font-weight: bold;
+    margin-bottom: 11px;
+    padding: 10px;
+}
+.default .errHandleBox p {
+    margin-bottom: 5px;
+}
+.default .errHandleBox ul {
+    margin: 0;
+}
+.default .errHandleBox ul li {
+    font-weight: normal;
+    list-style-type: circle;
+    margin-left: 30px;
+}
+.addOption {
+    background: url("images/ico-add.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    left: 177px;
+    padding-left: 18px;
+    position: relative;
+    top: 12px;
+}
+.fieldAddOptions a {
+    color: #333333;
+    display: block;
+    text-decoration: none;
+     background-position: 5px 6px;
+    background-repeat: no-repeat;
+    font-size: 13px !important;
+    padding: 10px 10px 10px 45px;
+
+}
+.fieldAddOptions a:hover {
+	background-color:#DEE6EA;
+    text-decoration: none!important;
+}
+
+#t_slider {
+	background-image: url("images/ico-slider.png");
+}
+#t_text {
+    background-image: url("images/ico-abc.png");
+}
+#t_textarea {
+    background-image:url("images/ico-p.png") ;
+}
+#t_select {
+    background-image: url("images/ico-drop.png") ;
+}
+#t_radio {
+    background-image: url("images/ico-radio.png") ;
+}
+#t_checkbox {
+    background-image: url("images/ico-check.png") ;
+}
+.group {
+    margin-bottom: 10px;
+    position: relative;
+}
+#my-frm .left .group {
+    padding: 5px 0;
+    width: 100%;
+}
+#my-frm .left .group label {
+    float: left;
+    width: 140px;
+}
+#my-frm .left .group div {
+}
+#my-frm .right .group {
+    padding: 5px 0;
+    width: 100%;
+}
+#my-frm .right .group label {
+    float: left;
+    padding-right: 10px;
+    text-align: right;
+    width: 140px;
+}
+#my-frm .right .group div {
+}
+#my-frm .top .group div {
+    padding-top: 10px;
+}
+
+/* FORM Bulder Stage Toolbox */
+.ui-accordion-header a {
+   color: #333333;
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    left: 10px;
+    padding: 8px;
+    text-decoration: none;
+}
+.ui-accordion-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom: 5px;
+    padding: 10px;
+	border:1px solid #ccc;
+}
+#tabs-3 {
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.formContainerStage {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+.clearfix {
+    display: inline-block;
+}
+html[xmlns] .clearfix {
+    display: block;
+}
+.tip {
+    color: #AAAAAA;
+    display: block;
+    font-size: 11px;
+    padding-left: 142px;
+    padding-top: 3px;
+}
+* html .clearfix {
+    height: 1%;
+}
+.ui-tabs .ui-tabs-hide {
+    display: none;
+}
+.clear {
+    clear: both;
+}
+.formBuilderContainer {
+	width:300px; float:left;  margin-right: 20px; font-family: Verdana,Geneva,sans-serif !important;
+}
+.formTabs {
+    left: -5px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+#formToolWrapper ul {
+	margin-left:2px;
+}
+#formToolWrapper input[type="text"], select {
+	 background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #A0A0A0 #B9B9B9 #B9B9B9;
+    border-radius: 1px 1px 1px 1px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 4px;
+}
+.formTabs li {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    float: left;
+    list-style: none outside none;
+    margin: 0 3px;
+}
+li.ui-state-active {
+    background: none repeat scroll 0 0 #EBF1F4 !important;
+    position: relative;
+    top: 1px;
+}
+li.ui-state-default {
+    background: none repeat scroll 0 0 #EFEDED;
+}
+.formTabs li a {
+    color: #333333;
+    display: block;
+    font-size: 11px;
+    outline: medium none;
+    padding: 7px;
+    text-decoration: none;
+}
+.toolBox {
+    background: none repeat scroll 0 0 #EBF1F4;
+    border: 1px solid #CCC;
+    padding: 10px;
+}
+.formContainerStage {
+    float: left;
+    width: 500px;
+}
+.frmBuilder label {
+    font-size: 12px !important;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.frmBuilder input, .frmBuilder textarea, .frmBuilder select {
+    margin: 10px 0;
+    width: 230px;
+}
+.frmBuilder li input, .frmBuilder li textarea, .frmBuilder li select {
+    margin: 10px!important;
+}
+.fld-small {
+	width:64px !important;
+}
+.fld-med {
+	width:170px!important;
+}
+.field-tip {
+	color: #AAAAAA;
+    font-size: 11px;
+}
+.field-tip span {
+	padding-right: 27px;
+}
+.tip-fld {
+	margin-bottom:2px!important;
+}
+ 
+/* Quick DEFAULT Styles */ 
+.group input[type="text"], .group select, .group textarea {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #A0A0A0 #B9B9B9 #B9B9B9;
+    -webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	border-radius: 1px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 4px;
+    margin:4px 0;
+}
+.fld-tip { display:block; padding-top:2px; padding-bottom:2px; color:#aaa; padding-left:140px; font-size:11px; }
+#formFormat, .demo-doclist { font: 13px arial,sans-serif; }
+.slider-wrapper {  padding-bottom: 0;
+    padding-left: 73px;
+    padding-right: 73px;
+    padding-top: 16px !important; }
+.frm_desc {
+    border-bottom: 1px solid #CCCCCC;
+    display: block;
+    font-size: 13px;
+    margin-bottom: 15px;
+    padding: 5px 0;
+}
+.frm_formName {
+	font-size: 20px;
+    font-weight: normal;
+    margin: 0;
+}
+/* Profile DEFAULT */
+.demo-doclist { border: 1px solid #ccc; padding:20px; margin-bottom:20px; }
+.fm-profile-root { padding:20px; background:#fff; border:1px solid #ccc; }
+.fm-profile-aspect { padding-bottom:5px; margin-bottom:15px; border-bottom:1px dashed #ccc;}
+.fm-profile-aspect .frm_formName { font-size: 16px; color:#368EF9; }
+.fm-profile-aspect .frm_desc { border-bottom: 0; font-size: 11px; color:#AAA; }
+

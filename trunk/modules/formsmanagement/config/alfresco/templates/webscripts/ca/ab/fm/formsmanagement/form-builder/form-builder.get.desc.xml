@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Form Builder</shortname>
+	<description>Form Builder Webscript</description>
+	<url>/form-builder/builder</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

@@ -1,0 +1,12 @@
+<webscript>
+	<shortname>UofA Site Search Service</shortname>
+	<description>Search the repository from given criteria</description>
+	<url>/uofa/site/search</url>
+	<url>/uofa/site/search/{context}</url>
+	<url>/uofa/site/search/{context}/{query}</url>
+	<family>UofA</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
+

@@ -1,0 +1,1 @@
+{ "status": ${status!}, "msg": "${msg!}", "failedMove": ${failedItems!}, "successMove": ${success!}, "validation": ${response} }

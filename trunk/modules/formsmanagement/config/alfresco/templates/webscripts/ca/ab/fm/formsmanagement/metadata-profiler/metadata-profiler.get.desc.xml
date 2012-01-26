@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Metadata Profiles</shortname>
+	<description>Collecting aspects for document types storing as profiles</description>
+	<url>/form-builder/profiles</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

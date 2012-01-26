@@ -1,0 +1,85 @@
+<project name="projects">
+
+	<target name="init">
+		<echo message="Initialization." />
+	</target>
+
+	<!-- ************************************************************************** -->
+	<!-- ** This file contains the targets used to build the individual modules/projects ** -->
+	<!-- ************************************************************************** -->
+
+	<!-- ******************************** -->
+	<!-- ** Comment System Project ** -->
+	<!-- ******************************** -->
+
+	<target name="incremental-formsmanagement" depends="package-formsmanagement" />
+
+	<target name="build-formsmanagement" depends="clean-formsmanagement, incremental-formsmanagement" />
+
+	<target name="clean-formsmanagement" depends="init">
+		<clean projectdir="${dir.module.formsmanagement}" />
+	</target>
+
+	<target name="compile-formsmanagement" depends="init">
+		<compile-java projectdir="${dir.module.formsmanagement}" />
+	</target>
+
+	<target name="package-formsmanagement" depends="package-formsmanagement-war" />
+
+	<target name="package-formsmanagement-jar" depends="clean-formsmanagement, compile-formsmanagement">
+		<mkdir dir="${dir.module.formsmanagement.dist}" />
+		<!--
+		<copy todir="${dir.module.formsmanagement.classes}/META-INF" file="${dir.module.formsmanagement.property}/faces-config.xml" overwrite="true" />
+		<copy todir="${dir.module.formsmanagement.classes}/META-INF" file="${dir.module.formsmanagement.property}/web-client-config-custom.xml" overwrite="true" />
+		-->
+		<jar jarfile="${dir.module.formsmanagement.dist}/${file.name.jar.formsmanagement}"
+			basedir="${dir.module.formsmanagement.classes}" />
+	</target>
+
+	<target name="package-formsmanagement-war" depends="package-formsmanagement-extension">
+		<echo>Installing Forms Management into WAR...</echo>
+		<install-amp ampfile="${dir.module.formsmanagement.dist}/${file.name.amp.formsmanagement}"
+			warfile="${dir.alfresco.war}/${file.name.war.alfresco}" />
+	</target>
+
+	<target name="package-formsmanagement-extension" depends="package-formsmanagement-jar">
+		<echo message="*** EXCLUDING TEST WEBSCRIPTS ***" />
+
+		<zip destfile="${dir.module.formsmanagement.dist}/${file.name.amp.formsmanagement}" update="true">
+			<zipfileset file="${dir.module.formsmanagement.property}/module.properties" />
+			<zipfileset file="${dir.module.formsmanagement.property}/log4j.properties" />
+			<zipfileset file="${dir.module.formsmanagement.dist}/${file.name.jar.formsmanagement}" prefix="lib" />
+			<zipfileset dir="${dir.project.3rdparty.lib}" prefix="lib" />
+			<zipfileset dir="${dir.module.formsmanagement.config}" prefix="config">
+				<exclude name="**/module.properties" />
+				<!-- exclude test webscripts -->
+				<exclude name="**/test/*.*" />
+			</zipfileset>
+			<zipfileset dir="${dir.module.formsmanagement.web}" prefix="web" />
+		</zip>
+	</target>
+
+	<target name="test-formsmanagement" depends="compile-formsmanagement">
+		<run-tests projectdir="${dir.module.formsmanagement}" />
+	</target>
+
+	<target name="generate-javadocs-formsmanagement" depends="init">
+		<generate-javadocs documenttitle="Alfresco Forms Management Extension"
+			windowtitle="Forms Management" projectdir="${dir.module.formsmanagement}" />
+	</target>
+
+	<target name="deploy-formsmanagement-webscripts" depends="init">
+		<copy todir="${dir.module.formsmanagement.webscripts.target}">
+			<fileset dir="${dir.module.formsmanagement.webscripts}"/>
+		</copy>
+		<copy todir="${dir.alfresco.war}/alfresco">
+			<fileset dir="${dir.module.formsmanagement.web}"/>
+		</copy>
+	</target>
+
+	<target name="deploy-formsmanagement-jar" depends="package-formsmanagement-jar">
+		<copy todir="${dir.alfresco.war}/alfresco/WEB-INF/lib"
+			file="${dir.module.formsmanagement.dist}/${file.name.jar.formsmanagement}" overwrite="true" />
+	</target>
+
+</project>

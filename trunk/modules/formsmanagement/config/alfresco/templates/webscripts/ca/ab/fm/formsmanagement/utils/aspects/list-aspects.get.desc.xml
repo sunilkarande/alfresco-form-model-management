@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Get a list of available aspects</shortname>
+	<description>Goes through JSON to collect aspects for listing in metadata profile</description>
+	<url>/model/aspects/list</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

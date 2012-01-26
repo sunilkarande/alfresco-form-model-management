@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Update JSON Model</shortname>
+	<description>Update json object with aspect data</description>
+	<url>/form-builder/model-update</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

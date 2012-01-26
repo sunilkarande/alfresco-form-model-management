@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Get a profile JSON Object By Name</shortname>
+	<description></description>
+	<url>/profile/get-object-by-name</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

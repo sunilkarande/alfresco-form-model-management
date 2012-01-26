@@ -1,0 +1,163 @@
+<project name="forms management"
+         default="build-modules" >
+
+
+   <!-- ****************************************************** -->
+   <!-- ************ Initialisation/Configuration ************ -->
+   <!-- ****************************************************** -->
+
+   <import file="macros.xml" />
+   <import file="projects.xml" />
+
+
+	   <target name="init">
+	      <property environment="env" />
+	   	  <property file="build.properties"/>
+	      <!--
+	            On UNIX, it's considered very poor form to dump a config file that
+	            does not start with "." into the user's $HOME directory.
+
+	            On Windows, it's a bit more debatable, but in any event Alfresco
+	            config files should always start with "alfresco-...", so the current
+	            prop file convention needs to be fixed no matter how you slice it.
+	            The conditional below is intended to make the transition more graceful
+	            until we re-work the build.
+	      -->
+	      <condition property = "alfresco.user.override.properties.file"
+	                 value    = "${user.home}/.alfresco-user-override.properties"
+	                 else     = "${user.home}/user-override.properties">
+	          <available file = "${user.home}/.alfresco-user-override.properties"/>
+	      </condition>
+	      <property file      = "${alfresco.user.override.properties.file}" />
+
+	      <!--
+	   	  <property file="${basedir}/projects/repository/config/alfresco/version.properties" />
+	      <property file="${basedir}/build.properties" />
+	      <property file="${basedir}/shared.properties" />
+	      -->
+
+	      <path id="classpath.compile">
+	      	<fileset dir="${dir.alfresco.sdk}" includes="**/*.jar"/>
+	      	<fileset dir="${dir.project.3rdparty.lib}">
+	      	     <include name="**/*.jar" />
+	      	 </fileset>
+	         <fileset dir="${dir.projects}">
+	            <include name="**/${dir.name.build}/${dir.name.dist}/*.jar" />
+	         </fileset>
+	         <fileset dir="${dir.modules}">
+	            <include name="**/${dir.name.lib}/*.jar" />
+	         </fileset>
+	      </path>
+
+	      <path id="classpath.javadoc">
+	         <path refid="classpath.compile"/>
+	      </path>
+
+	   </target>
+
+
+
+   <!-- ****************************************************** -->
+   <!-- ***************** Entry point targets **************** -->
+   <!-- ****************************************************** -->
+
+   <target name="build"
+           description="Performs a clean build of all projects"
+           depends="clean, incremental" />
+
+   <target name="incremental"
+           description="Performs an incremental build of all projects"
+           depends="" />
+
+   <target name="build-modules"
+           description="Performs a clean build of all modules"
+           depends="clean-modules, incremental-modules" />
+
+   <target name="incremental-modules"
+           description="Performs an incremental build of all modules"
+           depends="incremental,
+
+					package-formsmanagement-extension" />
+                    <!-- package-mediawiki-extension, -->
+
+
+   <target name="generate-docs"
+           description="Compiles all documentation for all projects"
+           depends="" />
+
+   <!-- ****************************************************** -->
+   <!-- ****************** Cleaning targets ****************** -->
+   <!-- ****************************************************** -->
+
+   <target name="clean"
+           description="Cleans everything, all modules"
+           depends="clean-modules" />
+
+
+   <target name="clean-modules"
+           description="Cleans all modules"
+           depends="
+					clean-formsmanagement" />
+
+
+
+   <!-- ****************************************************** -->
+   <!-- **************** Deployment targets ****************** -->
+   <!-- ****************************************************** -->
+
+
+   <target name="start-tomcat-webclient"
+           description="Starts the Alfresco Tomcat server on Windows"
+           depends="init">
+      <exec dir="${home.tomcat}/bin"
+            executable="cmd.exe"
+            spawn="true">
+         <arg line="/k startup.bat" />
+      </exec>
+   </target>
+
+   <target name="start-tomcat-virtual"
+           description="Starts the virtual Tomcat server on Windows"
+           depends="init">
+      <exec dir="${home.tomcat.virtual}/bin"
+            executable="cmd.exe"
+            spawn="true">
+         <arg line="/k startup.bat" />
+      </exec>
+   </target>
+
+   <target name="start-tomcat-application"
+           description="Starts the application Tomcat server on Windows"
+           depends="init">
+      <exec dir="${home.tomcat.application}/bin"
+            executable="cmd.exe"
+            spawn="true">
+         <arg line="/k startup.bat" />
+      </exec>
+   </target>
+
+	<target name="start-tomcat-webclient-debug"
+           description="Starts the Alfresco Tomcat server on Windows in debug mode"
+           depends="init">
+      <fail unless="env.JPDA_ADDRESS"
+            message="To run Tomcat in debug mode you need to setup the JPDA_ADDRESS enviornment variable"/>
+      <fail unless="env.JPDA_TRANSPORT"
+            message="To run Tomcat in debug mode you need to setup the JPDA_TRANSPORT enviornment variable"/>
+
+      <exec dir="${home.tomcat}/bin"
+            executable="cmd.exe"
+            spawn="true">
+         <arg line="/k catalina.bat jpda start" />
+      </exec>
+   </target>
+
+   <target name="deploy-amp"
+           description="Deploys an AMP file to the web client WAR file. Usage deploy-amp -Dampfile=[ampfile]"
+           depends="init">
+      <fail unless="ampfile"
+            message="You must supply the path to an AMP file using -Dampfile=[ampfile]"/>
+      <install-amp ampfile="${ampfile}"
+                   warfile="${dir.project.webclient.dist}/${file.name.war.webclient}" />
+   </target>
+
+</project>

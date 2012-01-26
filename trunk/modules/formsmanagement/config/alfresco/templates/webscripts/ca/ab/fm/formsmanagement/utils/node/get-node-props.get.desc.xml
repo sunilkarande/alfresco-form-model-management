@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Get a node properties in a JSON Object</shortname>
+	<description></description>
+	<url>/form-management/node/get-properties</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

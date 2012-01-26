@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Site Profile List</shortname>
+	<description>Get a dropdown list and profiles dependant on siteid</description>
+	<url>/dropdown/byShareSite</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

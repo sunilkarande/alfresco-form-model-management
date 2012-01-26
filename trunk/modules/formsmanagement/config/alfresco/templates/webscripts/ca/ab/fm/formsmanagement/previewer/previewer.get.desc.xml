@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Profile and Form Previewer</shortname>
+	<description>Showing both the API usage and profile examples</description>
+	<url>/form-builder/previewer</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Get JSON Model</shortname>
+	<description> get-json-model </description>
+	<url>/form-builder/get-json-model</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

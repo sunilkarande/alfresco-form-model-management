@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Aspect search properties</shortname>
+	<description>Provide JSON aspect structure for given Aspect names</description>
+	<url>/model/aspects/aspecttoproperty</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Model Manager</shortname>
+	<description>Managing/Creating aspects for models</description>
+	<url>/form-builder/model-manager</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
