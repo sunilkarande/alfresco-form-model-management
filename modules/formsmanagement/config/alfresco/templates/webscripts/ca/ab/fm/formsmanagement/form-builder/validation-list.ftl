@@ -50,12 +50,11 @@
 			<option value="date">Date</option>
 			<option value="other">Other..</option>
 		</select>
-
-
+ 
 		<div class="regExpOther" style="display:none;">
 		<label>e.g. 999-aaa</label>
 		<input type="text" class="regExpOtherFld" value="" />
 		</div>
-	</div>
-
+ 
+	</div> 
 </div>

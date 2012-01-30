@@ -109,8 +109,8 @@
 									<div style="padding-top:10px;">
 									<span style="font-weight:bold; font-size:12px; padding-bottom:5px; display:block">Pre-defined Fields:</span>
 
-									<a href="#" id="t_sliderval">Slider via dropdown</a>
-									<a href="#" id="t_slider">Questionaire Slider</a>
+									<a href="#" id="t_sliderval">Slider via dropdown</a> 
+									<a href="#" id="t_slider">Questionaire Slider</a> 
 	                                </div>
 								</div>
 								<div id="tabs-2" class="fieldProps">
@@ -119,7 +119,7 @@
 										<div>
 											<label>Field Label:</label><br>
 											<input type="text" class="prg_fieldLabel" value="" /><br>
-
+											
 											<label>Help Tip:</label><br>
 											<input type="text" class="prg_tipLabel" value="" /><br>
 

@@ -402,25 +402,25 @@ span.fld-lbl {
 #t_checkbox {
     background-image: url("images/ico-check.png") ;
 }
-.group {
+.group, .group-tmp {
     margin-bottom: 10px;
     position: relative;
 }
-#my-frm .left .group {
+#my-frm .left .group, #my-frm .left .group-tmp {
     padding: 5px 0;
     width: 100%;
 }
-#my-frm .left .group label {
+#my-frm .left .group label, #my-frm .left .group-tmp label  {
     float: left;
     width: 140px;
 }
 #my-frm .left .group div {
 }
-#my-frm .right .group {
+#my-frm .right .group, #my-frm .right .group-tmp  {
     padding: 5px 0;
     width: 100%;
 }
-#my-frm .right .group label {
+#my-frm .right .group label, #my-frm .right .group-tmp label  {
     float: left;
     padding-right: 10px;
     text-align: right;
@@ -428,7 +428,7 @@ span.fld-lbl {
 }
 #my-frm .right .group div {
 }
-#my-frm .top .group div {
+#my-frm .top .group div, #my-frm .top .group-tmp div {
     padding-top: 10px;
 }
 
@@ -572,7 +572,7 @@ li.ui-state-default {
 }
 
 /* Quick DEFAULT Styles */
-.group input[type="text"], .group select, .group textarea {
+.group input[type="text"], .group select, .group textarea, .group-tmp input[type="text"], .group-tmp select, .group-tmp textarea {
 	background: none repeat scroll 0 0 #FFFFFF;
     border-color: #A0A0A0 #B9B9B9 #B9B9B9;
     -webkit-border-radius: 1px;
