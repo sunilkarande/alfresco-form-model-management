@@ -135,49 +135,7 @@
 
 										<h3><a href="#">Validation</a></h3>
 										<div>
-											<input type="checkbox" class="checkbox prg_required" value="required"/><label class="checkboxLbl">Required?</label>
-											<div class="textOnly">
-											<input type="checkbox" class="checkbox prg_numOnly" value="numOnly"/><label class="checkboxLbl">Numbers only?</label><br>
-											<input type="checkbox" class="checkbox prg_alphanumOnly" value="alphanumOnly"/><label class="checkboxLbl">Alphanumeric?</label><br>
-											<input type="checkbox" class="checkbox " value=""/><label class="checkboxLbl">Verification</label><br>
-
-											<hr style="margin-bottom:10px;">
-												<div>
-													<label>Minimum Length:</label>
-													<select name="inputMinLen" class="inputMinLen" style="width:60px!important">
-														<option value="">--</option>
-														<#assign x=100>
-														<#list 1..x as i>
-														  	<option value="${i}">${i}</option>
-														</#list>
-													</select>
-												</div>
-												<div>
-													<label>Maximum Length:</label>
-													<select name="inputMaxLen" class="inputMaxLen" style="width:60px!important">
-														<option value="">--</option>
-														<#list 1..x as i>
-														  	<option value="${i}">${i}</option>
-														</#list>
-
-													</select>
-												</div><hr style="margin-bottom:10px;">
-											    <label>Input mask's:</label>
-												<div class="inpMaskOptions">
-													<select name="inputMaskList" class="selectMask" >
-														<option value="">- Select -</option>
-														<option value="phone">Phone Number</option>
-														<option value="phoneext">Phone + Ext</option>
-														<option value="sin">SIN Number</option>
-														<option value="date">Date</option>
-	                                                    <option value="other">Other..</option>
-													</select>
-												</div>
-	                                            <div class="regExpOther" style="display:none;">
-	                                            <label>e.g. 999-aaa</label>
-	                                            <input type="text" class="regExpOtherFld" value="" />
-	                                            </div>
-											</div>
+											 <#include "validation-list.ftl" />
 										</div>
 
 										<h3 class="optionsMenu" style="display:none"><a href="#">Options</a></h3>
