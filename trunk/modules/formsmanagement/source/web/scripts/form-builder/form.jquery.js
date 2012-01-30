@@ -331,6 +331,20 @@
 				}
                 formString += '		</div>';
                 formString += '</div>';
+				
+				//Create TMP Verified field if needed
+				if(prop.className.indexOf("verification") >= 0 && $('.fm-main-window').length <= 0 && isSearch == false){
+					var propTmp = prop; 
+					propTmp.className = propTmp.className.replace("frm-fld", "");
+					propTmp.className = propTmp.className.replace("verification", "verification-check");
+					
+					formString += '<div class="group-tmp '+groupClass+'"><label>Verify ' + labelText + '</label>';
+					formString += '		<div'+innerDivClass+'>';
+					formString += '			<input ' + methods.addGlobalProperties(propTmp, true) + '  value="" />';	
+					formString += '		</div>'; 
+					propTmp = null;
+					  
+				}
             }
 			}
             if (isProfile) formString += '	</div>';
@@ -408,13 +422,15 @@
 			if (!prop.fieldType ) prop.fieldType = "text";
 			if(prop.mandatory){
 				if(prop.mandatory == "true" || prop.mandatory == true){
+					if(prop.className.indexOf("required") < 0){
 					prop.className += " required";
+					}
 				}
 			}
 			return prop;
 		},
         addGlobalProperties: function (prop, addType) {
-            var propString, type = "", min = "", max = ""; 
+            var propString, type = "", min = "", max = "", regEx = ""; 
 			
             if (addType) {
                 type = 'type="' + prop.fieldType + '"';
@@ -425,7 +441,11 @@
             if ( parseInt( prop.maxlength ) > 0) {
                 max = 'maxlength="' + prop.maxlength + '"';
             }
-            propString = min + ' ' + max + 'id="' + prop.id + '" title="' + prop.type + '" ' + type + ' class="frm-fld ' + prop.className + '" name="' + prop.validPrefix + "_" + prop.name + '"';
+			if (prop.regex) {
+                regEx = 'regex="' + prop.regex + '"';
+            }
+			
+            propString = regEx + ' ' + min + ' ' + max + 'id="' + prop.id + '" title="' + prop.type + '" ' + type + ' class="frm-fld ' + prop.className + '" name="' + prop.validPrefix + "_" + prop.name + '"';
             return propString;
         },
         loadPropertiesToFields: function(nodeObj){

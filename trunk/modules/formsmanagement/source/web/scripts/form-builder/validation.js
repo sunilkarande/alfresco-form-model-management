@@ -305,10 +305,10 @@ function setMasks(){
 	$(".postcode").mask("a9a 9a9");
 
 	$('.isOtherExp').each( function (){
-		var thisId = $(this).attr('id');
+		var thisId = $(this).attr('regex');
 		if(thisId){
-			var thisMask = thisId.replace('reg-', '');
-			$('#'+thisId).mask(thisMask);
+			var thisMask = thisId;
+			$(this).mask(thisMask);
 		}
 	});
 }
@@ -340,7 +340,25 @@ function validateForm(form){
 			frmValid = false;
 		}
 	});
-	if(!frmValid){ li +="<li>Please check all required fields</li>"; };
+	if(!frmValid){ li +="<li>Please check all required fields</li>"; }
+	
+	$(form + " .verification").each( function(){
+
+		//Added select just becuase im used to doing that
+		var vVal = $(this);
+		var cVal = $(this).parents(".group").next().find(".verification-check");
+		var label = $(this).parents('.group').children('label');
+		
+		if(vVal.val() != cVal.val()){
+			vVal.addClass('frmErr');
+			cVal.addClass('frmErr');
+			
+			li +="<li>"+label.html()+" fields did not match. Please verify</li>";
+			 
+			frmValid = false;
+		} 
+	});
+	 
 
 	$(form + ' .frm-fld').each( function(){
 		var minLength = parseInt($(this).attr('minlength'));
