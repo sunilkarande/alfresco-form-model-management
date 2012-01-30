@@ -1,4 +1,13 @@
-
+function loadToggleValues(){
+	$('.i-toggle').each(function(){
+		var input = $(this).find('input');
+		if(input.attr('checked')){
+			$(this).find(".i-toggle-slider").css({  left: '0px' });
+		}else{
+			$(this).find(".i-toggle-slider").css({  left: '-21px' });
+		}
+	});
+}
 function pushOptionsToField(){
 	var fieldNode = $('.ui-helper').find('.frm-fld:eq(0)');
 	var fieldType = fieldNode.attr("type");
@@ -64,19 +73,19 @@ function indexMasks(type){
 
 $(function () {
 	$("#formToolWrapper").tabs();
-	
+
 	//Load Available Namespaces
 	 var availableNamespaces = "";
 	for(x in fmModelObj.namespaces){
 		availableNamespaces += ('<option value="'+fmModelObj.namespaces[x]["@prefix"]+'">'+fmModelObj.namespaces[x]["@prefix"]+'</option>');
 	}
 	$(".prg-aspectprefix, .frm-alf-property-prefix").html(availableNamespaces);
-	 
+
 	$(".frm-alf-type-prefix").html("");
 	for(x in fmModelObj.imports){
 		$(".frm-alf-type-prefix").append('<option value="'+fmModelObj.imports[x]["@prefix"]+'">'+fmModelObj.imports[x]["@prefix"]+'</option>');
 	}
-	  
+
 	$(".optionSortable").sortable({ items: 'li', update: function(event, ui) {  pushOptionsToField(); } });
 	$(".optionSortable").disableSelection();
 	$("#accordion").accordion({ autoHeight: false, navigation: true });
@@ -248,18 +257,18 @@ $(function () {
 		}
 	});
 	$(".prg_fieldLabel").keyup(function() {
-		 $(".ui-helper > label").html($(this).val()); 
+		 $(".ui-helper > label").html($(this).val());
 	});
-	
-	$(".prg_tipLabel").keyup(function() { 
-		var tipObj = $(".ui-helper div").find('span.fld-tip'); 
+
+	$(".prg_tipLabel").keyup(function() {
+		var tipObj = $(".ui-helper div").find('span.fld-tip');
 		if(tipObj.length > 0){  }else{
 			$(".ui-helper div").append('<span class="fld-tip"></span>');
-		} 
+		}
 		$(".ui-helper").find(".fld-tip").html( $(this).val() );
-		    
+
 	});
-	 
+
 	$(".prg_fieldLabel").blur(function() {
 		//ONLY USE THIS HELPER ONCE. DO NOT CHANGE AFTER IT MAY HAVE BEEN SAVED AND SOMEONE CHANGES THE LABEL
 		//OTHER NODES MAYBE USING OLD PROPERTY NAME
@@ -267,7 +276,7 @@ $(function () {
 		 	$('.frm-alf-property-name').val( $(this).val().replace(/ /g, "").toLowerCase() );
 			 var a= $('.frm-alf-property-name').val();
 			 var b= $('.frm-alf-property-prefix').val();
-			$(".ui-helper").find(".frm-fld").attr("name", b + "_" + a); 
+			$(".ui-helper").find(".frm-fld").attr("name", b + "_" + a);
 		 }
 
 	});
@@ -282,7 +291,7 @@ $(function () {
 		  var b= $('.frm-alf-property-prefix').val();
 		 $(".ui-helper").find(".frm-fld").attr("name", b + "_" + a);
 	});
- 
+
 	$(".frm-alf-type, .frm-alf-type-prefix").change(function() {
 		  var a= $('.frm-alf-type').val();
 		  var b= $('.frm-alf-type-prefix').val();
@@ -301,6 +310,8 @@ $(function () {
 		if($(".ui-helper").find(".frm-fld").hasClass('required')){
 			$(".ui-helper").find(".frm-fld").removeClass('required');
 			$(".ui-helper").find('.lbRequired').remove();
+			$(".ui-helper > label").html( $(".ui-helper > label").html().replace('*', '') );
+
 		}else{
 			$(".ui-helper").find(".frm-fld").addClass('required');
 			$(".ui-helper > label").append('*');
@@ -337,10 +348,10 @@ $(function () {
 			thisNewField += '<label>New Field</label><div><input type="text" name="" class="frm-fld" value=""><input type="text" name="" class="frm-fld" value=""></div>';
 			thisNewField += '</div>';
 
-		}else if(fieldTypeArr[1] == "sliderval"){ 
+		}else if(fieldTypeArr[1] == "sliderval"){
 			thisNewField = '<div class="group slidervalCss">';
 			thisNewField += '<label>New Field</label><div class="slider-wrapper"><select value="" class="val_slider frm-fld select" name=""></select></div>';
-			thisNewField += '</div>'; 
+			thisNewField += '</div>';
 		}else{
 			thisNewField = '<div class="group">';
 			thisNewField += '<label>New Field</label><div><'+fieldTypeArr[1]+' value="" class="frm-fld '+fieldTypeArr[1]+'" name=""></'+fieldTypeArr[1]+'></div>';
@@ -396,7 +407,7 @@ $(function () {
 		$(".optionsMenu").hide();
 
 		var fieldTitle = $(this).children('label').text();
-		var fieldNode =  $(this).find('.frm-fld:eq(0)');		
+		var fieldNode =  $(this).find('.frm-fld:eq(0)');
 		var tooltip =  $(this).find('.fld-tip:eq(0)').html();
 
 		//Populate Alfresco Properties
@@ -404,31 +415,31 @@ $(function () {
 		if(tmpName == ""){
 			$('.frm-alf-property-prefix').val( $('.prg-aspectprefix').val() );
 			$('.frm-alf-property-name').val("");
- 
+
 		}else{
 			var propFullName = tmpName.split("_");
-			  
+
 			if(propFullName[1].indexOf(":") >= 0){
 				propFullName[1] = propFullName[1].split(":")[1];
-				propFullName[0] = propFullName[0].split(":")[0]; 
+				propFullName[0] = propFullName[0].split(":")[0];
 			}
-			
-			$('.frm-alf-property-prefix').val(propFullName[0]); 
+
+			$('.frm-alf-property-prefix').val(propFullName[0]);
 			$('.frm-alf-property-name').val(propFullName[1]);
 		}
 
 		var alfType = $(this).find('.frm-fld:eq(0)').attr("title");
 		if(alfType != ""){
 			var typeFullName = alfType.split("_");
-			$('.frm-alf-type-prefix').val(typeFullName[0]); 
+			$('.frm-alf-type-prefix').val(typeFullName[0]);
 			$('.frm-alf-type').val(typeFullName[1]);
 		}else{
 			//Use default
 			$('.frm-alf-type-prefix').val(fmModelObj.imports[0]["@prefix"]);
 			$('.frm-alf-type').val("text");
-			
+
 			$(this).find('.frm-fld:eq(0)').attr("title", fmModelObj.imports[0]["@prefix"] + "_" + "text");
-			
+
 		}
 
 		//Custom Text
@@ -476,7 +487,7 @@ $(function () {
 		//Change tool props to show title
 		$('.prg_fieldLabel').val(fieldTitle);
 		$('.prg_tipLabel').val(tooltip);
-		 
+
 
 		//Is it a required field?
 		if(fieldNode.hasClass('required')){
@@ -525,6 +536,7 @@ $(function () {
 		$("#accordion").accordion( "activate" , 0 );
 		$(this).addClass('ui-helper');
 		$(this).append('<a href="#" class="delField"><span>Delete</span></a>');
+		loadToggleValues();
 	});
 
 	$('.delField').live('click', function(){
@@ -586,7 +598,16 @@ $(function(){
 		$('.actionFunction').val(action);
 
 	}
-
+	/* iToggle Checkbox */
+	$('.i-toggle').live("mouseup", function(){
+		var iBox = $(this).find("input");
+        iBox.trigger("click");
+		if(iBox.attr('checked')){
+			$(this).find(".i-toggle-slider").animate({  left: '+=21' }, 300, function() {   });
+		}else{
+			$(this).find(".i-toggle-slider").animate({  left: '-=21' }, 300, function() {  });
+		}
+	});
 });
 
 
