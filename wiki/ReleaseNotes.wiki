@@ -3,6 +3,11 @@
 = Details =
 
 == Feb 2nd 2012 == 
+
+*FM Module WCS 1.1.8*
+
+  * Moved paths to a locale.js file for people using the Alfresco language packs. File is located under /formmanagement/utils/locale/alfresco.locale.js (This allows you to change the locations/name of Data Dictionary, DD->Models, Constraints and JsonModels spaces)
+
 *jQuery release notes (version 1.2)*
 
   * jQuery.form plugin java-script has been rewritten to allow multiple /independent or connected instances
