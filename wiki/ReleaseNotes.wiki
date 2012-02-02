@@ -2,16 +2,16 @@
  
 = Details =
 
-== Feb 2nd 2012 (version 1.2) == 
-*jQuery release notes*
+== Feb 2nd 2012 == 
+*jQuery release notes (version 1.2)*
 
   * jQuery.form plugin java-script has been rewritten to allow multiple /independent or connected instances
   * Added Aspect title to fm-profile-aspect wrapper ID - Quick JS points to show/hide certains aspects when needed
   * Added Form Data to $.data() so that plugin is instancable
    
-== Jan 1st 2012 (version 1.1.3) ==
+== Jan 1st 2012 ==
 
-* jQuery release notes* 
+* jQuery release notes (version 1.1.3)* 
     
   * NEW PARAMETER: useShareProxy< Boolean> : If set to true (default), all of the AJAX calls used will use the share proxy to call alfresco webscripts
   * NEW PARAMETER: Allow customProperties< Object>: Allows us to override title and description properties of the display form. Works good for search titles, ive used it for a replication of the Document Details
