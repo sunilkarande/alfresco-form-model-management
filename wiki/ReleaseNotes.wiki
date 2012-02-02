@@ -1,0 +1,30 @@
+#release notes for FM Module.
+ 
+= Details =
+
+== Feb 2nd 2012 (version 1.2) == 
+*jQuery release notes*
+
+  * jQuery.form plugin java-script has been rewritten to allow multiple /independent or connected instances
+  * Added Aspect title to fm-profile-aspect wrapper ID - Quick JS points to show/hide certains aspects when needed
+  * Added Form Data to $.data() so that plugin is instancable
+   
+== Jan 1st 2012 (version 1.1.3) ==
+
+* jQuery release notes* 
+    
+  * NEW PARAMETER: useShareProxy< Boolean> : If set to true (default), all of the AJAX calls used will use the share proxy to call alfresco webscripts
+  * NEW PARAMETER: Allow customProperties< Object>: Allows us to override title and description properties of the display form. Works good for search titles, ive used it for a replication of the Document Details
+  * Dynamic dropdowns are auto detected and profiles connected to profiles are auto generated based upon users choice. i.e. If your aspect has a dynamic dropdown all the functionality for parcing and deploying the correct form is done automatically.
+  * Cached JSON Node Properties for load values
+  * Caching added for profile (storing JSON profile relative to dynamic dropdown) Moving towards instancable dynamic profiles
+  * Store and retrieval of Node Properties using FM API
+  * Callbacks added to load, save and profile completed states
+  * Added Connect parameter so we can choose where to inject the profile forms on dynamic dropdown change
+  * Allow ARRAY of nodes to save (Giving a ~ separated list will save all node properties to the given nodes)
+  * Optional save parameter moveId<Alfresco Space UID> allows us to move a document to a location after it has been saved
+  * Readonly option
+  * Option of using own dropdown changing event by making "handler" element available before load and setting your profile at init. This will create the trigger to look for your profile setup and create the form based upon the choice. (If you choose not to just load the aspect with a dynamic dropdown)
+  * Cached Profile API Call to JS, therefore less calls are being made to the backend when re-selecting dependant values.
+ 
+NOTE: PLUGIN WILL USE SHARE PROXY METHOD UNLESS YOU STATE OTHERWISE BY SETTING "useShareProxy" : false
