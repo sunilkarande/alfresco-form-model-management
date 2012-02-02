@@ -1,3 +1,4 @@
+<import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/locale/alfresco-locale.js">
 <import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/scriptUtils/jsonUtils.js">
 
 function extractAspects(jObj, pNode){
@@ -20,7 +21,7 @@ function extractAspects(jObj, pNode){
 
 function getAspectList(){
 	var jsonString = "";
-	var jsonList = companyhome.childByNamePath('Data Dictionary/Models/JsonModels/').children;
+	var jsonList = companyhome.childByNamePath(fmPath.jsonModels).children;
 	model.aspectObj = [];
 
 	var len = jsonList.length;
