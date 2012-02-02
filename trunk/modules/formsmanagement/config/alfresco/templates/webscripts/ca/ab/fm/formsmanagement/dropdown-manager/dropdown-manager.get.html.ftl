@@ -33,6 +33,7 @@
 	</div>
 	<div class="fm-sidebar fm-sidebar-dropdown">
 		<div class="fm-title-bar "><span>Dropdown Menus:</span></div>
+		<div style="margin: 0pt; overflow-x: hidden; overflow-y: auto; padding: 0pt;">
 		<ul>
 			<#list models as model>
 				<#if model.type == "{http://www.alfresco.org/model/content/1.0}content">
@@ -44,6 +45,7 @@
 				</#if>
 			</#list>
 		</ul>
+		</div>
 	</div>
 	<div class="fm-main-window">
 		<div class="fm-info">

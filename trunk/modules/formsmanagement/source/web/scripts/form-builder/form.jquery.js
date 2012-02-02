@@ -5,8 +5,10 @@
 
 	Plugin: jQuery.form
 
+	Dependant Plugins:
+	selectToUISlider (Used for custom Dropdown menu to jQuery slider)
+	
 	TODO: Make fm-connect-container instancable for multi dynamic dropdowns
-	TODO: Cleanup global data
 	TODO: Smoothen out UI on load values, remove the "pop" injection look
 	TODO: Add loading indicator for usability when populating dynamic dropdowns
 	TODO: CROSS BROWSER COMPATABILITY - BOOOOo
@@ -29,15 +31,16 @@
     NEW: Optional save parameter moveId<Alfresco Space UID> allows us to move a document to a location after it has been saved
 	NEW: Readonly option
 	NEW: Option of using own dropdown changing event by making "handler" element available before load and setting your profile at init. This will create the trigger to look for your profile setup and create the form based upon the choice. (If you choose not to just load the aspect with a dynamic dropdown)
+	NEW: Cached Profile API Call to JS, therefore less calls are being made to the backend when re-selecting dependant values.
+	NEW: Added Aspect title to fm-profile-aspect wrapper ID - Quick JS points to show/hide certains aspects when needed
+    NEW: Added Form Data to $.data() so that plugin is instancable
+	NOTE: PLUGIN WILL USE SHARE PROXY METHOD UNLESS YOU STATE OTHERWISE BY SETTING "useShareProxy" : false
 
-
-    NOTE: PLUGIN WILL USE SHARE PROXY METHOD UNLESS YOU STATE OTHERWISE BY SETTING "useShareProxy" : false
-
-*/
-/* PLUGIN ADDED selectToUISlider */  
+*/ 
 (function ($) {
-    var eForm, data; var originalAspectCollection = ""; var isShareProxy = true; var isSearch = false, isInit = false, isConnect = false; var nodeId = "",  postUrl = "", globThis = null; var isDebug = false;
-    var settings = {
+    var globalKey = ""; var cacheProfileAspect= {};
+	var isConnect = false; var isDebug = false;
+	var defaultSettings = {
         'isBulk': true,
         'nodeId': null,
         'aspects': [],
@@ -56,88 +59,92 @@
     var methods = {
         init: function (options) {
             return this.each(function () {
-                var $this = $(this),
-                    form = $('<div />', {
-                        text: $this.attr('title')
-                    });
+                 
+				var $this = $(this);
                 data = $this.data('form');
-                // If options exist, merge them with our default settings
-                if (options) {
-                    $.extend(settings, options);
-                }
-                //TODO GET THIS STORED ON ITS ELEMENT
-                globThis = $(this);
-                globThis["profile"] 	= settings.profile;
-                globThis["fmConnect"]   = settings.connect;
-                globThis["fmHandler"]   = settings.handler;
-                $this["profile"] 		= settings.profile;
-                $this["isSearch"] 		= settings.isSearch;
-                $this["aspects"] 		= settings.aspects;
-                isShareProxy 			= settings.useShareProxy;
-                eForm = $this;
-
-
-                // If the plugin hasn't been initialized yet
-                if (!isInit) {
-
-                    if( $(settings.handler).length > 0 ){
-						//If we are using our own dropdown source
+				$this.data('origAspectCollection', "");
+				
+				if($this.hasClass("fm-init-load")){ 
+					//Form already has init so just extend options 
+					if (options) { 
+						$this.data('settings', $.extend( $this.data('settings'), options ) );
+					}
+					$this.data('settings', mergedSettings);  
+					
+				} else {
+					// If the plugin hasn't been initialized yet				 	
+					$this.addClass("fm-init-load");
+					
+					//Add defaultSettings to local variable so where not changing the global setting 
+					var mergedSettings = $.extend(true, {}, defaultSettings);
+					if (options) {
+						//Merge Plugin Options with Local Default settings
+						$.extend( mergedSettings, options);
+					} 
+					$this.data('settings', mergedSettings);
+					  
+					var settings = $this.data('settings');
+					if( $(settings.handler).length > 0 ){
+						//If we are using our own dropdown source for changing profiles
 						$(this).addClass("fm-connect-container");
 						settings.ownDropSource = true;
 
 						if(!settings.readonly){
 							$(settings.handler).livequery("change", function () {
+								 
 								$(this).addClass("dontPopulateMe");
-								$('.fmAspectCollection').val("");
+								var fmAspectNode = $this.find('.fmAspectCollection:eq(0)');
+								fmAspectNode.val("");
 								if ($(this).val() != "") {
 									var getProfileData = eval("(" + settings.profile + ")");
-									methods.dynamicProfileCreate(  $(this).val(), getProfileData);
+									methods.dynamicProfileCreate($this,  $(this).val(), getProfileData);
 
 								} else {
-									$(".fm-connect-container").html("");
+									$this.find(".fm-connect-container:eq(0)").html("");
 								}
-								$('.fmAspectCollection').val($('.fmAspectCollection').val() + originalAspectCollection);
+								 
+								fmAspectNode.val(fmAspectNode.val() + $this.data('origAspectCollection'));
 							});
 						}
-                    }
+					}
 
-                    if (settings.aspects.length > 0) {
-                        //Load aspects if we are deailing with aspect only
-                        var formS = "";
-                        for (a in $this["aspects"]) {
-                            formS += methods.buildAspect($this["aspects"][a], false);
-                        }
-                        $this.html(formS);
-                        originalAspectCollection = $('.fmAspectCollection').val();
-                        methods.onInnerComplete();
-                    }
-                    if (settings.onComplete) settings.onComplete($this);
-                    if ($('.frmSaveButton').length > 0) {
-                        $(".f_b_root").sortable({
-                            items: '.group'
-                        }).disableSelection(); 
-                    }
-                }
-                isInit = true;
-            });
+					if (settings.aspects.length > 0) {
+						//Load aspects if we are deailing with aspect only
+						var formS = "";
+						for (a in settings.aspects) {
+							formS += methods.buildAspect($this, settings.aspects[a], false);
+						}
+						$this.html(formS);
+						$this.data('origAspectCollection', $this.find('.fmAspectCollection:eq(0)').val() + "");
+						methods.onInnerComplete();
+					}
+					if (settings.onComplete) settings.onComplete($this);
+					if ($('.frmSaveButton').length > 0) {
+						$(".f_b_root").sortable({
+							items: '.group'
+						}).disableSelection(); 
+					}
+				}  
+			});
         },
-        dynamicProfileCreate: function (val, profile) {
+        dynamicProfileCreate: function ($this, val, profile) {
+				 
 				if(val != ""){
                 	if (isDebug) console.log("Creating Profile for key: " + val + " & Profile:" + profile);
                 	isConnect = true;
-                	methods.buildProfile(val, profile);
+                	methods.buildProfile($this, val, profile);
                 }else{
-					$('.fm-connect-container').html("");
-                }
-
+					$this.find('.fm-connect-container:eq(0)').html("");
+                } 
         },
-        buildProfile: function (key, profile) {
+        buildProfile: function ($this, key, profile) {
              
 			if (isDebug) { console.log("Check CONNECT: " + isConnect) }
-
+			var settings = $this.data('settings'); 
+			
             var connect = false;
             var profileHeader = "";
-            if (globThis["fmConnect"] != "" || isConnect) connect = true;
+            if (settings.connect != "" || isConnect) connect = true;
 
             if(settings.ownDropSource) connect = false;
             //Populate Profile
@@ -146,7 +153,7 @@
             if (!connect) formString += '	<div class="top profileStyle" id="formFormat">';
             if (!connect) formString += '	<div class="f_b_root"><div class="fm-connect-container"></div></div>';
             if (!connect) formString += '</div><input type="hidden" value="" class="prg-frm-redirect" name="prg-frm-redirect" /> <input type="hidden" value="" id="modelName" /><input type="hidden" name="frm-aspect-collection" class="fmAspectCollection" value="0" /></form>';
-            if (!connect) eForm.html(formString);
+            if (!connect) $this.html(formString);
             if (!connect) $('.fmAspectCollection').val("");
             for (x in profile) {
                 if (profile[x].key == key) {
@@ -160,38 +167,59 @@
                     $('.profileStyle').prepend(profileHeader);
                     //GO GET THE FORM DATA FOR EACH ASPECT
                     var url = "/share/proxy/alfresco/model/aspects/profiletoproperty";
-                    if(!isShareProxy) url= "/alfresco/wcs/model/aspects/profiletoproperty";
+                    if(!settings.useShareProxy) url= "/alfresco/wcs/model/aspects/profiletoproperty";
+					
+					globalKey = key;
+					
+					if( cacheProfileAspect["" + key]) {
+						 //CACHED PROPERTY VALUES
+						var r = cacheProfileAspect["" + key];
+						var formS = "";
+						for (a in r) {
+							if (r[a].formStyle) $('.profileStyle').attr("class", r[a].formStyle);
+							formS += methods.buildAspect($this, r[a], true);
+						}
+						var errForm = '<div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
+						if (!connect) if (!connect) $this.find('.f_b_root').html(errForm + "" + formS);
+						if (connect) $this.find(".fm-connect-container:eq(0)").html(formS);
+						methods.onInnerComplete();
+							
+					}else{
 
-					$.ajax({
-					  url: url,
-					  dataType: 'json',
-					  data: { profile: JSON.stringify(profile[x].profile) },
-					  async: false,
-					  success:  function (r) {
-	                         
-							var formS = "";
-	                        for (a in r) {
-	                            if (r[a].formStyle) $('.profileStyle').attr("class", r[a].formStyle);
-	                            formS += methods.buildAspect(r[a], true);
-	                        }
-	                        var errForm = '<div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
-	                        if (!connect) if (!connect) eForm.find('.f_b_root').html(errForm + "" + formS);
-	                        if (connect) $(".fm-connect-container").html(formS);
-	                        methods.onInnerComplete();
-                    	}
-                    });
+						$.ajax({
+						  url: url,
+						  dataType: 'json',
+						  data: { profile: JSON.stringify(profile[x].profile) },
+						  async: false,
+						  success:  function (r) {
+								cacheProfileAspect["" + globalKey] = r;
+								var formS = "";
+								for (a in r) {
+									if (r[a].formStyle) $('.profileStyle').attr("class", r[a].formStyle);
+									formS += methods.buildAspect($this, r[a], true);
+								}
+								var errForm = '<div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
+								if (!connect) if (!connect) $this.find('.f_b_root').html(errForm + "" + formS);
+								if (connect) $this.find(".fm-connect-container:eq(0)").html(formS);
+								methods.onInnerComplete();
+							}
+						});
+					}
                 }
             }
         },
-        buildAspect: function (aspect, isProfile) {
-            var aspectCollection = "";
+        buildAspect: function ($this, aspect, isProfile) {
+			 
+            var settings = $this.data('settings');
+			
+			var aspectCollection = "";
             var formStyle = "top";
             if (aspect.formStyle) formStyle = aspect.formStyle;
             var formString = "";
             if (!isProfile) formString += '<form name="" class="" id="my-frm" method="POST">';
             if (!isProfile) formString += '	<div class="' + formStyle + '" id="formFormat">';
             if (!isProfile) formString += '	<div class="f_b_root"><div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
-            if (isProfile) formString += '	<div class="fm-profile-aspect">';
+            if (isProfile) formString += '	<div id="fm-aspect-'+aspect.title.replace(/ /g, "-").toLowerCase()+'" class="fm-profile-aspect">';
 
             if(settings.customProperites && !isProfile){
 	        	aspect.title = settings.customProperites.title;
@@ -208,7 +236,7 @@
 				 
                 var prefix = aspect.namespace;
                 if (prop.namespace) prefix = prop.namespace;
-                if (isSearch) prop.title = prop.title.replace("*", "");
+                if (settings.isSearch) prop.title = prop.title.replace("*", "");
                 prop.validPrefix = prefix;
 				
 				var groupClass = ""; var innerDivClass = "";
@@ -230,19 +258,20 @@
 				} 
 				 
 				if (prop.fieldType == "select" || prop.fieldType == "radio" || prop.fieldType == "checkbox") {
-					
+ 					
 					if(isDebug) console.log("Found select radio checkbox for " + prop.title);
 					
 					if(settings.readonly){ prop.fieldType = "readonly"; }
+					
 					if (prop.options.service) {
-                        //Dealing with a Profile?
+						 
 						var downloadUriArr = prop.id.split("/");
 						var url = prop.id;
 						if(prop.id.indexOf("dropdown/byShareSite") != -1){
-							if(isShareProxy){ url = "/share/proxy/alfresco/dropdown/byShareSite?siteid=" + $('.fm-site-id').val(); }
+							if(settings.useShareProxy){ url = "/share/proxy/alfresco/dropdown/byShareSite?siteid=" + $('.fm-site-id').val(); }
 							else{  url = "/alfresco/wcs/dropdown/byShareSite?siteid=" + $('.fm-site-id').val(); } 
 						}
-						  	
+						 
 						$.ajax({
 						  url: url,
 						  dataType: 'json',
@@ -269,7 +298,7 @@
 									//Store Profile Data
 									profileData = '';
 									if (isProfile) {
-									     
+									    
 										profileData = '<div class="fm-profile-data" style="display:none!important;">' + JSON.stringify(r) + '</div>';
 										if (isDebug) console.log("Found Profile on build: " + JSON.stringify(r));
 
@@ -279,15 +308,15 @@
 										if(!settings.readonly){
 											$('.fm-dynamic-dropdown').livequery("change", function () {
 												$(this).addClass("dontPopulateMe");
-												$('.fmAspectCollection').val("");
+												$this.find('.fmAspectCollection:eq(0)').val("");
 												if ($(this).val() != "") {
 													var getProfileData = eval("(" + $(this).parents("div:eq(0)").find(".fm-profile-data").html() + ")");
-													methods.dynamicProfileCreate(  $(this).val(), getProfileData);
+													methods.dynamicProfileCreate($(this).parents("#my-frm:eq(0)").parent(),  $(this).val(), getProfileData);
 
 												} else {
-													$(".fm-connect-container").html("");
-												}
-												$('.fmAspectCollection').val($('.fmAspectCollection').val() + originalAspectCollection);
+													$this.find(".fm-connect-container:eq(0)").html("");
+												} 
+												$this.find('.fmAspectCollection:eq(0)').val($this.find('.fmAspectCollection:eq(0)').val() + $this.data('origAspectCollection'));
 											});
 										}
 									}
@@ -333,7 +362,7 @@
                 formString += '</div>';
 				
 				//Create TMP Verified field if needed
-				if(prop.className.indexOf("verification") >= 0 && $('.fm-main-window').length <= 0 && isSearch == false){
+				if(prop.className.indexOf("verification") >= 0 && $('.fm-main-window').length <= 0 && settings.isSearch == false){
 					var propTmp = prop; 
 					propTmp.className = propTmp.className.replace("frm-fld", "");
 					propTmp.className = propTmp.className.replace("verification", "verification-check");
@@ -342,15 +371,15 @@
 					formString += '		<div'+innerDivClass+'>';
 					formString += '			<input ' + methods.addGlobalProperties(propTmp, true) + '  value="" />';	
 					formString += '		</div>'; 
-					propTmp = null;
-					  
+					propTmp = null;   
 				}
             }
 			}
             if (isProfile) formString += '	</div>';
-            if (isProfile) $('.fmAspectCollection').val($('.fmAspectCollection').val() + aspect.namespace + "_" + aspect.name + "~");
+            if (isProfile) $this.find('.fmAspectCollection:eq(0)').val($this.find('.fmAspectCollection:eq(0)').val() + aspect.namespace + "_" + aspect.name + "~"); 
             if (!isProfile) aspectCollection += aspect.namespace + "_" + aspect.name + "~";
-            if (!isProfile) formString += '</div><div class="fm-connect-container"></div></div><input type="hidden" name="frm-aspect-collection" class="fmAspectCollection" value="' + aspectCollection + '" /></form>';
+             
+			if (!isProfile) formString += '</div><div class="fm-connect-container"></div></div><input type="hidden" name="frm-aspect-collection" class="fmAspectCollection" value="' + aspectCollection + '" /></form>';
             if ($(".fm-filename")) {
 				if(aspect.name.indexOf(":") >= 0){
 					aspect.name = aspect.name.split(":")[1];
@@ -448,8 +477,11 @@
             propString = regEx + ' ' + min + ' ' + max + 'id="' + prop.id + '" title="' + prop.type + '" ' + type + ' class="frm-fld ' + prop.className + '" name="' + prop.validPrefix + "_" + prop.name + '"';
             return propString;
         },
-        loadPropertiesToFields: function(nodeObj){
-			 
+        loadPropertiesToFields: function(nodeObj, $passedForm){
+			var settings = $(this).data('settings');
+			if($passedForm){
+				settings = $passedForm.data('settings');
+			} 
 			var loadAutoCreateFormVal = false;
 			$('.frm-fld').each(function () {
 
@@ -464,10 +496,9 @@
                     if (nodeObj.node.properties[qName]) {
                         nodeVal = nodeObj.node.properties[qName];
                     }
-					if(qName.indexOf("Date") != -1){
+					if(qName.indexOf("Date") >= 0){
 						if(nodeVal != ""){
-						var d = new Date(nodeVal);
-						nodeVal = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+							nodeVal = nodeVal.split("T")[0]; 
 						}
 					}
 					
@@ -481,7 +512,7 @@
                         if ($(this).hasClass("fm-dynamic-dropdown")) {
                             //Get profile data
                             var getProfileData = eval("(" + $(this).parents("div:eq(0)").find(".fm-profile-data").html() + ")");
-							methods.dynamicProfileCreate(nodeVal, getProfileData);
+							methods.dynamicProfileCreate($passedForm, nodeVal, getProfileData);
 							loadAutoCreateFormVal = true;
 
                             $(this).addClass("dontPopulateMe");
@@ -490,15 +521,16 @@
                 }
             });
             if(loadAutoCreateFormVal){
-            	methods.loadPropertiesToFields(nodeObj);
+            	methods.loadPropertiesToFields(nodeObj, $passedForm);
             }
 			//if(settings.readonly) $(".frm-fld").readonly(true);
         },
         loadNode: function (uid, readonly) {
-        	if(readonly) settings.readonly = readonly;
-
-            var $this = $(this);
-            if (uid != "") {
+			var $this = $(this);
+            var settings = $this.data('settings');
+			if(readonly) settings.readonly = readonly;
+ 
+			if (uid != "") {
 	            var uidArr = uid.split("/");
 	            var cacheUidNode = $("#fm_store_" + uidArr[uidArr.length-1] );
 	            //var cacheUidNode = $(".fm-property-store");
@@ -506,11 +538,11 @@
 				if( cacheUidNode.length > 0 ) {
 					 //CACHED PROPERTY VALUES
 					 var objNode = eval( "(" +  cacheUidNode.html() + ")" );
-					 methods.loadPropertiesToFields(objNode);
+					 methods.loadPropertiesToFields(objNode, $this);
 				}else{
 
 	                var getUrl = "/share/proxy/alfresco/form-management/node/get-properties";
-	                if(!isShareProxy) url= "/alfresco/wcs/form-management/node/get-properties";
+	                if(!settings.useShareProxy) url= "/alfresco/wcs/form-management/node/get-properties";
 
 	                if (uid.length > 1) {
 	                    $.getJSON(getUrl, {
@@ -518,7 +550,7 @@
 	                    }, function (nodeObj) {
 							var storageId = nodeObj.node.properties["sys:node-uuid"];
 							$('body').prepend('<div id="fm_store_'+storageId+'" class="fm-property-store" style="display:none!important">'+ JSON.stringify( nodeObj ) +'</div>');
-							methods.loadPropertiesToFields(nodeObj);
+							methods.loadPropertiesToFields(nodeObj, $this);
 	                    });
 	                }
 
@@ -526,19 +558,20 @@
             }
         },
         save: function (uid, optionalMoveId, callback, createFilename) {
+			$this = $(this);
+			var settings = $(this).data('settings');
 			var moveTo = "";
             if(optionalMoveId){
 				moveTo = optionalMoveId;
             }
-
-            var $this = $(this);
+ 
             var nodeId = uid;
             var aspectsArr = $this.find('.fmAspectCollection').val().split("~");
             aspectsArr = $.grep(aspectsArr, function (n) {
                 return (n);
             });
             var jsonString = "{"; 
-            $('.frm-fld').each(function () {
+            $this.find('.frm-fld').each(function () {
                  
 				if ($(this).attr("type") == "radio") { 
 					if ($(this).is(':checked')) {
@@ -548,7 +581,7 @@
 					if( !$(this).hasClass("fm-dealt-with-store")){ 
 						jsonString += '"' + $(this).attr("name") + '" : ['; 
 						
-						$('#my-frm').find("input[name='"+ $(this).attr("name") +"']").each(function(){
+						$this.find("input[name='"+ $(this).attr("name") +"']").each(function(){
 							$(this).addClass("fm-dealt-with-store");
 							
 							if ($(this).is(':checked')) {
@@ -590,6 +623,7 @@
                 // Namespacing FTW
                 $(window).unbind('.form');
                 data.form.remove();
+				$this.removeData('settings');
                 $this.removeData('form');
             })
         }

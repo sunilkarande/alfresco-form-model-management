@@ -1,6 +1,7 @@
-var path = companyhome.childByNamePath(args.path);
-var filename = args.filename;
+<import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/locale/alfresco-locale.js">
 
+var path = companyhome.childByNamePath( fmPath[""+args.path] );
+var filename = args.filename;
 //var filetype = args.filetype;
 model.status = 1;
 

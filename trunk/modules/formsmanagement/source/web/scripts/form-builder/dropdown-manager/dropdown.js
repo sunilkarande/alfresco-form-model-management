@@ -2,16 +2,16 @@ function validateInternalForm(form){
 	var valid = true;
 	form.find('.errBox').hide();
 	$(".error").removeClass("error");
-	
+
 	form.find(".required").each(function(){
-		if( $(this).val() == "" ){  
+		if( $(this).val() == "" ){
 			valid = false;
-			$(this).addClass("error"); 
+			$(this).addClass("error");
 		}
 	});
-	
-	if(!valid)  form.find('.errBox').fadeIn(1000);  
-	return valid; 
+
+	if(!valid)  form.find('.errBox').fadeIn(1000);
+	return valid;
 }
 
 function rowTemplate(key, val) {
@@ -39,7 +39,7 @@ function createFile(filename){
 	var postFilename = filename.replace(".json", "") + ".json";
 
     $.getJSON(url, {
-        path : "Data Dictionary/Models/Constraints/",
+        path : "constraints",
         filename: postFilename,
         content: "[]"
     }, function (r) {

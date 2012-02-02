@@ -1,3 +1,4 @@
+<import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/locale/alfresco-locale.js">
 model.status = 1;
 model.msg = "";
 
@@ -5,15 +6,15 @@ var action = args.action;
 
 if(action == "create"){
 	var fName = args.fliename;
-	var checkFilename = companyhome.childByNamePath('Data Dictionary/Models/' + fName + ".xml");
+	var checkFilename = companyhome.childByNamePath(fmPath.models+ fName + ".xml");
 
 	if(checkFilename){
 		model.status = 0; model.msg += "<li>File already exists, try a different name</li>";
 	}else{
 
 		try{
-			var newModel = companyhome.childByNamePath('Data Dictionary/Models/').createFile(fName + ".xml");
-			var jsonModel = companyhome.childByNamePath('Data Dictionary/Models/JsonModels').createFile(fName + ".json");
+			var newModel = companyhome.childByNamePath(fmPath.models).createFile(fName + ".xml");
+			var jsonModel = companyhome.childByNamePath(fmPath.jsonModels).createFile(fName + ".json");
 			jsonModel.content = args.json;
 			jsonModel.save();
 		}catch(err){
@@ -23,8 +24,8 @@ if(action == "create"){
 	}
 }else if(action == "destroy"){
 
-	var jsonNode = 	companyhome.childByNamePath('Data Dictionary/Models/JsonModels/'+ args.filename + ".json");
-	var xmlNode = 	companyhome.childByNamePath('Data Dictionary/Models/'+ args.filename + ".xml");
+	var jsonNode = 	companyhome.childByNamePath(fmPath.jsonModels+ args.filename + ".json");
+	var xmlNode = 	companyhome.childByNamePath(fmPath.models+ args.filename + ".xml");
 	try{
 		xmlNode.remove();
 		jsonNode.remove();
