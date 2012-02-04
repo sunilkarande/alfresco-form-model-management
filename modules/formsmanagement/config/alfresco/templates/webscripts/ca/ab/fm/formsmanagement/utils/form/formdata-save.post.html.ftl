@@ -1,1 +1,1 @@
-${json!}${test!}
+{ "failed": ${failedItems!}, "success": ${success!}, "msg" : "${msg!}" }
