@@ -79,7 +79,9 @@ $(function () {
 
 function setMasks(){
 	$(".date").mask("9999-99-99").datepicker({
-		"dateFormat": "yy-mm-dd"
+		"dateFormat": "yy-mm-dd",
+		changeMonth: true,
+		changeYear: true
 	});
 	$(".phn").mask("99999-9999");
     $(".phone").mask("(999) 999-9999");
