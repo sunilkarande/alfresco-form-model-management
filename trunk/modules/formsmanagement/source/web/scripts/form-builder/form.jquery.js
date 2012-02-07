@@ -479,8 +479,11 @@
         },
         loadPropertiesToFields: function(nodeObj, $passedForm){
 			var settings = $(this).data('settings');
+			var $this = $(this);
+			
 			if($passedForm){
 				settings = $passedForm.data('settings');
+				$this = $passedForm;
 			} 
 			var loadAutoCreateFormVal = false;
 			$('.frm-fld').each(function () {
@@ -512,7 +515,7 @@
                         if ($(this).hasClass("fm-dynamic-dropdown")) {
                             //Get profile data
                             var getProfileData = eval("(" + $(this).parents("div:eq(0)").find(".fm-profile-data").html() + ")");
-							methods.dynamicProfileCreate($passedForm, nodeVal, getProfileData);
+							methods.dynamicProfileCreate($this, nodeVal, getProfileData);
 							loadAutoCreateFormVal = true;
 
                             $(this).addClass("dontPopulateMe");
@@ -521,7 +524,7 @@
                 }
             });
             if(loadAutoCreateFormVal){
-            	methods.loadPropertiesToFields(nodeObj, $passedForm);
+            	methods.loadPropertiesToFields(nodeObj, $this);
             }
 			//if(settings.readonly) $(".frm-fld").readonly(true);
         },
