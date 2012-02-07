@@ -120,10 +120,13 @@ if(qArr.length > 0){
 
 	var results = search.luceneSearch(query);
 }
-model.json = "[";
+model.json = "[ ";
 if(results.length > 0){
 	for(a in results){
-		model.json += '{ "id": "'+ decodeURIComponent(results[a].id) +'", "name": "'+ decodeURIComponent(results[a].name) +'", "record": false },';
+		var isRecord = false;
+		if(results[a].parent.parent.name != "Dropbox"){
+			model.json += '{ "id": "'+ decodeURIComponent(results[a].id) +'", "name": "'+ decodeURIComponent(results[a].name) +'", "record": '+isRecord+' },';
+		}
 	}
 	model.json = model.json.slice(0, -1);
 }

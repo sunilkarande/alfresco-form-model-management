@@ -24,7 +24,7 @@ function getRMSettings(siteid){
 	json = json.slice(0, -1) + "}";
 	return json;
 }
- getApprovedNodeRef
+ 
 var user = getUserSettings(); 
 var rm = getRMSettings(args.siteid);  
 var appSettings = '{';
