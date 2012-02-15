@@ -1,4 +1,5 @@
-#Frequently asked questions.
+#summary Frequently Asked Questions
+
 
 = FAQ =
 
