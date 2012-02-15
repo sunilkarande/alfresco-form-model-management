@@ -5,9 +5,10 @@
 As this is a new project, I haven't jumped to far ahead of tackling the initial issue I saw with forms in Alfresco. However, I will be updating this from time to time. It may even just be a whiteboard jotting ideas down for later releases.
 
 
-=Details=
+=Road Map=
   # Multilingual support (ETA March-Apirl 2012)
-
+  # Bundle custom search page and advanced search form)
+  # Bundle or Customize share to use FM Forms by default
 
 
 
