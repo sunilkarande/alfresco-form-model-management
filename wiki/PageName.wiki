@@ -2,11 +2,15 @@
 
 = FAQ =
 
-*Getting error on model-manager.get.js 
-cannot find children of "null"*
+=== Question ===
+Getting error on model-manager.get.js 
+cannot find children of "null"
 
-*I am using an Alfresco language pack, Data Dictionary > Models are named different.*
+*or*
 
+I am using an Alfresco language pack, Data Dictionary > Models are named different.
+
+=== Answer ===
 Ensure you are on at least 1.1.9
  
 The error you are receiving is because it cannot find Data Dictionary>Models. If you are using an Alfresco language pack and these folders are named differently in your alfresco instance please follow the following steps to get things up and running.
