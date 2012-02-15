@@ -6,7 +6,7 @@ Using dynamic dropdown lists based upon share site.
 
 = Details =
 
-This may seem simple and not a major request however, when using with with the correct context can give us lots of flexibility.
+This may seem simple and not a major request however, when using in the correct context this can give us lots of flexibility.
 
 Lets save for example each share site has its own set of document types and with that, a different collection of aspects (metadata profile)
 
