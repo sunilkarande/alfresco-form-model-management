@@ -1,4 +1,6 @@
+#summary Share Dashlet to show, load and save properties
 #labels Demonstration
+
 = Introduction =
 
 This page refers to the fmdemo AMP. In this AMP you can find a new dashlet (once deployed) called FM Demo.
