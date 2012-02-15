@@ -14,11 +14,11 @@ FM Demo dashlet allows you to see how we use the jQuery plugin and FM services. 
 
 Methods Used:
 
-Initialization
-$('.my-form-wrapper').form();
+*Initialization*
+{{{ $('.my-form-wrapper').form(); }}}
 
-Load Node 
-$('.my-form-wrapper').form('loadNode', 'node UID');
+*Load Node*
+{{{ $('.my-form-wrapper').form('loadNode', 'node UID'); }}}
 
-Save Node 
-$('.my-form-wrapper').form('save', postObject);
+*Save Node*
+{{{ $('.my-form-wrapper').form('save', postObject); }}}
