@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>UofA Dropbox Files Get</shortname>
-	<description>Get all files from site doclib for a user</description>
-	<url>/uofa/dropbox/getfiles</url>
-	<family>UofA</family>
-	<format default="html">any</format>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-</webscript>

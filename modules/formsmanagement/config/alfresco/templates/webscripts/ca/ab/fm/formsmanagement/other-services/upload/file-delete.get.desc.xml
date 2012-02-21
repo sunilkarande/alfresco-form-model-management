@@ -1,9 +1,0 @@
-<webscript>
-	<shortname>UofA Delete File </shortname>
-	<description>Delete array of files</description>
-	<url>/uofa/file/delete</url>
-	<family>Uploader</family>
-	<format default="html">any</format>
-	<authentication>user</authentication>
-	<transaction>required</transaction>
-</webscript>
