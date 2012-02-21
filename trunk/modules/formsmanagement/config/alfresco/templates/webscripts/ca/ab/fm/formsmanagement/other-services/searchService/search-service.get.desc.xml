@@ -1,10 +1,11 @@
 <webscript>
-	<shortname>UofA Site Search Service</shortname>
+	<shortname>Form Management Site Search Service</shortname>
 	<description>Search the repository from given criteria</description>
-	<url>/uofa/site/search</url>
-	<url>/uofa/site/search/{context}</url>
-	<url>/uofa/site/search/{context}/{query}</url>
-	<family>UofA</family>
+	<url>/form-management/site/search</url>
+	<url>/form-management/site/search/{context}</url>
+	<url>/form-management/site/search/{context}/{query}</url>
+
+	<family>Form Management</family>
 	<format default="html">any</format>
 	<authentication>user</authentication>
 	<transaction>required</transaction>
