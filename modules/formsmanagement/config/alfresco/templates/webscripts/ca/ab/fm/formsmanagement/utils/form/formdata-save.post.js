@@ -86,9 +86,9 @@ if(args.isShare == "true"){
 	var fmCreateMime = args.createMimeType;
 }
 
-var nodeArr = "";
-logger.log("FORM MANAGEMENT CHECK FOR CREATE NODE: with filename: "+ fmCreateFilename + " and " +  fmNodeId.indexOf("create-doc") );
+var nodeArr = ""; 
 if(fmNodeId.indexOf("create-doc") >= 0){
+	logger.log("FORM MANAGEMENT CREATE NODE: with filename: "+ fmCreateFilename + " and `create-doc` index found at:" +  fmNodeId.indexOf("create-doc") );
 	//something that requires a document to be created
 	var destination = search.findNode("workspace://SpacesStore/" + fmMoveNode);
 	var file = destination.createFile( fmCreateFilename );
@@ -101,7 +101,7 @@ if(fmNodeId.indexOf("create-doc") >= 0){
 
 		saveMetadataToDoc(file);
 	}else{ 
-		model.msg += "Failed to save aspects/properties to document(s)~";
+		model.msg += "File Create: Failed to save aspects/properties to document(s)~";
 		model.failedItems++;
 	}
 	  
