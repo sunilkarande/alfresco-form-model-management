@@ -638,7 +638,6 @@
 
 			postSettings.storeObj = JSON.stringify(json);
 			postSettings.aspects  = JSON.stringify(aspectsArr);
-			alert(JSON.stringify(json));
 
 			$.post(settings.postUrl, postSettings, function (e) {
                 if (settings.onSaveComplete) settings.onSaveComplete($this);
