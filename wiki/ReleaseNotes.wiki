@@ -2,6 +2,18 @@
  
 = Details =
 
+== Mar 1st 2012 == 
+
+*FM Module WCS 1.2.0*
+
+  * $.data() is now being used to store field data such as alfrescos data type, qnames. This makes it easier to understand and validate fields before we try and use them in alfresco i.e. type = d_date. We can cast a date type before trying to save it.
+  
+  * The above addition removes the annoying title tip that shows types
+  * Added hidden field property in the form builder
+  * Re-designed validation UI on the form builder
+  * Code cleanup and bug fixes
+
+
 == Feb 2nd 2012 == 
 
 *FM Module WCS 1.1.8*
