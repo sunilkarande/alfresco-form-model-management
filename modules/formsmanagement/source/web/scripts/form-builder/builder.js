@@ -36,6 +36,8 @@ function formToJson(){
 		fieldObj.className =  input.attr('class').replace(/frm-fld/g, "").replace(/undefined/g, "").replace(/hasDatepicker/g, "");
 		fieldObj.mandatory = false;
 		if(input.hasClass('required')) fieldObj.mandatory = true;
+		if(input.hasClass('frm-hidden')) fieldObj.hidden = true;
+		
 		fieldObj.name = propFullname[1];
 		fieldObj.namespace = propFullname[0];
 

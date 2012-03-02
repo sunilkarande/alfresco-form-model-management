@@ -318,6 +318,17 @@ $(function () {
 		}
 	});
 	
+	$('.prg_hidden').live('click', function() {
+		if($(".ui-helper").find(".frm-fld").hasClass('frm-hidden')){
+			$(".ui-helper").find(".frm-fld").removeClass('frm-hidden');
+			$(".ui-helper").find('.lbRequired').remove(); 
+			$(".ui-helper > label").html( $(".ui-helper > label").html().replace('*', '') );
+			 
+		}else{
+			$(".ui-helper").find(".frm-fld").addClass('frm-hidden'); 
+		}
+	});
+	
 	$('.prg_verification').live('click', function() {
 		if($(".ui-helper").find(".frm-fld").hasClass('verification')){
 			$(".ui-helper").find(".frm-fld").removeClass('verification');  
@@ -502,6 +513,13 @@ $(function () {
 			$('.prg_required').attr("checked", "checked"); 
 		}else{
 			$('.prg_required').attr("checked", ""); 
+		}
+		
+		//Is it a required field?
+		if(fieldNode.hasClass('frm-hidden')){
+			$('.prg_hidden').attr("checked", "checked"); 
+		}else{
+			$('.prg_hidden').attr("checked", ""); 
 		}
 		
 		//Is it a required field?
