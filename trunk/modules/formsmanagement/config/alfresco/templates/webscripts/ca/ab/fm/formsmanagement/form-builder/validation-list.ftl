@@ -1,6 +1,6 @@
 <div class="val-wrapper">
-	<#assign lbl = ["Required", "Numbers only", "Alphanumeric", "Verification"]>
-	<#assign val = ["required", "numOnly",      "alphanumOnly", "verification"]>
+	<#assign lbl = [ "Hidden", "Required", "Numbers only", "Alphanumeric", "Verification"]>
+	<#assign val = [ "hidden", "required",  "numOnly",     "alphanumOnly", "verification"]>
 
 	<!-- CHECKBOXES -->
 	<#list lbl as label>
