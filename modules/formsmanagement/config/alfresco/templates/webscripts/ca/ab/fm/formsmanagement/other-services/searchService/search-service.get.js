@@ -54,6 +54,20 @@ function getCreationDateRangeQuery(fromDate, toDate)
    return luceneQuery;
 }
 
+function isRMFile(n){
+	var isRM = false;
+
+	if(n.parent){
+		if(n.parent.name == "documentLibrary"){
+			if(n.parent.parent.name == "rm"){
+				isRM = true;
+			}
+		}else{
+			isRM = isRMFile(n.parent);
+		}
+	}
+	return isRM;
+}
 /* END DATE UTILS */
 
 var searchTerms = decodeURIComponent( url.extension);
@@ -124,9 +138,9 @@ model.json = "[ ";
 if(results.length > 0){
 	for(a in results){
 		var isRecord = false;
-		if(results[a].parent.parent.name != "Dropbox"){
-			model.json += '{ "id": "'+ decodeURIComponent(results[a].id) +'", "name": "'+ decodeURIComponent(results[a].name) +'", "record": '+isRecord+' },';
-		}
+		isRecord = isRMFile( results[a]);
+		model.json += '{ "id": "'+ decodeURIComponent(results[a].id) +'", "name": "'+ decodeURIComponent(results[a].name) +'", "record": '+isRecord+' },';
+
 	}
 	model.json = model.json.slice(0, -1);
 }
