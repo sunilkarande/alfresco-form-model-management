@@ -398,7 +398,7 @@
             return formString;
         },
         onInnerComplete: function () {
-            methods.storelocaldata();
+
 			setMasks();
 			if( $('.fm-main-window').length > 0){
 
@@ -408,6 +408,7 @@
 						$(this).selectToUISlider();
 					}
 				});
+				methods.storelocaldata();
 			}
         },
 		readonlyTemplate: function (prop){
@@ -638,6 +639,7 @@
 
 			postSettings.storeObj = JSON.stringify(json);
 			postSettings.aspects  = JSON.stringify(aspectsArr);
+			alert(JSON.stringify(json));
 
 			$.post(settings.postUrl, postSettings, function (e) {
                 if (settings.onSaveComplete) settings.onSaveComplete($this);
