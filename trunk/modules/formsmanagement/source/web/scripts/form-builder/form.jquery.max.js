@@ -238,19 +238,21 @@
 
 				prop = methods.validateProperties(prop);
 
+				var labelText = prop.title + "";
 				var prefix = aspect.namespace;
 				if (prop.namespace) prefix = prop.namespace;
-				if (settings.isSearch) prop.title = prop.title.replace("*", "");
+				if (!settings.isSearch){
+					if(prop.mandatory || prop.className.indexOf("required") >= 0) labelText += '<span class="fld-required-lbl">*</span>';
+				}
 				prop.validPrefix = prefix;
 
 				var groupClass = ""; var innerDivClass = "";
-				var labelText = prop.title + "";
-				if(prop.mandatory){ if(prop.mandatory == "true" ){ labelText += "*"; } }
 
 				if(prop.className.indexOf("val_slider") >= 0){
 					groupClass += "slidervalCss"; innerDivClass=' class="slider-wrapper"';
 					if(!prop.id) prop.id = "slider-" + prop.title.replace(" ", "-");
 				}
+
 				if(!prop.hidden) formString += '<div class="group '+groupClass+'"><label>' + labelText + '</label><div'+innerDivClass+'>';
 
 				var tPropType = prop.type.split("_")[1];
@@ -639,7 +641,6 @@
 
 			postSettings.storeObj = JSON.stringify(json);
 			postSettings.aspects  = JSON.stringify(aspectsArr);
-			alert(JSON.stringify(json));
 
 			$.post(settings.postUrl, postSettings, function (e) {
                 if (settings.onSaveComplete) settings.onSaveComplete($this);

@@ -28,7 +28,7 @@ function formToJson(){
 		var propFullname = input.attr('name').split("_");
 		var typeFullname = input.attr('title');
 
-		fieldObj.title = $(this).find('label').text();
+		fieldObj.title = $(this).find('label').text().replace("*", "");
 		if($(this).find('.fld-tip').length > 0)  fieldObj.tooltip = $(this).find('.fld-tip').html();
 		fieldObj.regex = input.attr('regex');
 		fieldObj.minlength = parseInt(input.attr('minlength'));
