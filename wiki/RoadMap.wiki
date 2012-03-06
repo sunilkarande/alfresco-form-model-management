@@ -6,7 +6,7 @@ As this is a new project, I haven't jumped to far ahead of tackling the initial 
 
 
 =Road Map=
-  # NEW: Quick change of form field types; This will allow us to quickly change fields from text to dropdown so that we can quickly tweak previously built models.
+  # *NEW*: Quick change of form field types; This will allow us to quickly change fields from text to dropdown so that we can quickly tweak previously built models.
   # Multilingual support (ETA March-Apirl 2012)
   # Bundle custom search page and advanced search form)
   # Bundle or Customize share to use FM Forms by default
