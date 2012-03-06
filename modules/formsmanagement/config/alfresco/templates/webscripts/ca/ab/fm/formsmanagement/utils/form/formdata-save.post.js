@@ -22,7 +22,7 @@ function getDateArray(string){
     //YYYY-MM-DD  2012-02-14
 	var arr = string.split("-");
 	var d = new Date( arr[0], (arr[1] - 1), arr[2]);
-	return d;
+	return d; 
 }
 
 function saveDataToNode(node, dataString, aspectString){
@@ -37,15 +37,15 @@ function saveDataToNode(node, dataString, aspectString){
 				node.save();
 		}
 		//Add properties
-		for(var i in data) {
+		for(var i in data) { 
 			var qname = data[i].qname.replace("_", ":") + "";
 			var value = data[i].value;
 			var type = data[i].type;
-
+			
 			if(isDebug) logger.log( "FORM MANAGEMENT - Saving "+qname+ ":" + value );
 
 			if(type.indexOf("date") >= 0){
-				if(value != ""){
+				if(value != ""){ 
 					node.properties[qname] = getDateArray( value );
 				}else{
 					node.properties[qname] = null;
@@ -91,11 +91,11 @@ function moveDoc(node, fmMoveNode){
 
 		var didMove = node.move(destination);
 		logger.log("FORM MANAGEMENT: MOVED SUCCESS:" + didMove);
-
+ 
 	}else{
 	    logger.log("FORM MANAGEMENT: FAILED MOVE:" + fmMoveNode);
 		model.status = 0;
-		model.msg += "Failed to move " + node.name + " to destination~";
+		model.msg += "Failed to move " + node.name + " to destination~"; 
 	}
 }
 
@@ -145,8 +145,8 @@ if(fmNodeId.indexOf("create-doc") >= 0){
 }else{
 	nodeArr = fmNodeId.split("~");
 	for(x in nodeArr){
-		if(nodeArr[x].indexOf("workspace") == -1)  nodeArr[x] = "workspace://SpacesStore/" + nodeArr[x];
-
+		if(nodeArr[x].indexOf("workspace") == -1)  nodeArr[x] = "workspace://SpacesStore/" + nodeArr[x]; 
+		
 		var node = search.findNode(nodeArr[x]);
 		saveMetadataToDoc(node, fmStoreObj, fmAspects);
 	}
