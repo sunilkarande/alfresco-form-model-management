@@ -8,7 +8,7 @@ function formToJson(){
 	$(".dontPopulateMe").removeClass("dontPopulateMe");
 	$(".fmAspectCollection").remove();
 	$(".fm-profile-data").remove();
-
+	
 	//Start JSON Form Object
 	var jObj = {};
 		jObj.title = $('.frm_formName').text();
@@ -21,13 +21,13 @@ function formToJson(){
 	var frmHTML = $('#formBuilderObj').html();
 
 	$('.group').each(function(){
-
+		 
 		var fieldObj = {};
 		//Cache input
 		var input = $(this).find('.frm-fld:eq(0)');
 		var propFullname = input.attr('name').split("_");
 		var typeFullname = input.attr('title');
-
+		 
 		fieldObj.title = $(this).find('label').text().replace("*", "");
 		if($(this).find('.fld-tip').length > 0)  fieldObj.tooltip = $(this).find('.fld-tip').html();
 		fieldObj.regex = input.attr('regex');
@@ -37,7 +37,7 @@ function formToJson(){
 		fieldObj.mandatory = false;
 		if(input.hasClass('required')) fieldObj.mandatory = true;
 		if(input.hasClass('frm-hidden')) fieldObj.hidden = true;
-
+		
 		fieldObj.name = propFullname[1];
 		fieldObj.namespace = propFullname[0];
 
@@ -140,7 +140,7 @@ function saveAspectToObj(obj, aspect){
 	$('.infoMessage span').html("Please wait...");
 	$('.infoMessage').fadeIn(300);
 	$('.infoMessage').center();
-
+ 
     $.ajax({
 		  url: "/alfresco/wcs/form-builder/saveJsonForm",
 		  type: "POST",
@@ -158,9 +158,9 @@ function saveAspectToObj(obj, aspect){
 			    $('.infoMessage').addClass("bad").center();
 				setTimeout("$('.infoMessage').fadeOut(1000, function(){ $('.infoMessage').removeClass('bad');  });", 3000);
 		  }
-	  });
+	  });   
 }
-
+ 
 /* NOT FOR jQuery PLUGIN */
 jQuery.fn.center = function () {
     this.css("position","absolute");
