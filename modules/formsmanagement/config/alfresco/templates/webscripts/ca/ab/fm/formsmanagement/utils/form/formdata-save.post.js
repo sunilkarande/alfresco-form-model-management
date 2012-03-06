@@ -4,13 +4,6 @@ model.failedItems = 0;
 model.success = 0;
 model.msg = "";
 
-function getDateArray(string){
-    //YYYY-MM-DD  2012-02-14
-	var arr = string.split("-");
-	var d = new Date( arr[0], (arr[1] - 1), arr[2]);
-	return d;
-}
-
 function fileExistsClash(name, destination, i){
 
 	//Split old and get extension
@@ -23,6 +16,13 @@ function fileExistsClash(name, destination, i){
 	}else{
 		return newname;
 	}
+}
+
+function getDateArray(string){
+    //YYYY-MM-DD  2012-02-14
+	var arr = string.split("-");
+	var d = new Date( arr[0], (arr[1] - 1), arr[2]);
+	return d;
 }
 
 function saveDataToNode(node, dataString, aspectString){
@@ -93,7 +93,9 @@ function moveDoc(node, fmMoveNode){
 		logger.log("FORM MANAGEMENT: MOVED SUCCESS:" + didMove);
 
 	}else{
-	   logger.log("FORM MANAGEMENT: FAILED MOVE:" + fmMoveNode);
+	    logger.log("FORM MANAGEMENT: FAILED MOVE:" + fmMoveNode);
+		model.status = 0;
+		model.msg += "Failed to move " + node.name + " to destination~";
 	}
 }
 
@@ -143,9 +145,11 @@ if(fmNodeId.indexOf("create-doc") >= 0){
 }else{
 	nodeArr = fmNodeId.split("~");
 	for(x in nodeArr){
-		var node = search.findNode("workspace://SpacesStore/" + nodeArr[x]);
+		if(nodeArr[x].indexOf("workspace") == -1)  nodeArr[x] = "workspace://SpacesStore/" + nodeArr[x];
+
+		var node = search.findNode(nodeArr[x]);
 		saveMetadataToDoc(node, fmStoreObj, fmAspects);
 	}
 }
 //Finally move doc if opted in
-moveDoc(node, fmMoveNode);
+if(fmMoveNode != "") moveDoc(node, fmMoveNode);
