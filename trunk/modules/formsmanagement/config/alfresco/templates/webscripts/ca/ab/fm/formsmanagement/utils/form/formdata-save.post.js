@@ -5,14 +5,17 @@ model.success = 0;
 model.msg = "";
 
 function fileExistsClash(name, destination, i){
+
 	//Split old and get extension
 	var ext = name.substr(name.lastIndexOf('.') + 1);
 	var filename = name.replace("."+ext, "");
-	var integer = i;
-	while( destination.childByNamePath(filename + "-" + integer + "." + ext ) ){
-		integer++;
+	var newname = filename + "-" + i + "." + ext;
+
+ 	if(destination.childByNamePath(newname)){
+		fileExistsClash(name, destination, i++);
+	}else{
+		return newname;
 	}
-	return filename + "-" + integer + "." + ext;
 }
 
 function getDateArray(string){
@@ -56,7 +59,7 @@ function saveDataToNode(node, dataString, aspectString){
 
 	}catch(err){
 		model.status = 0;
-		model.msg += "Failed to save properties to document(s)~";
+		model.msg += "Failed to save aspects/properties to document(s)~";
 		model.failedItems++;
 	}
 }
@@ -89,17 +92,10 @@ function moveDoc(node, fmMoveNode){
 		var didMove = node.move(destination);
 		logger.log("FORM MANAGEMENT: MOVED SUCCESS:" + didMove);
 
-		if(!didMove){
-			model.msg += "Failed to move document(s) to destination~";
-			model.success--;
-			model.failedItems++;
-			logger.log("FORM MANAGEMENT: FAILED MOVE FILE(s):" + fmMoveNode);
-		}
 	}else{
-		model.msg += "Failed could not find destination folder~";
-		model.success--;
-		model.failedItems++;
-	    logger.log("FORM MANAGEMENT: FAILED COULD NOT FIND DESTINATION FOLDER:" + fmMoveNode);
+	    logger.log("FORM MANAGEMENT: FAILED MOVE:" + fmMoveNode);
+		model.status = 0;
+		model.msg += "Failed to move " + node.name + " to destination~";
 	}
 }
 
