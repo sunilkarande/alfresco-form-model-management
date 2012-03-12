@@ -52,7 +52,8 @@ $(function(){
   $('#model-dialog').dialog({
     modal:true,
     width:500,
-    autoOpen:false,
+    position:['center', 30],
+	autoOpen:false,
     height:'auto',
     draggable: false
   });

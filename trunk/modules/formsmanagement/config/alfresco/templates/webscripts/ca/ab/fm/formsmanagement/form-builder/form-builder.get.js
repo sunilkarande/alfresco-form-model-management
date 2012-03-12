@@ -1,18 +1,6 @@
+<import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/permissions/fm-auth-user.js">
 <import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/locale/alfresco-locale.js">
 <import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/scriptUtils/jsonUtils.js">
-
-if(args.jsonNode){
-	model.ready = true;
-	var jsonNode = search.findNode("workspace://SpacesStore/" + args.jsonNode);
-	model.json = jsonNode.content;
-
-	var xmlNode = jsonNode.parent.parent.childByNamePath(jsonNode.name.replace(".json", ".xml"));
-	model.modeluid = xmlNode.id;
-	model.xml = xmlNode.content;
-	model.aspectName = args.aspect;
-}else{
-	model.ready = false;
-}
 
 function extractAspects(jObj, uid){
 	var aspectString = "";
@@ -32,7 +20,6 @@ function extractAspects(jObj, uid){
 	}
 	return aspectString;
 }
-
 function getAspectList(){
 	var jsonString = "";
 	var jsonList = companyhome.childByNamePath(fmPath.jsonModels).children;
@@ -47,4 +34,37 @@ function getAspectList(){
 	}
 	return  "[" + jsonString.slice(0, -1) + "]";
 }
-model.aspectList = eval("(" + getAspectList() + ")" );
+
+function main(){
+	
+	var formFields = [];
+		formFields.push( { "id": "t_text", "label": "Text Field" } );
+		formFields.push( { "id": "t_select", "label": "Drop Down" } );
+		formFields.push( { "id": "t_textarea", "label": "Paragraph" } );
+		formFields.push( { "id": "t_radio", "label": "Multiple Choice" } );
+		formFields.push( { "id": "t_checkbox", "label": "Checkboxes" } );
+	
+	var predefinedFields = [];
+		predefinedFields.push( { "id": "t_sliderval", "label": "Slider Options" } );
+		predefinedFields.push( { "id": "t_multifield", "label": "Multifield" } );
+		 
+		 
+	
+	if(args.jsonNode){
+		model.ready = true;
+		var jsonNode = search.findNode("workspace://SpacesStore/" + args.jsonNode);
+		model.json = jsonNode.content;
+
+		var xmlNode = jsonNode.parent.parent.childByNamePath(jsonNode.name.replace(".json", ".xml"));
+		model.modeluid = xmlNode.id;
+		model.xml = xmlNode.content;
+		model.aspectName = args.aspect;
+	}else{
+		model.ready = false;
+	}
+	model.aspectList = eval("(" + getAspectList() + ")" );
+	model.formFields = formFields;
+	model.predefinedFields = predefinedFields;
+	
+}
+main();

@@ -1,3 +1,64 @@
+var isFmValid = true;
+var fmErrLog = [];
+function saveFmForm(){
+	var aspectToSave = formToJson();
+	//Are we still valid for properties
+	$('.fm-errBox').hide();
+	  
+	if(isFmValid){
+		cleanupForSave();
+		saveAspectToObj(fmModelObj, aspectToSave);
+	}else{
+		$('.fm-errBox ul').html("");
+		for(i in fmErrLog){
+			$('.fm-errBox ul').append("<li>" + fmErrLog[i] + "</li>");
+		}
+		$('.fm-errBox').show();
+	}
+}
+function getFieldTemplate(fieldType, attr){
+	if(!attr){
+		attr = {}
+		attr.label = "New Field";
+		attr.name= "";
+		attr.title="";
+	}
+	 
+	var fieldTmp = "";  
+	var fieldTypeArr = fieldType.split("_");
+
+	if(fieldTypeArr[1] == "radio" || fieldTypeArr[1] == "text" || fieldTypeArr[1] == "checkbox"){
+		fieldTmp = '<div class="group">';
+		fieldTmp += '<label>'+attr.label+'</label><div><input title="'+attr.title+'" type="'+fieldTypeArr[1]+'" value="" class="frm-fld" name="'+attr.name+'"/></div>';
+		fieldTmp += '</div>';
+
+	}else if(fieldTypeArr[1] == "slider"){
+		fieldTmp = '<div class="group">';
+		fieldTmp += '<label>'+attr.label+'</label><div>';
+		fieldTmp += '<div class="frm_slider"><label class="slider-start">Low</label><div class="sliderForm"></div><label class="slider-end">High</label><input type="text" value="" title="'+attr.title+'" class="frm-fld slider-value" name="'+attr.name+'" /><p class="clear"></p></div>';
+		fieldTmp += '</div></div>';
+
+	}else if(fieldTypeArr[1] == "phone"){
+		fieldTmp = '<div class="group">';
+		fieldTmp += '<label>'+attr.label+'</label><div><input type="text" name="'+attr.name+'" title="'+attr.title+'" class="frm-fld phone" value=""></div>';
+		fieldTmp += '</div>';
+
+	}else if(fieldTypeArr[1] == "name"){
+		fieldTmp = '<div class="group">';
+		fieldTmp += '<label>'+attr.label+'</label><div><input type="text" name="'+attr.name+'" title="'+attr.title+'" class="frm-fld" value=""><input type="text" name="" class="frm-fld" value=""></div>';
+		fieldTmp += '</div>';
+
+	}else if(fieldTypeArr[1] == "sliderval"){ 
+		fieldTmp = '<div class="group slidervalCss">';
+		fieldTmp += '<label>'+attr.label+'</label><div class="slider-wrapper"><select value="" title="'+attr.title+'" class="val_slider frm-fld select" name="'+attr.name+'"></select></div>';
+		fieldTmp += '</div>'; 
+	}else{
+		fieldTmp = '<div class="group">';
+		fieldTmp += '<label>'+attr.label+'</label><div><'+fieldTypeArr[1]+' value="" title="'+attr.title+'" class="frm-fld '+fieldTypeArr[1]+'" name="'+attr.name+'"></'+fieldTypeArr[1]+'></div>';
+		fieldTmp += '</div>';
+	}
+	return fieldTmp;
+}
 function loadToggleValues(){
 	$('.i-toggle').each(function(){
 		var input = $(this).find('input');
@@ -54,6 +115,7 @@ function indexForm(){
 function cleanupForSave(){
 	$('.ui-helper').removeClass('ui-helper');
 	$('.delField').remove();
+	$('.changeField').remove();
 	$('.outputMessage').hide();
 	$('#my-frm').show();
 	$(".frmErr").removeClass("frmErr");
@@ -90,10 +152,9 @@ $(function () {
 	$(".optionSortable").disableSelection();
 	$("#accordion").accordion({ autoHeight: false, navigation: true });
 	$("#accordion-tab1").accordion({ autoHeight: false, navigation: true });
-
-   $("#alfSaveForm").live('click', function() {
-		cleanupForSave();
-		formToJson();
+ 
+	$('.frmSaveButton').mouseup(function(){
+		saveFmForm();
 	});
 
    $("#confirm_message").live('click', function() {
@@ -342,43 +403,10 @@ $(function () {
 		$('#formFormat').attr('class', $(this).val() );
 	});
 	$('.fieldAddOptions a').live('click', function(){
-		var thisNewField = "";
-		var fieldType = $(this).attr('id');
-		var fieldTypeArr = fieldType.split("_");
-
-		if(fieldTypeArr[1] == "radio" || fieldTypeArr[1] == "text" || fieldTypeArr[1] == "checkbox"){
-			thisNewField = '<div class="group">';
-			thisNewField += '<label>New Field</label><div><input type="'+fieldTypeArr[1]+'" value="" class="frm-fld" name=""/></div>';
-			thisNewField += '</div>';
-
-		}else if(fieldTypeArr[1] == "slider"){
-			thisNewField = '<div class="group">';
-			thisNewField += '<label>Question:</label><div>';
-			thisNewField += '<div class="frm_slider"><label class="slider-start">Low</label><div class="sliderForm"></div><label class="slider-end">High</label><input type="text" value="" class="frm-fld slider-value" name="" /><p class="clear"></p></div>';
-			thisNewField += '</div></div>';
-
-		}else if(fieldTypeArr[1] == "phone"){
-			thisNewField = '<div class="group">';
-			thisNewField += '<label>New Field</label><div><input type="text" name="" class="frm-fld phone" value=""></div>';
-			thisNewField += '</div>';
-
-		}else if(fieldTypeArr[1] == "name"){
-			thisNewField = '<div class="group">';
-			thisNewField += '<label>New Field</label><div><input type="text" name="" class="frm-fld" value=""><input type="text" name="" class="frm-fld" value=""></div>';
-			thisNewField += '</div>';
-
-		}else if(fieldTypeArr[1] == "sliderval"){ 
-			thisNewField = '<div class="group slidervalCss">';
-			thisNewField += '<label>New Field</label><div class="slider-wrapper"><select value="" class="val_slider frm-fld select" name=""></select></div>';
-			thisNewField += '</div>'; 
-		}else{
-			thisNewField = '<div class="group">';
-			thisNewField += '<label>New Field</label><div><'+fieldTypeArr[1]+' value="" class="frm-fld '+fieldTypeArr[1]+'" name=""></'+fieldTypeArr[1]+'></div>';
-			thisNewField += '</div>';
-		}
+		
+		var thisNewField = getFieldTemplate( $(this).attr('id') );
 		$('.f_b_root').append(thisNewField);
 		$(".f_b_root").sortable("refresh");
-
 		return false;
 	});
 
@@ -421,8 +449,10 @@ $(function () {
 	});
 
 	$(".group").live('click', function(){
+		$('.selectMask').val("");
 		$('.ui-helper').removeClass('ui-helper');
 		$('.delField').remove();
+		$('.changeField').remove();
 		$(".optionsMenu").hide();
 
 		var fieldTitle = $(this).children('label').text();
@@ -568,13 +598,36 @@ $(function () {
 		$('#formToolWrapper').tabs( "select" , 1 );
 		$("#accordion").accordion( "activate" , 0 );
 		$(this).addClass('ui-helper');
-		$(this).append('<a href="#" class="delField"><span>Delete</span></a>');
+		$(this).append('<a href="#" class="delField"><span>Delete</span></a><a href="#" class="changeField"><span>Type</span></a>');
 		loadToggleValues();
 	});
 
 	$('.delField').live('click', function(){
 		$(this).parents(".group:eq(0)").remove();
-
+	});
+	
+	$('.changeField').live('click', function(){
+		var oSet = $(this).offset();
+		$(this).parents(".group").addClass("fm-change-field");
+		$('.field-change-popup').css({ "top": oSet.top + 15, "left": oSet.left - 165 }).show();
+	}); 
+	$('.field-change-popup').mouseleave( function(){
+		setTimeout('$(".field-change-popup").hide(); $(".fm-change-field").removeClass("fm-change-field");', 200);
+	});
+	$('.field-change-popup a').click(function(){
+		var copyField = $('.fm-change-field').find('.frm-fld:eq(0)');
+		//Remove Required
+		$('.fm-change-field').find('label:eq(0) span').remove();
+		
+		var label = $('.fm-change-field').find('label:eq(0)').text();
+		var attr = {};
+			attr.title = copyField.attr("title");
+			attr.name = copyField.attr("name");
+			attr.label = label;
+			
+		var thisNewField = getFieldTemplate( $(this).attr('id'), attr);
+		$('.fm-change-field').replaceWith(thisNewField);
+		return false;		
 	});
 
 	//Some validation stuff

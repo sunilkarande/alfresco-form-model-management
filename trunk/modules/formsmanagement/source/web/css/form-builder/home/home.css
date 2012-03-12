@@ -1,0 +1,37 @@
+.fm-home-window{
+	width:1000px;
+	margin:0 auto;
+	padding-top:20px;
+}
+.menu-box-bg {
+background:#fff;
+border: 1px solid #E5E5E5;
+border-bottom:1px solid #ccc;
+}
+.menu-box {
+	margin:0 5px;
+	width:240px;
+	float:left;  
+}
+.menu-box .p {
+	font-size:13px; color:#3a3a3a; padding:20px; display:block; height:75px;
+}
+.menu-box a {
+	display:block; font-size:12px; color:#368EF9; border-top:1px solid #ccc; padding:20px;text-align:right;
+	background:#F5F5F5; text-decoration:none;
+}
+.menu-box a:hover { background:#6DAFF9; color:#333;}
+.menu-box .title {
+	padding:20px 20px 0; 
+}
+.menu-box .title span { 
+	font-size:16px;
+	font-weight:bold;
+	color:#368EF9; display:block;
+	height:35px;
+}
+.menu-box img {
+	float:left; margin-right:10px;
+}
+.menu-box-hover {
+}

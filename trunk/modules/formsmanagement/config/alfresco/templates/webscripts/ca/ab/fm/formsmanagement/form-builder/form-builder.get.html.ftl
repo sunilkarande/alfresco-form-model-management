@@ -10,8 +10,20 @@
 		var fmAspectName = "${aspectName!}";
 		var fmModelObj = eval("(" + jsonModel + ")");
 	</script>
+	 
 </head>
 <body>
+<#assign fmNoneAdminStyle = "" />
+<#if !isFmAdmin><#assign fmNoneAdminStyle = "display:none;" /></#if>
+
+<div class="field-change-popup" style="display:none;">
+	<#list formFields as field>
+	<a href="#" id="${field.id}">${field.label}</a>
+	</#list>
+	<#list predefinedFields as field>
+	<a href="#" id="${field.id}">${field.label}</a>
+	</#list>
+</div>
 <input type="hidden" class="uid-model" value="${modeluid!}" />
 <input type="hidden" class="uid-json" value="${args.jsonNode!}" />
 <#assign menu = "form-builder" >
@@ -40,13 +52,18 @@
 
 	<div class="fm-sidebar">
 		<div class="fm-title-bar"><span>Available Aspects:</span></div>
-		<ul>
-			<#list aspectList as aspect>
-				<li>
-					<a class="<#if args.aspect?exists><#if args.aspect == aspect.name>fm-menu-active</#if></#if>" href="/alfresco/wcs/form-builder/builder?jsonNode=${aspect.rootUid}&aspect=${aspect.name}" style="width:auto!important;"><span>${aspect.title}</span></a>
-				</li>
-			</#list>
-		</ul>
+		<div class="fm-search-aspects">
+			<input type="text" name="filter" id="search_filter" />	
+		</div>
+		<div id="titles">
+			<ul>
+				<#list aspectList as aspect>
+					<li>
+						<a class="<#if args.aspect?exists><#if args.aspect == aspect.name>fm-menu-active</#if></#if>" href="/alfresco/wcs/form-builder/builder?jsonNode=${aspect.rootUid}&aspect=${aspect.name}" style="width:auto!important;"><span>${aspect.title}</span></a>
+					</li>
+				</#list>
+			</ul>
+		</div>
 	</div>
 	<div class="fm-main-window">
 	    <#if ready>
@@ -60,132 +77,45 @@
 							<ul class="clearfix formTabs">
 								<li><a href="#tabs-1">Aspect Options</a></li>
 								<li><a href="#tabs-2">Field Properties</a></li>
-								<li><a href="#tabs-3">Add Fields</a></li>
+								<li style="${fmNoneAdminStyle}"><a href="#tabs-3">Add Fields</a></li>
 							</ul>
 							<div class="toolBox">
 								<div id="tabs-1">
-								<div id="accordion-tab1">
-										<h3><a href="#">Aspect Description</a></h3>
-										<div>
-											<label>Aspect Label:</label><br>
-											<input id="formName" name="prg-aspectlabel" class="prg-aspectlabel" type="text" value="Aspect Name"/>
-
-											<label>Description:</label>
-											<textarea name="prg-desc" class="prg-desc">your description goes here</textarea><br>
-										</div>
-
-										<h3><a href="#">Form Style</a></h3>
-										<div>
-											<label>Form CSS Class:</label><br>
-											<input id="formClass" name="prg-formclass" class="prg-formclass" type="text" value=""/>
-
-											<label>Field Alignment:</label><br>
-											<select name="prg-form-format" class="frmFormat">
-												<option value="top">Label on top</option>
-												<option value="left">Left Align</option>
-												<option value="right">Right Align</option>
-											</select>
-
-										</div>
-
-										<h3><a href="#">Alfresco Properties</a></h3>
-										<div>
-											<label>Aspect Name:</label><br>
-											<select name="prg-aspectprefix" class="prg-aspectprefix fld-small tip-fld"></select>
-											<input name="prg-aspectname" class="prg-aspectname fld-med tip-fld" type="text" value=""/>
-	 										<div class="field-tip" style=" padding-bottom: 18px;"><span>prefix</span>name</div>
-											<div class="aspect-name-tip stage-tip"></div>
-										</div>
-
+									<div id="accordion-tab1">
+										<#include "acc-aspect-properties/aspect-description.ftl" />
+										<#include "acc-aspect-properties/form-style.ftl" />
+										<#include "acc-aspect-properties/alfresco-properties.ftl" />
 									 </div>
 								</div>
 								<div id="tabs-3" class="fieldAddOptions">
 									<span style="font-weight:bold; font-size:12px; padding-bottom:5px; display:block">Form Fields:</span>
-									<a href="#" id="t_text">Text Field</a>
-									<a href="#" id="t_textarea">Paragraph</a>
-									<a href="#" id="t_select">Drop Down</a>
-									<a href="#" id="t_radio">Multiple Choice</a>
-									<a href="#" id="t_checkbox">Checkboxes</a>
+									<#list formFields as field>
+										<a href="#" id="${field.id}">${field.label}</a>
+									</#list>
 									<div style="padding-top:10px;">
 									<span style="font-weight:bold; font-size:12px; padding-bottom:5px; display:block">Pre-defined Fields:</span>
-
-									<a href="#" id="t_sliderval">Slider via dropdown</a> 
-									<a href="#" id="t_slider">Questionaire Slider</a> 
+									<#list predefinedFields as field>
+										<a href="#" id="${field.id}">${field.label}</a>
+									</#list> 
 	                                </div>
 								</div>
 								<div id="tabs-2" class="fieldProps">
-									<div id="accordion">
-										<h3><a href="#">Field Options</a></h3>
-										<div>
-											<label>Field Label:</label><br>
-											<input type="text" class="prg_fieldLabel" value="" /><br>
-											
-											<label>Help Tip:</label><br>
-											<input type="text" class="prg_tipLabel" value="" /><br>
-
-											<span class="quiz-labels" style="display:none">
-												<label>Left Label:</label><br>
-												<input type="text" class="prg_quiz_left" value="" /><br>
-
-												<label>Right Label:</label><br>
-												<input type="text" class="prg_quiz_right" value="" /><br>
-											</span>
-										</div>
-
-
-										<h3><a href="#">Validation</a></h3>
-										<div>
-											 <#include "validation-list.ftl" />
-										</div>
-
-										<h3 class="optionsMenu" style="display:none"><a href="#">Options</a></h3>
-										<div>
-											<label>Add Options here:</label><br>
-											<ul class="optionSortable">
-
-											</ul>
-										  <a href="#" class="addClient addOption">Add Option</a><br>
-											<hr>
-											<label>or Populate from a script</label><br>
-											<input type="text" class="prg_pop_script" value="" />
-										</div>
-
-										<h3><a href="#">Alfresco Properties</a></h3>
-										<div>
-											<label>Property Name:</label><br>
-											<select name="prg-aspectprefix" class="frm-alf-property-prefix fld-small tip-fld"></select>
-
-											<input type="text" class="frm-alf-property-name fld-med tip-fld" value="" style="width: 176px;" />
-											<div class="field-tip" style=" padding-bottom: 18px;"><span>prefix</span>name</div>
-
-											<label>Type:</label><br>
-											<select name="frm-alf-type-prefix" class="frm-alf-type-prefix fld-small tip-fld"></select>
-											<select name="prg-frm-alf-types" class="frm-alf-type fld-med tip-fld" style="width:108px!important;">
-												<option value="text">Text</option>
-												<option value="content">Content</option>
-												<option value="int">Int</option>
-												<option value="long">Long</option>
-												<option value="float">Float</option>
-												<option value="double">Double</option>
-												<option value="date">Date</option>
-												<option value="datetime">Datetime</option>
-												<option value="boolean">Boolean</option>
-												<option value="qname">Qname</option>
-												<option value="category">Category</option>
-												<option value="noderef">Noderef</option>
-												<option value="path">Path</option>
-												<option value="any">Any</option>
-											</select>
-											<div class="field-tip"><span>prefix</span>name</div>
-
-										</div>
+									<div id="accordion">  
+										<#include "acc-field-properties/field-options.ftl" /> 
+										<#include "acc-field-properties/validation-list.ftl" />
+										<#include "acc-field-properties/dropdown-options.ftl" /> 
+										<#include "acc-field-properties/alfresco-properties.ftl" />
 									</div>
 									</div>
 								</div>
 							</div>
 							</form>
 						</div>
-
+					
+					<div class="fm-errBox" style="display:none;">
+						<p>There were some errors with your form:</p>
+						<ul></ul>
+					</div>
 					<div class="formContainerStage" id="formBuilderObj">
 						<form name="" class="message" id="my-frm" method="POST">
 							<div class="top" id="formFormat">
@@ -245,14 +175,14 @@
 				$('.prg-formclass').val( $(".formContainerStage form").attr("class") );
 			}
 		});
-
-		$('.frmSaveButton').mouseup(function(){
-			var aspectToSave = formToJson();
-			saveAspectToObj(fmModelObj, aspectToSave);
-		});
+ 
 	});
 </script>
 </#if>
+<script type="text/javascript">
+	/* Filter for aspects */
+	var My={};My.List={Filter:function(inputSelector,listSelector){var inp,rgx=new RegExp(),titles=$(listSelector),keys;if(titles.length===0){return false;}keys=[13,27,32,37,38,39,40];$(inputSelector).bind("keyup",function(e){if(jQuery.inArray(e.keyCode,keys)>=0){return false;}inp=$(this).attr("value");try{rgx.compile(inp,"im");for(var i=0;i<titles.length;i++){if(rgx.source!==""&&!rgx.test(titles[i].innerHTML)){titles[i].parentNode.style.display="none";}else{titles[i].parentNode.style.display="";}}}catch(e){}});}};$(document).ready(function(){My.List.Filter("input#search_filter","#titles>ul>li>a");});
+</script>
 </body>
 </html>
 
