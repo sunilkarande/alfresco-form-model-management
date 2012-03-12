@@ -5,24 +5,21 @@ model.success = 0;
 model.msg = "";
 
 function fileExistsClash(name, destination, i){
-
 	//Split old and get extension
 	var ext = name.substr(name.lastIndexOf('.') + 1);
 	var filename = name.replace("."+ext, "");
-	var newname = filename + "-" + i + "." + ext;
-
- 	if(destination.childByNamePath(newname)){
-		fileExistsClash(name, destination, i++);
-	}else{
-		return newname;
+	var integer = i;
+	while( destination.childByNamePath(filename + "-" + integer + "." + ext ) ){
+		integer++;
 	}
+	return filename + "-" + integer + "." + ext;
 }
 
 function getDateArray(string){
     //YYYY-MM-DD  2012-02-14
 	var arr = string.split("-");
 	var d = new Date( arr[0], (arr[1] - 1), arr[2]);
-	return d; 
+	return d;
 }
 
 function saveDataToNode(node, dataString, aspectString){
@@ -37,15 +34,15 @@ function saveDataToNode(node, dataString, aspectString){
 				node.save();
 		}
 		//Add properties
-		for(var i in data) { 
+		for(var i in data) {
 			var qname = data[i].qname.replace("_", ":") + "";
 			var value = data[i].value;
 			var type = data[i].type;
-			
+
 			if(isDebug) logger.log( "FORM MANAGEMENT - Saving "+qname+ ":" + value );
 
 			if(type.indexOf("date") >= 0){
-				if(value != ""){ 
+				if(value != ""){
 					node.properties[qname] = getDateArray( value );
 				}else{
 					node.properties[qname] = null;
@@ -59,7 +56,7 @@ function saveDataToNode(node, dataString, aspectString){
 
 	}catch(err){
 		model.status = 0;
-		model.msg += "Failed to save aspects/properties to document(s)~";
+		model.msg += "Failed to save properties to document(s)~";
 		model.failedItems++;
 	}
 }
@@ -91,11 +88,18 @@ function moveDoc(node, fmMoveNode){
 
 		var didMove = node.move(destination);
 		logger.log("FORM MANAGEMENT: MOVED SUCCESS:" + didMove);
- 
+
+		if(!didMove){
+			model.msg += "Failed to move document(s) to destination~";
+			model.success--;
+			model.failedItems++;
+			logger.log("FORM MANAGEMENT: FAILED MOVE FILE(s):" + fmMoveNode);
+		}
 	}else{
-	    logger.log("FORM MANAGEMENT: FAILED MOVE:" + fmMoveNode);
-		model.status = 0;
-		model.msg += "Failed to move " + node.name + " to destination~"; 
+		model.msg += "Failed could not find destination folder~";
+		model.success--;
+		model.failedItems++;
+	    logger.log("FORM MANAGEMENT: FAILED COULD NOT FIND DESTINATION FOLDER:" + fmMoveNode);
 	}
 }
 
@@ -145,8 +149,8 @@ if(fmNodeId.indexOf("create-doc") >= 0){
 }else{
 	nodeArr = fmNodeId.split("~");
 	for(x in nodeArr){
-		if(nodeArr[x].indexOf("workspace") == -1)  nodeArr[x] = "workspace://SpacesStore/" + nodeArr[x]; 
-		
+		if(nodeArr[x].indexOf("workspace") == -1)  nodeArr[x] = "workspace://SpacesStore/" + nodeArr[x];
+
 		var node = search.findNode(nodeArr[x]);
 		saveMetadataToDoc(node, fmStoreObj, fmAspects);
 	}
