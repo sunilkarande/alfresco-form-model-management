@@ -287,8 +287,17 @@ a {
     top: 5px;
     width: 14px;
 }
-.delField span, .delOption span {
+.delField span, .changeField span, .delOption span {
     display: none;
+}
+.changeField {
+	background: url("images/field-change-ico.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 14px;
+    position: absolute;
+    right: 25px;
+    top: 5px;
+    width: 14px;
 }
 .f_b_root p {
     position: relative;
@@ -691,3 +700,14 @@ background: -ms-linear-gradient(top,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff
 background: linear-gradient(top,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 	}
+
+.fm-search-aspects  { background-color:#E0E0E0; background-image:url('/alfresco/css/form-builder/images/magnifier-medium.png'); background-position:4px 8px; background-repeat:no-repeat; border-bottom:1px solid #ccc;  padding:5px 0 5px 25px;}
+.fm-search-aspects input { width:170px;} 
+
+.field-change-popup { width:180px; background:#fff; border:1px solid #ccc; position:absolute;top:0px; left:0px; padding:2px; z-index:9999;}
+.field-change-popup a { display:block; background-image:none; padding:5px; background-position:1px 1px; padding-left:30px; display:block; background-repeat:no-repeat; font-size:12px; color:#333; text-decoration:none; }
+.field-change-popup a:hover { background-color:#ccc;}
+.fm-errBox { font-size:12px; background:#FFA5A5; border:1px solid #F98B8B; float:left; width:500px; padding:10px 20px; margin-bottom:10px; }
+.fm-errBox p { color:#333; margin:0; margin-bottom:10px; font-weight:bold; }
+.fm-errBox ul { margin:0; }
+.fm-errBox ul li {}

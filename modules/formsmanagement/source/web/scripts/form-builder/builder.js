@@ -9,10 +9,14 @@ function formToJson(){
 	$(".fmAspectCollection").remove();
 	$(".fm-profile-data").remove();
 	
+	fmErrLog = [];
+	isFmValid = true;
+	
 	//Start JSON Form Object
 	var jObj = {};
 		jObj.title = $('.frm_formName').text();
 		jObj.visible = true;
+		 
 		jObj.namespace = $('.prg-aspectprefix').val();
 		jObj.name = $('.prg-aspectname').val();
 		jObj.description = $('.prg-desc').val();
@@ -21,10 +25,9 @@ function formToJson(){
 	var frmHTML = $('#formBuilderObj').html();
 
 	$('.group').each(function(){
-		 
+		
 		var fieldObj = {};
-		//Cache input
-		var input = $(this).find('.frm-fld:eq(0)');
+		var input = $(this).find('.frm-fld:eq(0)'); 
 		var propFullname = input.attr('name').split("_");
 		var typeFullname = input.attr('title');
 		 
@@ -44,6 +47,17 @@ function formToJson(){
 		fieldObj.type= typeFullname;
 		fieldObj.fieldType = input.attr('type');
 		fieldObj.id = input.attr('id');
+		
+		//Validate Model Requirements
+		if(typeFullname == ""){
+			isFmValid = false;
+			fmErrLog.push("" + fieldObj.title + " is missing an Alfresco data type");
+		}
+		if(propFullname.length < 2 || propFullname[0] == "" || !propFullname[1] || propFullname[1] == ""){
+			isFmValid = false;
+			fmErrLog.push("" + fieldObj.title + " is missing an Alfresco property name");
+		}
+		
 
 		//Get collections for checkboxes, radio and select
 		if(input.hasClass('select') || input.attr('type') == "radio" || input.attr('type') == "checkbox" ){
@@ -147,10 +161,17 @@ function saveAspectToObj(obj, aspect){
 		  dataType:"html",
 		  data: { uidModel:uidModel, jsonString:jsonString, uidJson: uidJson },
 		  success: function(d){
-				$('.infoMessage span').html("Saved Successfully");
-				$('.infoMessage').addClass("good").center().fadeOut(1000, function(){
-					$('.infoMessage').removeClass("good");
-				});
+				if(d == "0"){
+					$('.infoMessage span').html("You do not have the appropriate permissions on this model to save. Contact your administrator.");
+					$('.infoMessage').addClass("bad").center();
+					setTimeout("$('.infoMessage').fadeOut(1000, function(){ $('.infoMessage').removeClass('bad');  });", 3000);
+				
+				}else{
+					$('.infoMessage span').html("Saved Successfully");
+					$('.infoMessage').addClass("good").center().fadeOut(1000, function(){
+						$('.infoMessage').removeClass("good");
+					});
+				}
 				//location.reload(true);
 		  },
 		  error:function (xhr, ajaxOptions, thrownError){

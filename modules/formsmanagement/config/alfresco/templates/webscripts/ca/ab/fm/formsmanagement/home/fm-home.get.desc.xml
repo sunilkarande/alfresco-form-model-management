@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Dropdown Manager</shortname>
+	<description>Home page for FM Module</description>
+	<url>/form-builder/home</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
