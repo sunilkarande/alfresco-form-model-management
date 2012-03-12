@@ -8,12 +8,12 @@
 	Dependant Plugins:
 	selectToUISlider (Used for custom Dropdown menu to jQuery slider)
 
-*/  
+*/
 (function ($) {
     var globalKey = ""; var cacheProfileAspect= {};
 	var isConnect = false; var isDebug = false;
 	var defaultSettings = {
-         
+
         'aspects': [],
         'profile': null,
         'handler': '.handler',
@@ -23,10 +23,11 @@
         'customProperites': null,
         'connect': "",
         'readonly': false,
-        'ownDropSource': false
+        'ownDropSource': false,
 		'onComplete': null,
         'onSaveComplete': null,
-		
+		'onDynamicLoad': null
+
 	};
     var methods = {
         init: function (options) {
@@ -76,6 +77,7 @@
 								}
 
 								fmAspectNode.val(fmAspectNode.val() + $this.data('origAspectCollection'));
+								if(settings.onDynamicLoad) settings.onDynamicLoad( $(settings.handler) );
 							});
 						}
 					}
@@ -89,7 +91,7 @@
 						$this.html(formS);
 						$this.data('origAspectCollection', $this.find('.fmAspectCollection:eq(0)').val() + "");
 						methods.onInnerComplete();
-					} 
+					}
 					if (settings.onComplete) settings.onComplete($this);
 					if ($('.frmSaveButton').length > 0) {
 						$(".f_b_root").sortable({
@@ -98,7 +100,7 @@
 					}
 				}
 			});
-        }, 
+        },
         dynamicProfileCreate: function ($this, val, profile) {
 
 				if(val != ""){
@@ -209,22 +211,22 @@
 				if(prop.hidden) prop.fieldType = "hidden";
 
 				prop = methods.validateProperties(prop);
-	
+
 				var labelText = prop.title + "";
 				var prefix = aspect.namespace;
 				if (prop.namespace) prefix = prop.namespace;
-				if (!settings.isSearch){ 
+				if (!settings.isSearch){
 					if(prop.mandatory || prop.className.indexOf("required") >= 0) labelText += '<span class="fld-required-lbl">*</span>';
 				}
 				prop.validPrefix = prefix;
-			
+
 				var groupClass = ""; var innerDivClass = "";
-				   
+
 				if(prop.className.indexOf("val_slider") >= 0){
 					groupClass += "slidervalCss"; innerDivClass=' class="slider-wrapper"';
 					if(!prop.id) prop.id = "slider-" + prop.title.replace(" ", "-");
 				}
-				 
+
 				if(!prop.hidden) formString += '<div class="group '+groupClass+'"><label>' + labelText + '</label><div'+innerDivClass+'>';
 
 				var tPropType = prop.type.split("_")[1];
@@ -295,6 +297,8 @@
 													$this.find(".fm-connect-container:eq(0)").html("");
 												}
 												$this.find('.fmAspectCollection:eq(0)').val($this.find('.fmAspectCollection:eq(0)').val() + $this.data('origAspectCollection'));
+
+												if(settings.onDynamicLoad) settings.onDynamicLoad( $('.fm-dynamic-dropdown') );
 											});
 										}
 									}
@@ -372,10 +376,10 @@
             return formString;
         },
         onInnerComplete: function () {
-              
+
 			setMasks();
 			if( $('.fm-main-window').length > 0){
-				
+
 			}else{
 				$( ".val_slider" ).each(function() {
 					if($(this).find('option').size() > 0){
@@ -490,12 +494,12 @@
                     }
 					if(qName.indexOf("Date") >= 0 || $(this).attr("title").indexOf("date") >= 0 ){
 						if(nodeVal != ""){
-							var iD = new Date( nodeVal ); 
+							var iD = new Date( nodeVal );
 							var month = (iD.getMonth() + 1) + "";
 							var day = iD.getDate() + "";
 							if(parseInt(month) < 9) month = "0" + month;
-							if(parseInt(day) < 9) day = "0" + day; 
-							nodeVal = iD.getFullYear() + "-" + (month) + "-" + day; 
+							if(parseInt(day) < 9) day = "0" + day;
+							nodeVal = iD.getFullYear() + "-" + (month) + "-" + day;
 						}
 					}
 
@@ -548,15 +552,15 @@
 							async: false,
 							data: { uid: uid },
 							success: function(nodeObj) {
- 
+
 								var storageId = nodeObj.node.properties["sys:node-uuid"];
 								$('body').prepend('<div id="fm_store_'+storageId+'" class="fm-property-store" style="display:none!important">'+ JSON.stringify( nodeObj ) +'</div>');
-								methods.loadPropertiesToFields(nodeObj, $this); 
+								methods.loadPropertiesToFields(nodeObj, $this);
 							}
 						});
-	                } 
+	                }
 	            }
-            } 
+            }
 			if(callback) callback( $this );
         },
 		storelocaldata: function(){
@@ -569,11 +573,11 @@
 		},
 		getFldData: function(node, value){
 			var fld = {};
-			
+
 			fld.qname = node.attr("name")  + "";
 			fld.value = value;
 			fld.type = node.data("type");
-			
+
 			return fld;
 		},
         save: function (postSettings, callback) {
@@ -584,46 +588,46 @@
             aspectsArr = $.grep(aspectsArr, function (n) {
                 return (n);
             });
-			 
-			var json = []; 
+
+			var json = [];
             $this.find('.frm-fld').each(function () {
 				var fld = {};
-				
+
 				if ($(this).attr("type") == "radio") {
 					if ($(this).is(':checked')) {
-						fld = methods.getFldData($(this), $(this).val().replace('"', '||') ); 
+						fld = methods.getFldData($(this), $(this).val().replace('"', '||') );
 					}
 				} else if($(this).attr("type") == "checkbox" ){
-					
+
 					if( !$(this).hasClass("fm-dealt-with-store")){
-						 
-						var t = new Array(); 
-						
+
+						var t = new Array();
+
 						$this.find("input[name='"+ $(this).attr("name") +"']").each(function(){
 							$(this).addClass("fm-dealt-with-store");
 
-							if ($(this).is(':checked')) { 
+							if ($(this).is(':checked')) {
 								t.push( $(this).val().replace('"', '||') );
 							}
 						});
-						fld = methods.getFldData($(this), t );  
+						fld = methods.getFldData($(this), t );
 					}
-				}else{  
-					fld = methods.getFldData($(this), $(this).val().replace('"', '||') );  
-				} 
+				}else{
+					fld = methods.getFldData($(this), $(this).val().replace('"', '||') );
+				}
 				if(fld.qname) json.push(fld);
             });
-            
+
 			$(".fm-dealt-with-store").removeClass("fm-dealt-with-store");
 
 			postSettings.storeObj = JSON.stringify(json);
 			postSettings.aspects  = JSON.stringify(aspectsArr);
-			  
+
 			$.post(settings.postUrl, postSettings, function (e) {
                 if (settings.onSaveComplete) settings.onSaveComplete($this);
                 if (callback) callback(e);
 
-            }, "json");  
+            }, "json");
         },
 
         destroy: function () {
@@ -647,5 +651,5 @@
             if(isDebug) console.log('Method ' + method + ' does not exist on jQuery.form');
         }
     };
-	  
+
 })(jQuery);
