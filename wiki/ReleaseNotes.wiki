@@ -1,10 +1,8 @@
-#release notes for FM Module.
- 
 = Details =
 
 == Mar 11th 2012 ==
 *FM Module WCS 1.2.2*
-  * Added a home page for user to start off. Depending if your admin it will show you different options.
+  * Added a home page for user to start off. Depending if your admin it will show you different options;
   * Permissions added; Using Alfresco Administrator group for developers
   * Added quick field type switch; useful for model importing
   * Added validation for Alfresco requirements
@@ -14,6 +12,7 @@
   * Made the form builder field types, accordians modular for easy customization
   * New callbacks added for loadNode and a few others that are in the updated documentation
 
+Home page link: http://localhost:8080/alfresco/wcs/form-builder/home
 
 == Mar 1st 2012 == 
 
