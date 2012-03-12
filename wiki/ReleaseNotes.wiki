@@ -2,6 +2,18 @@
  
 = Details =
 
+== Mar 11th 2012 ==
+*FM Module WCS 1.2.2*
+  * Permissions added; Using Alfresco Administrator group for developers
+  * Added quick field type switch; useful for model importing
+  * Added validation for Alfresco requirements
+  * Cleaned up code
+  * Added filter on aspects in form builder for better usability
+  * Removed questionnaire slider as it doesn't make much sense the drop down one is way better
+  * Made the form builder field types, accordians modular for easy customization
+  * New callbacks added for loadNode and a few others that are in the updated documentation
+
+
 == Mar 1st 2012 == 
 
 *FM Module WCS 1.2.0*
