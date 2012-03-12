@@ -4,6 +4,7 @@
 
 == Mar 11th 2012 ==
 *FM Module WCS 1.2.2*
+  * Added a home page for user to start off. Depending if your admin it will show you different options.
   * Permissions added; Using Alfresco Administrator group for developers
   * Added quick field type switch; useful for model importing
   * Added validation for Alfresco requirements
