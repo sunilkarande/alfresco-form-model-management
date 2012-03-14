@@ -8,14 +8,12 @@ function fileExistsClash(name, destination, i){
 
 	//Split old and get extension
 	var ext = name.substr(name.lastIndexOf('.') + 1);
-	var filename = name.replace("."+ext, "");
-	var newname = filename + "-" + i + "." + ext;
-
- 	if(destination.childByNamePath(newname)){
-		fileExistsClash(name, destination, i++);
-	}else{
-		return newname;
+	var filename = name.replace("."+ext, "").replace("-"+i, "");
+	var integer = i;
+	while( destination.childByNamePath(filename + "-" + integer + "." + ext ) ){
+		integer++;
 	}
+	return filename + "-" + integer + "." + ext;
 }
 
 function getDateArray(string){
