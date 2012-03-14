@@ -398,7 +398,7 @@
 			return tmp;
 		},
 		hiddenTemplate: function (prop){
-			var tmp = '<input type="hidden" id="' + prop.id + '" title="' + prop.type + '" name="' + prop.validPrefix + "_" + prop.name + '" name="frm-fld ' + prop.validPrefix + "_" + prop.name + '"  value="0" />';
+			var tmp = '<input type="hidden" id="' + prop.id + '" title="' + prop.type + '" name="' + prop.validPrefix + "_" + prop.name + '" class="frm-fld ' + prop.validPrefix + "_" + prop.name + '"  value="0" />';
 			return tmp;
 		},
         selectTemplate: function (prop) {
