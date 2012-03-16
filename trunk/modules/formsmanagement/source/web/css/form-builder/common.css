@@ -485,6 +485,7 @@ form.smallFlds p label {
 .fm-body-inner {
     font-family: arial,sans-serif;
     font-size: 12px;
+	margin-bottom: 50px;
 }
 .fm-body ul {
     margin: 0;
