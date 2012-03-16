@@ -37,9 +37,23 @@ function formToJson(){
 		fieldObj.minlength = parseInt(input.attr('minlength'));
 		fieldObj.maxlength = parseInt(input.attr('maxlength'));
 		fieldObj.className =  input.attr('class').replace(/frm-fld/g, "").replace(/undefined/g, "").replace(/hasDatepicker/g, "");
+		 
+		fieldObj.multiple = false;
+		if(input.hasClass('alf-multiple')) fieldObj.multiple = true; 
 		fieldObj.mandatory = false;
 		if(input.hasClass('required')) fieldObj.mandatory = true;
 		if(input.hasClass('frm-hidden')) fieldObj.hidden = true;
+		 
+		if(input.hasClass('alf-index')){
+			fieldObj.index = {};
+			fieldObj.index.atomic = false;
+			fieldObj.index.stored = false;
+			fieldObj.index.tokenised = false;
+			 
+			if(input.hasClass('alf-inx-atomic')) 	fieldObj.index.atomic = true;
+			if(input.hasClass('alf-inx-stored')) 	fieldObj.index.stored = true;
+			if(input.hasClass('alf-inx-tokenized')) fieldObj.index.tokenized = true;
+		}
 		
 		fieldObj.name = propFullname[1];
 		fieldObj.namespace = propFullname[0];
@@ -107,7 +121,7 @@ function formToJson(){
 		//fieldObj.alfPropertyName = input.attr('id');
 		properties.push(fieldObj);
 	});
-	jObj.properties = properties;
+	jObj.properties = properties; 
 	return jObj;
 }
 

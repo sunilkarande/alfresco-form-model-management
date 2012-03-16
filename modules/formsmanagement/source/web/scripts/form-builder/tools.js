@@ -132,6 +132,17 @@ function indexMasks(type){
 		$('#'+thisId).mask(thisMask);
 	});
 }
+function flipClassnameSelected(className){ 
+	var hasClass = false;
+	
+	if($(".ui-helper").find(".frm-fld").hasClass(className)){
+		$(".ui-helper").find(".frm-fld").removeClass(className);  
+	}else{
+		$(".ui-helper").find(".frm-fld").addClass(className); 
+		hasClass = true;
+	} 
+	return hasClass;	
+}
 
 $(function () {
 	$("#formToolWrapper").tabs();
@@ -148,7 +159,7 @@ $(function () {
 		$(".frm-alf-type-prefix").append('<option value="'+fmModelObj.imports[x]["@prefix"]+'">'+fmModelObj.imports[x]["@prefix"]+'</option>');
 	}
 	  
-	$(".optionSortable").sortable({ items: 'li', update: function(event, ui) {  pushOptionsToField(); } });
+	$(".optionSortable").sortable({ items: 'li', distance: 20, update: function(event, ui) {  pushOptionsToField(); } });
 	$(".optionSortable").disableSelection();
 	$("#accordion").accordion({ autoHeight: false, navigation: true });
 	$("#accordion-tab1").accordion({ autoHeight: false, navigation: true });
@@ -267,26 +278,8 @@ $(function () {
 		 $('.prg-frm-redirect').val($(this).val());
 		 addSentOption("redirect");
 	});
-
-
-	//Set output box show
-/*	if($('.prg-frm-redirect').val().length > 0){
-		$('.messageRedirect').show();
-		$('.messageFrmOpt').hide();
-		$('#confirm_url').attr("checked", "checked");
-		$('.prg-redirect').val( $('.prg-frm-redirect').val());
-	}else{
-		$('.messageRedirect').hide();
-		$('.messageFrmOpt').show();
-		$('#confirm_message').attr("checked", "checked");
-
-		$('.prg-opt-title').val($('.outputMessage').children('h1').html());
-		$('.prg-message').val( $('.outputMessage').children('p').html() );
-
-	} */
-
-	/* Field options */
-
+ 
+	/* Field options */ 
 	$(".selectMask").livequery('change', function() {
 		$(".ui-helper").find("input")
 			.removeClass('isOtherExp')
@@ -338,8 +331,7 @@ $(function () {
 			 var a= $('.frm-alf-property-name').val();
 			 var b= $('.frm-alf-property-prefix').val();
 			$(".ui-helper").find(".frm-fld").attr("name", b + "_" + a); 
-		 }
-
+		 } 
 	});
 
 	$(".frm-alf-property-name").live('keyup', function() {
@@ -378,7 +370,37 @@ $(function () {
 			$(".ui-helper > label").append('*');
 		}
 	});
-	
+	 
+	$('.prg_index').live('click', function() { 
+		$(".index-sub-cat").hide();
+		var hasIndex = flipClassnameSelected('alf-index'); 
+		if(hasIndex){
+			$(".index-sub-cat").show();  
+		}else{
+			$('.index-sub-cat').hide();
+			$(".ui-helper").find(".frm-fld").removeClass('alf-inx-atomic alf-inx-tokenized alf-inx-stored');
+		}
+	});
+	$('.prg_inx-atomic').live('click', function() { 
+		flipClassnameSelected('alf-inx-atomic');
+	}); 
+	$('.prg_inx-tokenized').live('click', function() { 
+		flipClassnameSelected('alf-inx-tokenized');
+	});
+	$('.prg_inx-stored').live('click', function() { 
+		flipClassnameSelected('alf-inx-stored');
+	}); 
+	 
+	$('.prg_verification').live('click', function() {
+		flipClassnameSelected('verification'); 
+	});
+	$('.prg_numOnly').live('click', function() {
+		flipClassnameSelected('numOnly');  
+	});
+	$('.prg_alphanumOnly').live('click', function() {
+		flipClassnameSelected('alphanumOnly');  
+	});
+	 
 	$('.prg_hidden').live('click', function() {
 		if($(".ui-helper").find(".frm-fld").hasClass('frm-hidden')){
 			$(".ui-helper").find(".frm-fld").removeClass('frm-hidden');
@@ -388,18 +410,9 @@ $(function () {
 		}else{
 			$(".ui-helper").find(".frm-fld").addClass('frm-hidden'); 
 		}
-	});
+	}); 
 	
-	$('.prg_verification').live('click', function() {
-		if($(".ui-helper").find(".frm-fld").hasClass('verification')){
-			$(".ui-helper").find(".frm-fld").removeClass('verification');  
-		}else{
-			$(".ui-helper").find(".frm-fld").addClass('verification'); 
-		}
-	});
-	 
-	$('.frmFormat').livequery('change', function() {
-
+	$('.frmFormat').livequery('change', function() { 
 		$('#formFormat').attr('class', $(this).val() );
 	});
 	$('.fieldAddOptions a').live('click', function(){
@@ -409,35 +422,17 @@ $(function () {
 		$(".f_b_root").sortable("refresh");
 		return false;
 	});
-
-	$('.prg_numOnly').live('click', function() {
-		if($(".ui-helper > div > .frm-fld").hasClass('numOnly')){
-			$(".ui-helper > div > .frm-fld").removeClass('numOnly');
-		}else{
-			$(".ui-helper > div > .frm-fld").addClass('numOnly');
-		}
-	});
-	$('.prg_alphanumOnly').live('click', function() {
-		if($(".ui-helper > div > .frm-fld").hasClass('alphanumOnly')){
-			$(".ui-helper > div > .frm-fld").removeClass('alphanumOnly');
-		}else{
-			$(".ui-helper > div > .frm-fld").addClass('alphanumOnly');
-		}
-	});
-
-	$(".delOption").live('click', function(){
-
+ 
+	$(".delOption").live('click', function(){ 
 		$(this).parents('li:eq(0)').remove();
-		pushOptionsToField();
-
+		pushOptionsToField(); 
 	});
 
 	$(".addOption").live('click', function(){
 		$('.optionSortable').append('<li><input style="width:150px!important" class="frm_opt_val" type="text" value="" /><a class="delOption" tabindex="-1" href="#"><span>Delete</span></a></li>');
 	});
 	$(".optionSortable li input").livequery('change', function(){
-		pushOptionsToField();
-
+		pushOptionsToField(); 
 	});
 	/*	Start open props
 	-------------------------------------------------------*/
@@ -544,15 +539,38 @@ $(function () {
 		}else{
 			$('.prg_required').attr("checked", ""); 
 		}
+		 
+		//Is it a multiple?
+		if(fieldNode.hasClass('alf-multiple')){
+			$('.prg_multiple').attr("checked", "checked"); 
+		}else{
+			$('.prg_multiple').attr("checked", ""); 
+		}
 		
-		//Is it a required field?
+		//Is it a index?
+		if(fieldNode.hasClass('alf-index')){
+			$('.prg_index').attr("checked", "checked"); 
+			$('.index-sub-cat').show();
+			if( fieldNode.hasClass('alf-inx-atomic') ) $('.prg_inx-atomic').attr("checked", "checked");  
+			if( fieldNode.hasClass('alf-inx-stored') ) $('.prg_inx-stored').attr("checked", "checked");  
+			if( fieldNode.hasClass('alf-inx-tokenized') ) $('.prg_inx-tokenized').attr("checked", "checked");  
+			
+		}else{
+			$('.prg_index').attr("checked", ""); 
+			$('.index-sub-cat').hide();
+			$('.prg_inx-atomic').attr("checked", "");  
+			$('.prg_inx-stored').attr("checked", "");  
+			$('.prg_inx-tokenized').attr("checked", "");  
+		}
+		
+		//Is it a hidden field?
 		if(fieldNode.hasClass('frm-hidden')){
 			$('.prg_hidden').attr("checked", "checked"); 
 		}else{
 			$('.prg_hidden').attr("checked", ""); 
 		}
 		
-		//Is it a required field?
+		//Is it a verification field?
 		if(fieldNode.hasClass('verification')){
 			$('.prg_verification').attr("checked", "checked"); 
 		}else{
