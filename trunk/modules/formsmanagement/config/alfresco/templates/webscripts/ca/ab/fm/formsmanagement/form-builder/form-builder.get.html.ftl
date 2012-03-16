@@ -173,6 +173,11 @@
 				$('.prg-desc').val($('.frm_desc').html());
 				$('.frmFormat').val( $('#formFormat').attr("class") );
 				$('.prg-formclass').val( $(".formContainerStage form").attr("class") );
+				
+				$(".f_b_root").sortable({
+					items: '.group', distance:20
+				}).disableSelection();
+				
 			}
 		});
  

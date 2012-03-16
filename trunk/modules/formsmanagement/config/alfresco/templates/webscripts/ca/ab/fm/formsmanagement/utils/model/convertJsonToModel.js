@@ -108,7 +108,13 @@ function convertJsonToXml(modelObj){
 				//if(property.mandatory && property.mandatory == true) mString += '	<mandatory>'+ property.mandatory + '</mandatory>';
 				if(property["default"]) mString += '	<default>'+ property["default"] + '</default>';
 				if(property["multiple"]) mString += '	<multiple>'+ property["multiple"] + '</multiple>';
-				
+				if(property["index"]){ 
+					mString += '  <index enabled="true">';
+					mString += '	<atomic>'+ property["index"]["atomic"] +'</atomic>       <!-- index in the background -->';			
+					mString += '	<stored>'+property["index"]["stored"]+'</stored>       <!-- store the property value in the index -->';
+					mString += '	<tokenised>'+property["index"]["tokenised"]+'</tokenised>';
+					mString += '	</index>';
+                } 
 				
 				if(property["constraints"]){
 					mString += '						<constraints>'; 
