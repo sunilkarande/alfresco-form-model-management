@@ -10,7 +10,7 @@
 		var fmAspectName = "${aspectName!}";
 		var fmModelObj = eval("(" + jsonModel + ")");
 	</script>
-	 
+
 </head>
 <body>
 <#assign fmNoneAdminStyle = "" />
@@ -53,7 +53,7 @@
 	<div class="fm-sidebar">
 		<div class="fm-title-bar"><span>Available Aspects:</span></div>
 		<div class="fm-search-aspects">
-			<input type="text" name="filter" id="search_filter" />	
+			<input type="text" name="filter" id="search_filter" />
 		</div>
 		<div id="titles">
 			<ul>
@@ -96,14 +96,14 @@
 									<span style="font-weight:bold; font-size:12px; padding-bottom:5px; display:block">Pre-defined Fields:</span>
 									<#list predefinedFields as field>
 										<a href="#" id="${field.id}">${field.label}</a>
-									</#list> 
+									</#list>
 	                                </div>
 								</div>
 								<div id="tabs-2" class="fieldProps">
-									<div id="accordion">  
-										<#include "acc-field-properties/field-options.ftl" /> 
+									<div id="accordion">
+										<#include "acc-field-properties/field-options.ftl" />
 										<#include "acc-field-properties/validation-list.ftl" />
-										<#include "acc-field-properties/dropdown-options.ftl" /> 
+										<#include "acc-field-properties/dropdown-options.ftl" />
 										<#include "acc-field-properties/alfresco-properties.ftl" />
 									</div>
 									</div>
@@ -111,7 +111,7 @@
 							</div>
 							</form>
 						</div>
-					
+
 					<div class="fm-errBox" style="display:none;">
 						<p>There were some errors with your form:</p>
 						<ul></ul>
@@ -173,14 +173,14 @@
 				$('.prg-desc').val($('.frm_desc').html());
 				$('.frmFormat').val( $('#formFormat').attr("class") );
 				$('.prg-formclass').val( $(".formContainerStage form").attr("class") );
-				
+
 				$(".f_b_root").sortable({
 					items: '.group', distance:20
 				}).disableSelection();
-				
+
 			}
 		});
- 
+
 	});
 </script>
 </#if>
