@@ -3,7 +3,7 @@
 function fileExistsClash(name, destination, i){
 	//Split old and get extension
 	var ext = name.substr(name.lastIndexOf('.') + 1);
-	var filename = name.replace("."+ext, "").replace("-"+i, "");
+	var filename = name.replace("."+ext, "");
 	var integer = i;
 	while( destination.childByNamePath(filename + "-" + integer + "." + ext ) ){
 		integer++;
