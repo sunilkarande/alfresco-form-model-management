@@ -4,7 +4,7 @@ function saveFmForm(){
 	var aspectToSave = formToJson();
 	//Are we still valid for properties
 	$('.fm-errBox').hide();
-	  
+
 	if(isFmValid){
 		cleanupForSave();
 		saveAspectToObj(fmModelObj, aspectToSave);
@@ -23,8 +23,8 @@ function getFieldTemplate(fieldType, attr){
 		attr.name= "";
 		attr.title="";
 	}
-	 
-	var fieldTmp = "";  
+
+	var fieldTmp = "";
 	var fieldTypeArr = fieldType.split("_");
 
 	if(fieldTypeArr[1] == "radio" || fieldTypeArr[1] == "text" || fieldTypeArr[1] == "checkbox"){
@@ -48,10 +48,10 @@ function getFieldTemplate(fieldType, attr){
 		fieldTmp += '<label>'+attr.label+'</label><div><input type="text" name="'+attr.name+'" title="'+attr.title+'" class="frm-fld" value=""><input type="text" name="" class="frm-fld" value=""></div>';
 		fieldTmp += '</div>';
 
-	}else if(fieldTypeArr[1] == "sliderval"){ 
+	}else if(fieldTypeArr[1] == "sliderval"){
 		fieldTmp = '<div class="group slidervalCss">';
 		fieldTmp += '<label>'+attr.label+'</label><div class="slider-wrapper"><select value="" title="'+attr.title+'" class="val_slider frm-fld select" name="'+attr.name+'"></select></div>';
-		fieldTmp += '</div>'; 
+		fieldTmp += '</div>';
 	}else{
 		fieldTmp = '<div class="group">';
 		fieldTmp += '<label>'+attr.label+'</label><div><'+fieldTypeArr[1]+' value="" title="'+attr.title+'" class="frm-fld '+fieldTypeArr[1]+'" name="'+attr.name+'"></'+fieldTypeArr[1]+'></div>';
@@ -66,7 +66,7 @@ function loadToggleValues(){
 			$(this).find(".i-toggle-slider").css({  left: '0px' });
 		}else{
 			$(this).find(".i-toggle-slider").css({  left: '-21px' });
-		}  
+		}
 	});
 }
 function pushOptionsToField(){
@@ -132,38 +132,38 @@ function indexMasks(type){
 		$('#'+thisId).mask(thisMask);
 	});
 }
-function flipClassnameSelected(className){ 
+function flipClassnameSelected(className){
 	var hasClass = false;
-	
+
 	if($(".ui-helper").find(".frm-fld").hasClass(className)){
-		$(".ui-helper").find(".frm-fld").removeClass(className);  
+		$(".ui-helper").find(".frm-fld").removeClass(className);
 	}else{
-		$(".ui-helper").find(".frm-fld").addClass(className); 
+		$(".ui-helper").find(".frm-fld").addClass(className);
 		hasClass = true;
-	} 
-	return hasClass;	
+	}
+	return hasClass;
 }
 
 $(function () {
 	$("#formToolWrapper").tabs();
-	
+
 	//Load Available Namespaces
 	 var availableNamespaces = "";
 	for(x in fmModelObj.namespaces){
 		availableNamespaces += ('<option value="'+fmModelObj.namespaces[x]["@prefix"]+'">'+fmModelObj.namespaces[x]["@prefix"]+'</option>');
 	}
 	$(".prg-aspectprefix, .frm-alf-property-prefix").html(availableNamespaces);
-	 
+
 	$(".frm-alf-type-prefix").html("");
 	for(x in fmModelObj.imports){
 		$(".frm-alf-type-prefix").append('<option value="'+fmModelObj.imports[x]["@prefix"]+'">'+fmModelObj.imports[x]["@prefix"]+'</option>');
 	}
-	  
+
 	$(".optionSortable").sortable({ items: 'li', distance: 20, update: function(event, ui) {  pushOptionsToField(); } });
 	$(".optionSortable").disableSelection();
 	$("#accordion").accordion({ autoHeight: false, navigation: true });
 	$("#accordion-tab1").accordion({ autoHeight: false, navigation: true });
- 
+
 	$('.frmSaveButton').mouseup(function(){
 		saveFmForm();
 	});
@@ -278,8 +278,8 @@ $(function () {
 		 $('.prg-frm-redirect').val($(this).val());
 		 addSentOption("redirect");
 	});
- 
-	/* Field options */ 
+
+	/* Field options */
 	$(".selectMask").livequery('change', function() {
 		$(".ui-helper").find("input")
 			.removeClass('isOtherExp')
@@ -311,27 +311,30 @@ $(function () {
 		}
 	});
 	$(".prg_fieldLabel").keyup(function() {
-		 $(".ui-helper > label").html($(this).val()); 
+		 $(".ui-helper > label").html($(this).val());
 	});
-	
-	$(".prg_tipLabel").keyup(function() { 
-		var tipObj = $(".ui-helper div").find('span.fld-tip'); 
+
+	$(".prg_tipLabel").keyup(function() {
+		var tipObj = $(".ui-helper div").find('span.fld-tip');
 		if(tipObj.length > 0){  }else{
 			$(".ui-helper div").append('<span class="fld-tip"></span>');
-		} 
+		}
 		$(".ui-helper").find(".fld-tip").html( $(this).val() );
-		    
+
 	});
-	 
+
 	$(".prg_fieldLabel").blur(function() {
 		//ONLY USE THIS HELPER ONCE. DO NOT CHANGE AFTER IT MAY HAVE BEEN SAVED AND SOMEONE CHANGES THE LABEL
 		//OTHER NODES MAYBE USING OLD PROPERTY NAME
-		 if( $('.frm-alf-property-name').val() == ""){
-		 	$('.frm-alf-property-name').val( $(this).val().replace(/ /g, "").toLowerCase() );
+		if( $('.frm-alf-property-name').val() == ""){
+		 	var nme = $(this).val().replace(/ /g, "").toLowerCase();
+				nme = nme.replace(/[^a-z]/g, '');
+		 	$('.frm-alf-property-name').val( nme );
+
 			 var a= $('.frm-alf-property-name').val();
 			 var b= $('.frm-alf-property-prefix').val();
-			$(".ui-helper").find(".frm-fld").attr("name", b + "_" + a); 
-		 } 
+			$(".ui-helper").find(".frm-fld").attr("name", b + "_" + a);
+		 }
 	});
 
 	$(".frm-alf-property-name").live('keyup', function() {
@@ -344,7 +347,7 @@ $(function () {
 		  var b= $('.frm-alf-property-prefix').val();
 		 $(".ui-helper").find(".frm-fld").attr("name", b + "_" + a);
 	});
- 
+
 	$(".frm-alf-type, .frm-alf-type-prefix").change(function() {
 		  var a= $('.frm-alf-type').val();
 		  var b= $('.frm-alf-type-prefix').val();
@@ -362,77 +365,77 @@ $(function () {
 	$('.prg_required').live('click', function() {
 		if($(".ui-helper").find(".frm-fld").hasClass('required')){
 			$(".ui-helper").find(".frm-fld").removeClass('required');
-			$(".ui-helper").find('.lbRequired').remove(); 
+			$(".ui-helper").find('.lbRequired').remove();
 			$(".ui-helper > label").html( $(".ui-helper > label").html().replace('*', '') );
-			 
+
 		}else{
 			$(".ui-helper").find(".frm-fld").addClass('required');
 			$(".ui-helper > label").append('*');
 		}
 	});
-	 
-	$('.prg_index').live('click', function() { 
+
+	$('.prg_index').live('click', function() {
 		$(".index-sub-cat").hide();
-		var hasIndex = flipClassnameSelected('alf-index'); 
+		var hasIndex = flipClassnameSelected('alf-index');
 		if(hasIndex){
-			$(".index-sub-cat").show();  
+			$(".index-sub-cat").show();
 		}else{
 			$('.index-sub-cat').hide();
 			$(".ui-helper").find(".frm-fld").removeClass('alf-inx-atomic alf-inx-tokenized alf-inx-stored');
 		}
 	});
-	$('.prg_inx-atomic').live('click', function() { 
+	$('.prg_inx-atomic').live('click', function() {
 		flipClassnameSelected('alf-inx-atomic');
-	}); 
-	$('.prg_inx-tokenized').live('click', function() { 
+	});
+	$('.prg_inx-tokenized').live('click', function() {
 		flipClassnameSelected('alf-inx-tokenized');
 	});
-	$('.prg_inx-stored').live('click', function() { 
+	$('.prg_inx-stored').live('click', function() {
 		flipClassnameSelected('alf-inx-stored');
-	}); 
-	 
+	});
+
 	$('.prg_verification').live('click', function() {
-		flipClassnameSelected('verification'); 
+		flipClassnameSelected('verification');
 	});
 	$('.prg_numOnly').live('click', function() {
-		flipClassnameSelected('numOnly');  
+		flipClassnameSelected('numOnly');
 	});
 	$('.prg_alphanumOnly').live('click', function() {
-		flipClassnameSelected('alphanumOnly');  
+		flipClassnameSelected('alphanumOnly');
 	});
-	 
+
 	$('.prg_hidden').live('click', function() {
 		if($(".ui-helper").find(".frm-fld").hasClass('frm-hidden')){
 			$(".ui-helper").find(".frm-fld").removeClass('frm-hidden');
-			$(".ui-helper").find('.lbRequired').remove(); 
+			$(".ui-helper").find('.lbRequired').remove();
 			$(".ui-helper > label").html( $(".ui-helper > label").html().replace('*', '') );
-			 
+
 		}else{
-			$(".ui-helper").find(".frm-fld").addClass('frm-hidden'); 
+			$(".ui-helper").find(".frm-fld").addClass('frm-hidden');
 		}
-	}); 
-	
-	$('.frmFormat').livequery('change', function() { 
+	});
+
+	$('.frmFormat').livequery('change', function() {
 		$('#formFormat').attr('class', $(this).val() );
 	});
 	$('.fieldAddOptions a').live('click', function(){
-		
+
 		var thisNewField = getFieldTemplate( $(this).attr('id') );
 		$('.f_b_root').append(thisNewField);
 		$(".f_b_root").sortable("refresh");
 		return false;
 	});
- 
-	$(".delOption").live('click', function(){ 
+
+	$(".delOption").live('click', function(){
 		$(this).parents('li:eq(0)').remove();
-		pushOptionsToField(); 
+		pushOptionsToField();
 	});
 
 	$(".addOption").live('click', function(){
 		$('.optionSortable').append('<li><input style="width:150px!important" class="frm_opt_val" type="text" value="" /><a class="delOption" tabindex="-1" href="#"><span>Delete</span></a></li>');
 	});
 	$(".optionSortable li input").livequery('change', function(){
-		pushOptionsToField(); 
+		pushOptionsToField();
 	});
 	/*	Start open props
 	-------------------------------------------------------*/
@@ -451,7 +454,7 @@ $(function () {
 		$(".optionsMenu").hide();
 
 		var fieldTitle = $(this).children('label').text();
-		var fieldNode =  $(this).find('.frm-fld:eq(0)');		
+		var fieldNode =  $(this).find('.frm-fld:eq(0)');
 		var tooltip =  $(this).find('.fld-tip:eq(0)').html();
 
 		//Populate Alfresco Properties
@@ -459,31 +462,31 @@ $(function () {
 		if(tmpName == ""){
 			$('.frm-alf-property-prefix').val( $('.prg-aspectprefix').val() );
 			$('.frm-alf-property-name').val("");
- 
+
 		}else{
 			var propFullName = tmpName.split("_");
-			  
+
 			if(propFullName[1].indexOf(":") >= 0){
 				propFullName[1] = propFullName[1].split(":")[1];
-				propFullName[0] = propFullName[0].split(":")[0]; 
+				propFullName[0] = propFullName[0].split(":")[0];
 			}
-			
-			$('.frm-alf-property-prefix').val(propFullName[0]); 
+
+			$('.frm-alf-property-prefix').val(propFullName[0]);
 			$('.frm-alf-property-name').val(propFullName[1]);
 		}
 
 		var alfType = $(this).find('.frm-fld:eq(0)').attr("title");
 		if(alfType != ""){
 			var typeFullName = alfType.split("_");
-			$('.frm-alf-type-prefix').val(typeFullName[0]); 
+			$('.frm-alf-type-prefix').val(typeFullName[0]);
 			$('.frm-alf-type').val(typeFullName[1]);
 		}else{
 			//Use default
 			$('.frm-alf-type-prefix').val(fmModelObj.imports[0]["@prefix"]);
 			$('.frm-alf-type').val("text");
-			
+
 			$(this).find('.frm-fld:eq(0)').attr("title", fmModelObj.imports[0]["@prefix"] + "_" + "text");
-			
+
 		}
 
 		//Custom Text
@@ -531,52 +534,52 @@ $(function () {
 		//Change tool props to show title
 		$('.prg_fieldLabel').val(fieldTitle.replace("*", ""));
 		$('.prg_tipLabel').val(tooltip);
-		 
+
 
 		//Is it a required field?
 		if(fieldNode.hasClass('required')){
-			$('.prg_required').attr("checked", "checked"); 
+			$('.prg_required').attr("checked", "checked");
 		}else{
-			$('.prg_required').attr("checked", ""); 
+			$('.prg_required').attr("checked", "");
 		}
-		 
+
 		//Is it a multiple?
 		if(fieldNode.hasClass('alf-multiple')){
-			$('.prg_multiple').attr("checked", "checked"); 
+			$('.prg_multiple').attr("checked", "checked");
 		}else{
-			$('.prg_multiple').attr("checked", ""); 
+			$('.prg_multiple').attr("checked", "");
 		}
-		
+
 		//Is it a index?
 		if(fieldNode.hasClass('alf-index')){
-			$('.prg_index').attr("checked", "checked"); 
+			$('.prg_index').attr("checked", "checked");
 			$('.index-sub-cat').show();
-			if( fieldNode.hasClass('alf-inx-atomic') ) $('.prg_inx-atomic').attr("checked", "checked");  
-			if( fieldNode.hasClass('alf-inx-stored') ) $('.prg_inx-stored').attr("checked", "checked");  
-			if( fieldNode.hasClass('alf-inx-tokenized') ) $('.prg_inx-tokenized').attr("checked", "checked");  
-			
+			if( fieldNode.hasClass('alf-inx-atomic') ) $('.prg_inx-atomic').attr("checked", "checked");
+			if( fieldNode.hasClass('alf-inx-stored') ) $('.prg_inx-stored').attr("checked", "checked");
+			if( fieldNode.hasClass('alf-inx-tokenized') ) $('.prg_inx-tokenized').attr("checked", "checked");
+
 		}else{
-			$('.prg_index').attr("checked", ""); 
+			$('.prg_index').attr("checked", "");
 			$('.index-sub-cat').hide();
-			$('.prg_inx-atomic').attr("checked", "");  
-			$('.prg_inx-stored').attr("checked", "");  
-			$('.prg_inx-tokenized').attr("checked", "");  
+			$('.prg_inx-atomic').attr("checked", "");
+			$('.prg_inx-stored').attr("checked", "");
+			$('.prg_inx-tokenized').attr("checked", "");
 		}
-		
+
 		//Is it a hidden field?
 		if(fieldNode.hasClass('frm-hidden')){
-			$('.prg_hidden').attr("checked", "checked"); 
+			$('.prg_hidden').attr("checked", "checked");
 		}else{
-			$('.prg_hidden').attr("checked", ""); 
+			$('.prg_hidden').attr("checked", "");
 		}
-		
+
 		//Is it a verification field?
 		if(fieldNode.hasClass('verification')){
-			$('.prg_verification').attr("checked", "checked"); 
+			$('.prg_verification').attr("checked", "checked");
 		}else{
-			$('.prg_verification').attr("checked", ""); 
+			$('.prg_verification').attr("checked", "");
 		}
-		 
+
 		//Is it a numOnly field?
 		if(fieldNode.hasClass('numOnly')){
 			$('.prg_numOnly').attr("checked", "checked");
@@ -623,12 +626,12 @@ $(function () {
 	$('.delField').live('click', function(){
 		$(this).parents(".group:eq(0)").remove();
 	});
-	
+
 	$('.changeField').live('click', function(){
 		var oSet = $(this).offset();
 		$(this).parents(".group").addClass("fm-change-field");
 		$('.field-change-popup').css({ "top": oSet.top + 15, "left": oSet.left - 165 }).show();
-	}); 
+	});
 	$('.field-change-popup').mouseleave( function(){
 		setTimeout('$(".field-change-popup").hide(); $(".fm-change-field").removeClass("fm-change-field");', 200);
 	});
@@ -636,16 +639,16 @@ $(function () {
 		var copyField = $('.fm-change-field').find('.frm-fld:eq(0)');
 		//Remove Required
 		$('.fm-change-field').find('label:eq(0) span').remove();
-		
+
 		var label = $('.fm-change-field').find('label:eq(0)').text();
 		var attr = {};
 			attr.title = copyField.attr("title");
 			attr.name = copyField.attr("name");
 			attr.label = label;
-			
+
 		var thisNewField = getFieldTemplate( $(this).attr('id'), attr);
 		$('.fm-change-field').replaceWith(thisNewField);
-		return false;		
+		return false;
 	});
 
 	//Some validation stuff
@@ -701,18 +704,15 @@ $(function(){
 	    $('.frmActionFunction').fadeIn("medium");
 		$('.actionFunction').val(action);
 
-	} 
-	/* iToggle Checkbox */ 
+	}
+	/* iToggle Checkbox */
 	$('.i-toggle').live("mouseup", function(){
-		var iBox = $(this).find("input"); 
-        iBox.trigger("click"); 
+		var iBox = $(this).find("input");
+        iBox.trigger("click");
 		if(iBox.attr('checked')){
 			$(this).find(".i-toggle-slider").animate({  left: '+=21' }, 300, function() {   });
 		}else{
 			$(this).find(".i-toggle-slider").animate({  left: '-=21' }, 300, function() {  });
-		} 
-	}); 
+		}
+	});
 });
-
-
-
