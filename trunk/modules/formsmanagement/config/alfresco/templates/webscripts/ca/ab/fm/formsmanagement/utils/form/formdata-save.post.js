@@ -32,9 +32,11 @@ function saveDataToNode(node, dataString, aspectString){
 
 		//Add aspects first
 		for(x in aspects){
+			if( !node.hasAspect( aspects[x].replace("_", ":") + "" ) ){
 				if(isDebug) logger.log("FORM MANAGEMENT - ADDING aspect " + aspects[x]);
 				node.addAspect(aspects[x].replace("_", ":") + "");
 				node.save();
+			}
 		}
 		//Add properties
 		for(var i in data) {
@@ -59,7 +61,7 @@ function saveDataToNode(node, dataString, aspectString){
 
 	}catch(err){
 		model.status = 0;
-		model.msg += "Failed to save aspects/properties to document(s)~";
+		model.msg += "Failed to save aspects/properties to document(s)~" + err;
 		model.failedItems++;
 	}
 }
@@ -69,7 +71,7 @@ function saveMetadataToDoc(node, fmStoreObj, fmAspects){
 		if(isDebug) logger.log("FORM MANAGEMENT - Found Node for Storing Form Data " + node.id);
 		saveDataToNode(node, fmStoreObj, fmAspects);
 	}else{
-		model.msg += "Failed to save aspects/properties to document(s)~";
+		model.msg += "Could not find node~";
 		model.failedItems++;
 		if(isDebug) logger.log("FORM MANAGEMENT - failed to save aspect/properties to node" + node.id);
 	}
@@ -148,6 +150,7 @@ if(fmNodeId.indexOf("create-doc") >= 0){
 		if(nodeArr[x].indexOf("workspace") == -1)  nodeArr[x] = "workspace://SpacesStore/" + nodeArr[x];
 
 		var node = search.findNode(nodeArr[x]);
+
 		saveMetadataToDoc(node, fmStoreObj, fmAspects);
 	}
 }
