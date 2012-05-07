@@ -183,8 +183,13 @@ $(function () { /* Setup */
 
 		$('.fm-dialog-body h2:eq(0)').html("Managing Dropdown: <span>" + $(this).find('span').html() + "</span>");
 		var cache = new Date().getTime();
-        var url = $(this).attr("href") + "?c=" + cache ;
+        var url = $(this).attr("href") + "?c=" + cache;
 		$('.fileLink').attr("href", url);
+
+
+		var shareUrl = url.replace("/alfresco/d/d/workspace/SpacesStore/", "/share/proxy/alfresco/api/node/content/workspace//SpacesStore/");
+		$('.shareLink').attr("href", shareUrl + "?a=true");
+
 
         $.getJSON(url, {}, function (r) {
             var len = r.length;
