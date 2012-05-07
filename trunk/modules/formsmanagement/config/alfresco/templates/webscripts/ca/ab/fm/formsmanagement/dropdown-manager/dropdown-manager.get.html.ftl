@@ -61,7 +61,8 @@
 						<select class="fm-dd-demo">
 							<option value="">- Select demo -</option>
 						</select>
-						<div><a href="#" class="fileLink" target="_blank">Here is a link to file</a></div>
+						<div><a style="display:inline-block; margin-right:30px;" href="#" class="fileLink" target="_blank">Alfresco file URL</a><a style="display:inline-block; margin-right:30px;" href="#" class="shareLink" target="_blank">Share file URL</a></div>
+
 
 					</div>
 
