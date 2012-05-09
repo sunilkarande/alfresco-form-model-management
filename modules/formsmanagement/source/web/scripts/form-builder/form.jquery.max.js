@@ -222,7 +222,10 @@
 					if(!prop.id) prop.id = "slider-" + prop.title.replace(" ", "-");
 				}
 
-				if(!prop.hidden) formString += '<div class="group '+groupClass+'"><label>' + labelText + '</label><div'+innerDivClass+'>';
+				var dummyClass= '';
+				if(prop.className.indexOf("alf-dummyfield") >= 0) dummyClass += 'alf-dummy-group';
+
+				if(!prop.hidden) formString += '<div class="group '+groupClass+' '+dummyClass+'"><label>' + labelText + '</label><div'+innerDivClass+'>';
 
 				var tPropType = prop.type.split("_")[1];
 				if(tPropType == "boolean"){
