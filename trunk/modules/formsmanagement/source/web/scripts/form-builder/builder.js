@@ -8,15 +8,15 @@ function formToJson(){
 	$(".dontPopulateMe").removeClass("dontPopulateMe");
 	$(".fmAspectCollection").remove();
 	$(".fm-profile-data").remove();
-	
+
 	fmErrLog = [];
 	isFmValid = true;
-	
+
 	//Start JSON Form Object
 	var jObj = {};
 		jObj.title = $('.frm_formName').text();
 		jObj.visible = true;
-		 
+
 		jObj.namespace = $('.prg-aspectprefix').val();
 		jObj.name = $('.prg-aspectname').val();
 		jObj.description = $('.prg-desc').val();
@@ -25,43 +25,47 @@ function formToJson(){
 	var frmHTML = $('#formBuilderObj').html();
 
 	$('.group').each(function(){
-		
+
 		var fieldObj = {};
-		var input = $(this).find('.frm-fld:eq(0)'); 
+		var input = $(this).find('.frm-fld:eq(0)');
 		var propFullname = input.attr('name').split("_");
 		var typeFullname = input.attr('title');
-		 
+
 		fieldObj.title = $(this).find('label').text().replace("*", "");
 		if($(this).find('.fld-tip').length > 0)  fieldObj.tooltip = $(this).find('.fld-tip').html();
 		fieldObj.regex = input.attr('regex');
 		fieldObj.minlength = parseInt(input.attr('minlength'));
 		fieldObj.maxlength = parseInt(input.attr('maxlength'));
 		fieldObj.className =  input.attr('class').replace(/frm-fld/g, "").replace(/undefined/g, "").replace(/hasDatepicker/g, "");
-		 
+
 		fieldObj.multiple = false;
-		if(input.hasClass('alf-multiple')) fieldObj.multiple = true; 
+		if(input.hasClass('alf-multiple')) fieldObj.multiple = true;
+
+		fieldObj.dummyfield = false;
+		if(input.hasClass('alf-dummyfield')) fieldObj.dummyfield = true;
+
 		fieldObj.mandatory = false;
 		if(input.hasClass('required')) fieldObj.mandatory = true;
 		if(input.hasClass('frm-hidden')) fieldObj.hidden = true;
-		 
+
 		if(input.hasClass('alf-index')){
 			fieldObj.index = {};
 			fieldObj.index.atomic = false;
 			fieldObj.index.stored = false;
 			fieldObj.index.tokenised = false;
-			 
+
 			if(input.hasClass('alf-inx-atomic')) 	fieldObj.index.atomic = true;
 			if(input.hasClass('alf-inx-stored')) 	fieldObj.index.stored = true;
 			if(input.hasClass('alf-inx-tokenized')) fieldObj.index.tokenized = true;
 		}
-		
+
 		fieldObj.name = propFullname[1];
 		fieldObj.namespace = propFullname[0];
 
 		fieldObj.type= typeFullname;
 		fieldObj.fieldType = input.attr('type');
 		fieldObj.id = input.attr('id');
-		
+
 		//Validate Model Requirements
 		if(typeFullname == ""){
 			isFmValid = false;
@@ -71,7 +75,7 @@ function formToJson(){
 			isFmValid = false;
 			fmErrLog.push("" + fieldObj.title + " is missing an Alfresco property name");
 		}
-		
+
 
 		//Get collections for checkboxes, radio and select
 		if(input.hasClass('select') || input.attr('type') == "radio" || input.attr('type') == "checkbox" ){
@@ -121,7 +125,7 @@ function formToJson(){
 		//fieldObj.alfPropertyName = input.attr('id');
 		properties.push(fieldObj);
 	});
-	jObj.properties = properties; 
+	jObj.properties = properties;
 	return jObj;
 }
 
@@ -168,7 +172,7 @@ function saveAspectToObj(obj, aspect){
 	$('.infoMessage span').html("Please wait...");
 	$('.infoMessage').fadeIn(300);
 	$('.infoMessage').center();
- 
+
     $.ajax({
 		  url: "/alfresco/wcs/form-builder/saveJsonForm",
 		  type: "POST",
@@ -179,7 +183,7 @@ function saveAspectToObj(obj, aspect){
 					$('.infoMessage span').html("You do not have the appropriate permissions on this model to save. Contact your administrator.");
 					$('.infoMessage').addClass("bad").center();
 					setTimeout("$('.infoMessage').fadeOut(1000, function(){ $('.infoMessage').removeClass('bad');  });", 3000);
-				
+
 				}else{
 					$('.infoMessage span').html("Saved Successfully");
 					$('.infoMessage').addClass("good").center().fadeOut(1000, function(){
@@ -193,9 +197,9 @@ function saveAspectToObj(obj, aspect){
 			    $('.infoMessage').addClass("bad").center();
 				setTimeout("$('.infoMessage').fadeOut(1000, function(){ $('.infoMessage').removeClass('bad');  });", 3000);
 		  }
-	  });   
+	  });
 }
- 
+
 /* NOT FOR jQuery PLUGIN */
 jQuery.fn.center = function () {
     this.css("position","absolute");

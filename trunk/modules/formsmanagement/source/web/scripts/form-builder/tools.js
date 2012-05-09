@@ -348,6 +348,14 @@ $(function () {
 		 $(".ui-helper").find(".frm-fld").attr("name", b + "_" + a);
 	});
 
+	$('.frm-alf-property-prefix-text').keyup(function(){
+		 var a= $('.frm-alf-property-name').val();
+		  var b= $('.frm-alf-property-prefix-text').val();
+		 $(".ui-helper").find(".frm-fld").attr("name", b + "_" + a);
+	});
+
+
+
 	$(".frm-alf-type, .frm-alf-type-prefix").change(function() {
 		  var a= $('.frm-alf-type').val();
 		  var b= $('.frm-alf-type-prefix').val();
@@ -384,6 +392,19 @@ $(function () {
 			$(".ui-helper").find(".frm-fld").removeClass('alf-inx-atomic alf-inx-tokenized alf-inx-stored');
 		}
 	});
+
+	$('.prg_dummyfield').live('click', function() {
+
+		var hasIndex = flipClassnameSelected('alf-dummyfield');
+		if(hasIndex){
+			$(".frm-alf-property-prefix-text").show();
+			$(".frm-alf-property-prefix").hide();
+		}else{
+			$(".frm-alf-property-prefix-text").hide();
+			$(".frm-alf-property-prefix").show();
+		}
+	});
+
 	$('.prg_inx-atomic').live('click', function() {
 		flipClassnameSelected('alf-inx-atomic');
 	});
@@ -460,6 +481,7 @@ $(function () {
 		//Populate Alfresco Properties
 		var tmpName = $(this).find('.frm-fld:eq(0)').attr("name");
 		if(tmpName == ""){
+			$('.frm-alf-property-prefix-text').val( $('.prg-aspectprefix').val() );
 			$('.frm-alf-property-prefix').val( $('.prg-aspectprefix').val() );
 			$('.frm-alf-property-name').val("");
 
@@ -470,7 +492,7 @@ $(function () {
 				propFullName[1] = propFullName[1].split(":")[1];
 				propFullName[0] = propFullName[0].split(":")[0];
 			}
-
+			$('.frm-alf-property-prefix-text').val( propFullName[0] );
 			$('.frm-alf-property-prefix').val(propFullName[0]);
 			$('.frm-alf-property-name').val(propFullName[1]);
 		}
@@ -548,6 +570,18 @@ $(function () {
 			$('.prg_multiple').attr("checked", "checked");
 		}else{
 			$('.prg_multiple').attr("checked", "");
+		}
+
+		//Is it a dummy field?
+		if(fieldNode.hasClass('alf-dummyfield')){
+			$('.prg_dummyfield').attr("checked", "checked");
+			$(".frm-alf-property-prefix-text").show();
+			$(".frm-alf-property-prefix").hide();
+		}else{
+			$('.prg_dummyfield').attr("checked", "");
+			$(".frm-alf-property-prefix-text").hide();
+			$(".frm-alf-property-prefix").show();
+
 		}
 
 		//Is it a index?

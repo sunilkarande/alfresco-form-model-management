@@ -5,6 +5,9 @@
     <title>Form Builder</title>
 	<link rel="stylesheet" href="/alfresco/css/form-builder/formBuilder.css">
 	<link rel="stylesheet" href="/alfresco/css/form-builder/common.css">
+	<style type="text/css">
+		.alf-dummy-group { background:#FFEBB7; }
+	</style>
 	<script type="text/javascript">
 		var jsonModel = '${json!}';
 		var fmAspectName = "${aspectName!}";

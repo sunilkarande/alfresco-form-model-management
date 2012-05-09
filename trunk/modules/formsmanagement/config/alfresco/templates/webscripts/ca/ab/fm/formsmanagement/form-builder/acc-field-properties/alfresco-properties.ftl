@@ -1,7 +1,7 @@
 <h3 style="${fmNoneAdminStyle}"><a href="#">Alfresco Properties</a></h3>
 <div style="${fmNoneAdminStyle}">
-	<#assign lbl = [ "Multiple", "Index"]>
-	<#assign val = [ "multiple",  "index"]>
+	<#assign lbl = [ "Multiple", "Index", "Dummy Field"]>
+	<#assign val = [ "multiple",  "index", "dummyfield"]>
 
 	<div class="val-wrapper">
 		<!-- CHECKBOXES -->
@@ -17,12 +17,12 @@
 					</div>
 				</div>
 				<p class="clear"></p>
-				
+
 				<#if label == "Index">
 					<div class="index-sub-cat" style="display:none;">
 						<#assign sublbl = [ "Atomic", "Stored", "Tokenized"]>
 						<#assign subval = [ "inx-atomic",  "inx-stored", "inx-tokenized"]>
-					
+
 						<#list sublbl as sublabel>
 							<div class="val-item <#if !sublabel_has_next> last</#if>">
 								<label>${sublabel}</label>
@@ -36,18 +36,19 @@
 								</div>
 								<p class="clear"></p>
 							</div>
-						</#list> 
-					</div> 
+						</#list>
+					</div>
 				</#if>
 			</div>
 		</#list>
 	</div>
 	<!-- Index lower category -->
-	 
-	 
+
+
 	<div class="alf-props">
 		<label>Property Name:</label><br>
 		<select name="prg-aspectprefix" class="frm-alf-property-prefix fld-small tip-fld"></select>
+		<input name="prg-aspectprefix" type="text" class="frm-alf-property-prefix-text tip-fld" style="width: 53px !important; display:none" value="">
 
 		<input type="text" class="frm-alf-property-name fld-med tip-fld" value="" style="width: 176px;" />
 		<div class="field-tip" style=" padding-bottom: 18px;"><span>prefix</span>name</div>
