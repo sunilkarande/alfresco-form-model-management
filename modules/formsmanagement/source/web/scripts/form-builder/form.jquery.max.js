@@ -184,6 +184,8 @@
 			var aspectCollection = "";
             var formStyle = "top";
             if (aspect.formStyle) formStyle = aspect.formStyle;
+			if(settings.customFormStyle) { formStyle= settings.customFormStyle }
+
             var formString = "";
             if (!isProfile) formString += '<form name="" class="" id="my-frm" method="POST">';
             if (!isProfile) formString += '	<div class="' + formStyle + '" id="formFormat">';
