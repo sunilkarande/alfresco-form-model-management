@@ -593,6 +593,7 @@ li.ui-state-default {
     margin:4px 0;
 }
 .fld-tip { display:block; padding-top:2px; padding-bottom:2px; color:#aaa; padding-left:140px; font-size:11px; }
+.top .fld-tip { padding-left:0!important; }
 #formFormat, .demo-doclist { font: 13px arial,sans-serif; }
 .slider-wrapper {  padding-bottom: 0;
     padding-left: 73px;
@@ -704,12 +705,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .alf-props { padding-bottom:10px; margin-top:10px; }
 .index-sub-cat  { margin-top:5px; }
 .index-sub-cat .last { border-bottom:0!important; }
-.index-sub-cat .val-item {     
+.index-sub-cat .val-item {
 	border-bottom: 1px dashed #CCCCCC;
     color: #545454;
     padding-left: 15px !important; }
 .fm-search-aspects  { background-color:#E0E0E0; background-image:url('/alfresco/css/form-builder/images/magnifier-medium.png'); background-position:4px 8px; background-repeat:no-repeat; border-bottom:1px solid #ccc;  padding:5px 0 5px 25px;}
-.fm-search-aspects input { width:170px;} 
+.fm-search-aspects input { width:170px;}
 
 .field-change-popup { width:180px; background:#fff; border:1px solid #ccc; position:absolute;top:0px; left:0px; padding:2px; z-index:9999;}
 .field-change-popup a { display:block; background-image:none; padding:5px; background-position:1px 1px; padding-left:30px; display:block; background-repeat:no-repeat; font-size:12px; color:#333; text-decoration:none; }
