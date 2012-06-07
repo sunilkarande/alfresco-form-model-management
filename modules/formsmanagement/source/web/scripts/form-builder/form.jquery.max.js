@@ -354,7 +354,7 @@
 					formString += '<div class="group-tmp '+groupClass+'"><label>Verify ' + labelText + '</label>';
 					formString += '		<div'+innerDivClass+'>';
 					formString += '			<input ' + methods.addGlobalProperties(propTmp, true) + '  value="" />';
-					formString += '		</div>';
+					formString += '		</div></div>';
 					propTmp = null;
 				}
             }
