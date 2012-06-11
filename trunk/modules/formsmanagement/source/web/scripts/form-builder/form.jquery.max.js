@@ -310,6 +310,7 @@
 							},
 							error:function (xhr, ajaxOptions, thrownError){
 								alert("There was an issue contacting one of the services that populates the dropdown for '" + prop.title + "', please contact your administrator.");
+								formString += methods.selectTemplate(prop);
 							}
 						});
 
