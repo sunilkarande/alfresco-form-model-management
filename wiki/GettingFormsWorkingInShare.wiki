@@ -1,0 +1,68 @@
+#summary Getting FM forms working in Alfresco Share edit metadata form
+#labels Featured,Phase-Implementation,Phase-Support
+
+= Introduction =
+
+One of the most common questions people have asked is how they can get the FM forms to show up in Alfresco Share. This guide will go through a few different ways of achieving this (WITH CODE FOR YOU TO DEPLOY!)
+
+
+= Details =
+
+There are many different business cases on using the FM manager that Alfresco cannot nicely deal with.
+
+Let's look at how we want are users to interact with the form and documents. 
+
+==Node Focused Deployment SHARE==
+
+This is the traditional method of using forms. A form is drawn based upon the aspects that are applied to it.
+
+Normally with the FM Module we have been using variables like:
+  * 'aspect': [], and
+  * 'profile': {}
+
+There a new variable called 'drawOptions' and it looks like this:
+
+'drawOptions': {
+    'nodeRef': '<String NodeRef | Default "" >',
+    'drawByNodeAspects': <Boolean | Default false>
+}
+
+If drawByNodeAspects is set to true and you have a valid nodeRef the FM Module will draw a form based upon aspects the NODE has applied to it. 
+
+If the FM Module cannot locate forms for those aspects (BUILT FROM FM MODULE) then it will just skip them. This way you can replicate or leave Alfresco's default aspects/properties e.g. cm:name
+
+REMEMBER: IF you want to use cm:name or other pre-defined properties you can use DUMMY Fields! (A dummy field allows you to add fields in your form builder WITHOUT it moving into the model)
+
+===FREE CODE===
+In order to get this working in Share's edit metadata form you need to extend the out of the box "Form" component located:
+
+classpath:classes\alfresco\site-webscripts\org\alfresco\components\form
+
+I have uploaded two files:
+  # form.get.html.ftl
+  # form.get.head.ftl
+
+This has been tested on Alfresco 3.4 and Alfresco 4. Please let me know if you are using a different version as I don't have time to test every version.
+
+==Form Focused Deployment SHARE/ALFRESCO==
+
+The FM module was built as a framework to build forms and deploy them using jQuery. It allows for everything that was in the webinar but targeted more specifically at custom development in Alfresco. Making life easier for development costs and time.
+
+Form focused development means you do not care what node(s) have applied as metadata. You are dealing with a particular set of metadata and you are forcing the user to enter either a collection of aspects or profiles derived from relational data.
+
+Form focused also means DYNAMIC. One setup could show different profiles/document types based upon share site.
+ 
+  * Pre-defined metadata set; means you control what metadata documents must have. Instead of adding aspect upon aspect you use profiles to determine what users should enter. 
+
+  * Document Type relation; Using an aspect to display a document type dropdown list. When the user selects an option it builds out (displays) profiles assigned to its value
+
+  * Share site specific content. This allows different sites to have different metadata profiles; You can use the same document type property and use the /byShareSite option for displaying different lists of document types to the end user. This way you can search on the same property globally across your repository yet limit users choice based on site/dept
+
+  * Allow alfresco to manage its own; Typically this would show side by side Alfresco's default model information (using alfresco forms) and FM Custom metadata (using FM model and using its benefits).
+  
+===FREE CODE===
+To see how this works download the FM Demo Dashlet
+
+Instead of using 'drawOptions' we are using 'aspects': [] and 'profile': {}
+
+You decide on how you want to use the FM Module. It should be flexible enough for most use cases and if there is something specific you need it to do. Open a bug and I might put it into the next build.
