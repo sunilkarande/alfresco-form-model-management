@@ -159,7 +159,14 @@ function extractAspects(aspectSearch, jObj, uid) {
                 if (in_array(jObj.aspects[x].namespace + "_" + jObj.aspects[x].name, aspectSearch)) {
                     jObj.aspects[x].rootUid = uid + "";
                     logger.log("FOUND ASPECT: " + jObj.aspects[x].namespace + "_" + jObj.aspects[x].name);
-                    aspectProps.push(jObj.aspects[x]);
+
+                    //Check if its enabled
+                    if(!jObj.aspects[x].isHidden){
+                    	aspectProps.push(jObj.aspects[x]);
+                    }else{
+                    	logger.log("FOUND ASPECT IS HIDDEN: " + jObj.aspects[x].namespace + "_" + jObj.aspects[x].name);
+                    }
+
                 }else{
 					//logger.log("CANNOT MATCH ASPECT: " + jObj.aspects[x].namespace + "_" + jObj.aspects[x].name + " to anything in " + JSON.stringify(aspectSearch) );
 				}

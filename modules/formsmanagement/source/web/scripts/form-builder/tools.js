@@ -69,6 +69,17 @@ function loadToggleValues(){
 		}
 	});
 }
+function loadToggleAspectValues(){
+	$('.i-toggle-aspect').each(function(){
+		var input = $(this).find('input');
+		if(input.attr('checked')){
+			$(this).find(".i-toggle-slider").css({  left: '0px' });
+		}else{
+			$(this).find(".i-toggle-slider").css({  left: '-21px' });
+		}
+	});
+}
+
 function pushOptionsToField(){
 	var fieldNode = $('.ui-helper').find('.frm-fld:eq(0)');
 	var fieldType = fieldNode.attr("type");
@@ -148,7 +159,7 @@ $(function () {
 	$("#formToolWrapper").tabs();
 
 	//Load Available Namespaces
-	 var availableNamespaces = "";
+	var availableNamespaces = "";
 	for(x in fmModelObj.namespaces){
 		availableNamespaces += ('<option value="'+fmModelObj.namespaces[x]["@prefix"]+'">'+fmModelObj.namespaces[x]["@prefix"]+'</option>');
 	}
@@ -380,6 +391,10 @@ $(function () {
 			$(".ui-helper").find(".frm-fld").addClass('required');
 			$(".ui-helper > label").append('*');
 		}
+	});
+
+	$('.prg_aspect_hidden').live('click', function() {
+		$("#formFormat").toggleClass('fm-aspect-hidden');
 	});
 
 	$('.prg_index').live('click', function() {

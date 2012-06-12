@@ -21,6 +21,8 @@ function formToJson(){
 		jObj.name = $('.prg-aspectname').val();
 		jObj.description = $('.prg-desc').val();
 		jObj.formStyle = $('#formFormat').attr("class");
+		jObj.isHidden = $('#my-frm #formFormat').hasClass("fm-aspect-hidden");
+
 	var properties = new Array();
 	var frmHTML = $('#formBuilderObj').html();
 
