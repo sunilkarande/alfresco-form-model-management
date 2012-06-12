@@ -177,6 +177,13 @@
 				$('.frmFormat').val( $('#formFormat').attr("class") );
 				$('.prg-formclass').val( $(".formContainerStage form").attr("class") );
 
+				if( $('#formFormat').hasClass('fm-aspect-hidden') ){
+					$('.prg_aspect_hidden').attr("checked", "checked");
+				}else{
+					$('.prg_aspect_hidden').attr("checked", "");
+				}
+				loadToggleAspectValues();
+
 				$(".f_b_root").sortable({
 					items: '.group', distance:20
 				}).disableSelection();

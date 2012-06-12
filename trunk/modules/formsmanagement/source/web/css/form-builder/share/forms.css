@@ -1,0 +1,515 @@
+
+/* UofA FormBuilder Styles */
+.errHandleBox {
+	background: none repeat scroll 0 0 #FCD9D6;
+    border: 1px solid #F4C4C1;
+    color: #474646;
+    font-size: 12px;
+    padding: 10px;
+}
+.frmErr {
+	background: none repeat scroll 0 0 #FCD9D6;
+    border: 1px solid #F4C4C1;
+}
+.errHandleBox p {  font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0; }
+.errHandleBox ul {margin-left: 28px; padding-top: 5px; }
+.errHandleBox ul li { list-style:circle; padding:3px;}
+.demo-doclist {
+    border: 1px solid #CCCCCC;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.demo-doclist p  { padding:0; margin:0;}
+.demo-doclist select {   border: 1px solid #CCCCCC; margin-bottom:0; padding: 4px;}
+#formFormat  {
+    background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+    padding: 10px!important;
+}
+
+.frm_formName { color:#333; font-size:19px;  padding-top: 9px;}
+.frm_desc { margin-bottom: 10px;}
+.fm-profile-aspect {
+    border-bottom: 1px dashed #CCCCCC;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+.fm-profile-aspect .frm_desc {
+    border-bottom: 0 none;
+    color: #AAAAAA;
+    font-size: 11px;margin-bottom: 0;
+}
+.fm-profile-aspect .frm_formName {
+    color: #006B38;
+    font-size: 16px;
+}
+.group {
+    margin-bottom: 0;
+    position: inherit;
+}
+ 
+/* UI CSS CHANGES */
+.ui-dialog { font-size:13px!important; font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif!important;  }
+.uofa-styles .ui-tabs { border:0!important; }
+.uofa-styles .ui-tabs  .ui-widget-header {
+	 background: none repeat scroll 0 0 #C3E0CD;
+    border: 1px solid #BABABA;
+    border-radius: 0 0 0 0;
+}
+.ui-corner-top {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+} 
+.ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
+    color: #8E8E8E;
+}
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #444444;
+}
+.ui-state-active, .ui-widget-content .ui-state-active {
+    background: none repeat scroll 0 0 #EAEAEA!important;
+    border: 1px solid #AAAAAA;
+    color: #EB8F00;
+    font-weight: bold;
+    outline: medium none;
+} 
+.ui-state-default, .ui-widget-content .ui-state-default { 
+	color:#444444; 
+} 
+.ui-dialog .ui-widget-header {
+    background: none repeat scroll 0 0 #EAD862;
+    border: 1px solid #DBC851;
+    color: #FFFFFF;
+    font-weight: bold;
+} 
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+    color: #444444!important;
+} 
+
+#my-frm .left .group label {
+    padding-top: 4px;
+}  
+form#my-frm .slider-value {
+	border: 1px dashed #CCCCCC;
+    color: #111111;
+    font-size: 15px;
+    padding: 2px;
+    position: relative;
+    text-align: center;
+    top: -8px;
+    width: 23px;
+}
+form#my-frm .sliderForm {
+	background: none repeat scroll 0 0 #FFFFFF!important;
+    border: 1px solid #DDDDDD!important;
+    color: #333333;
+}
+form#my-frm .sliderForm .ui-state-default, form#my-frm .ui-widget-content .ui-state-default {
+    background: #F6F6F6;
+    border: 1px solid #CCCCCC;
+    color: #1C94C4;
+    font-weight: bold;
+    outline: medium none;
+} 
+form#my-frm .sliderForm .ui-slider-handle {
+    cursor: default!important;
+    height: 1.2em!important;
+    position: absolute!important;
+    width: 1.2em!important;
+    z-index: 2!important;
+}
+form#my-frm .ui-slider-horizontal {
+	height: 0.8em!important;
+    padding: 0 !important;
+}
+
+.snaQuiz label { font-weight:normal ; }
+.snaQuiz .group { border-bottom:1px dashed #CCC; padding-bottom:10px; }
+form#my-frm .ui-slider { position:relative; }
+form#my-frm .ui-slider-horizontal .ui-slider-handle {
+    margin-left: -0.6em!important;
+    top: -0.3em!important;
+} 
+form#my-frm .sliderForm { float:left; display:block; width:55%;   }
+form#my-frm .slider-start { display: block;
+	float: left;
+	padding: 0 20px 0 10px;
+	text-align: right;
+	width: 13%;
+	font-weight:bold;
+} 
+form#my-frm .slider-end { 
+	display: block;
+    float: left;
+    padding: 0 10px 0 20px;
+    text-align: left;
+	font-weight:bold;
+    width: 13%;
+}
+
+form#my-frm .ui-slider .ui-slider-range {
+    background-position: 0 0;
+    border: 0 none;
+    display: block;
+    font-size: 0.7em;
+    position: absolute;
+    z-index: 1;
+}
+
+form#my-frm  .ui-widget-header {
+    background: #A14005;
+    border: 1px solid #E78F08;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+form#my-frm   .ui-slider-horizontal .ui-slider-range {
+    height: 100%;
+    top: 0;
+	padding:0!important;
+} 
+.saveButtonWrapper {
+	float: right;
+    margin-right: 98px;
+    padding-bottom: 10px;
+}
+.checkboxLbl {
+    position: relative;
+    top: -1px;
+}
+.formContainerStage {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    padding: 20px;
+}
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+.clearfix {
+    display: inline-block;
+}
+html[xmlns] .clearfix {
+    display: block;
+}
+.tip {
+    color: #AAAAAA;
+    display: block;
+    font-size: 11px;
+    padding-left: 142px;
+    padding-top: 3px;
+}
+.tipDiv {
+	padding-left:140px;
+}
+.tipDiv .tip {
+	float:left; width:96px; padding-left:0;
+}
+* html .clearfix {
+    height: 1%;
+}
+.ui-tabs .ui-tabs-hide {
+    display: none;
+}
+.clear {
+    clear: both;
+}
+.formBuilderContainer {
+	width:300px; float:left;  margin-right: 20px; font-family: Verdana,Geneva,sans-serif !important;
+} 
+.formTabs {
+    left: -5px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+#formToolWrapper ul {
+	margin-left:2px;
+}
+#formToolWrapper input  {
+	 background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #A0A0A0 #B9B9B9 #B9B9B9;
+    border-radius: 1px 1px 1px 1px;
+    border-style: solid;
+    border-width: 1px;
+    padding: 4px;
+}
+.formTabs li {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    float: left;
+    list-style: none outside none;
+    margin: 0 3px;
+}
+li.ui-state-active {
+    background: none repeat scroll 0 0 #EBF1F4 !important;
+    position: relative;
+    top: 1px;
+}
+li.ui-state-default {
+    background: none repeat scroll 0 0 #EFEDED;
+}
+.formTabs li a {
+    color: #333333;
+    display: block;
+    font-size: 11px;
+    outline: medium none;
+    padding: 7px;
+    text-decoration: none;
+}
+.toolBox {
+    background: none repeat scroll 0 0 #EBF1F4;
+    border: 1px solid #CCC; 
+    padding: 10px;
+}
+.formContainerStage {
+    float: left;
+    height: 369px;
+    overflow: auto;
+    width: 500px;
+}
+.frmBuilder label {
+    font-size: 12px !important; 
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.frmBuilder input, .frmBuilder textarea, .frmBuilder select {
+    margin: 10px 0;
+    width: 230px;
+}
+.frmBuilder li input, .frmBuilder li textarea, .frmBuilder li select {
+    margin: 10px!important;
+}
+.checkbox {
+    width: 20px !important;
+}
+.fieldAddOptions a { 
+    color: #333333;
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+.ui-helper {
+    background: none repeat scroll 0 0 #DFEEFF;
+    border: 1px dotted #9BB3CF;
+}
+a {
+    outline: medium none !important;
+}
+.delField, .delOption {
+    background: url("images/modal-close.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 14px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 14px;
+}
+.delField span, .delOption span {
+    display: none;
+}
+.f_b_root p {
+    position: relative;
+}
+.optionSortable {
+    margin: 0;
+    padding: 0;
+}
+.optionSortable li {
+    background: none repeat scroll 0 0 #C3D0DF;
+    border-bottom: 1px solid #FFFFFF;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+hr {
+    color: #EFF6FF;
+}
+.optToggle {
+    background: none repeat scroll 0 0 #C3D0DF;
+    border-bottom: 1px solid #FFFFFF;
+    padding: 5px;
+}
+.hover-state {
+    background: #EDF5FF;
+}
+span.fld-lbl {
+    display: inline-block;
+    width: 59px;
+}
+.prg-frm-button-wrapper {
+	margin-top:15px;
+	border-top:1px solid #ccc; 
+	padding-top:10px; 
+	text-align:right;
+}
+.frm_desc {
+      border-bottom: 1px solid #CCCCCC;
+    display: block;
+    font-size: 13px;
+    margin-bottom: 15px;
+    padding: 0 0 5px;
+}
+.frm_formName {
+	font-family: helvetica,sans-serif,georgia;
+    font-size: 20px;
+    margin: 0;
+	color: #333333;
+	
+}
+#tabs-3 a:hover {
+    text-decoration: underline;
+}
+.ui-accordion-header {
+      
+    border: 1px solid #B6CEDB;
+    display: block;
+    font-size: 13px;
+    height: 19px;
+    margin: 0 0 5px;
+    outline: medium none !important;
+    padding: 3px 3px 3px 11px;
+    position: relative; 
+}
+#accordion .ui-state-active, #accordion-tab1 .ui-state-active {
+    background: #C9DEEA!important;
+}
+.ui-accordion-header a {
+    color: #6D6D6D;
+    font-weight: normal;
+    left: 10px;
+    position: absolute;
+    text-decoration: none;
+    top: 3px;
+}
+.ui-accordion-content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin-bottom: 5px;
+    padding: 10px;
+	border:1px solid #ccc;
+}
+#tabs-3 {
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.default .errHandleBox {
+    background: none repeat scroll 0 0 #FFDFE0;
+    border: 2px solid #6F0004;
+    font-weight: bold;
+    margin-bottom: 11px;
+    padding: 10px;
+}
+.default .errHandleBox p {
+    margin-bottom: 5px;
+}
+.default .errHandleBox ul {
+    margin: 0;
+}
+.default .errHandleBox ul li {
+    font-weight: normal;
+    list-style-type: circle;
+    margin-left: 30px;
+}
+.addOption {
+    background: url("images/ico-add.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    left: 177px;
+    padding-left: 18px;
+    position: relative;
+    top: 12px;
+}
+.fieldAddOptions a {
+    font-size: 13px !important;
+    padding-left: 30px;
+}
+#t_text {
+    background: url("images/ico-abc.png") no-repeat scroll 0 5px transparent;
+}
+#t_textarea {
+    background: url("images/ico-p.png") no-repeat scroll 0 5px transparent;
+}
+#t_select {
+    background: url("images/ico-drop.png") no-repeat scroll 0 5px transparent;
+}
+#t_radio {
+    background: url("images/ico-radio.png") no-repeat scroll 0 5px transparent;
+}
+#t_checkbox {
+    background: url("images/ico-check.png") no-repeat scroll 0 5px transparent;
+}
+.group {
+    
+    position: relative;
+}
+#my-frm .left .group {
+    padding: 5px 0;
+    width: 100%;
+}
+#my-frm .left .group label {
+    float: left;
+    width: 140px;
+}
+#my-frm .left .group div {
+}
+#my-frm .right .group {
+    padding: 5px 0;
+    width: 100%;
+}
+#my-frm .right .group label {
+    float: left;
+    padding-right: 10px;
+    text-align: right;
+    width: 140px;
+}
+#my-frm .right .group div {
+}
+#my-frm .top .group div {
+    padding-top: 10px;
+}
+/* Button */
+.saveButtonWrapper div { float:left; margin-left:10px; font-family:helvetica; font-size:12px; }
+.saveButtonWrapper a {
+	color:#0000CC;
+}
+.isb { 
+	background: -moz-linear-gradient(center top , #A90329 0%, #8F0222 44%, #6D0019 100%) repeat scroll 0 0 transparent;
+    border-radius: 3px 3px 3px 3px;
+      
+}
+.isb button {
+    background: none repeat scroll 0 50% transparent;
+    border: 1px solid #7F021D;
+    border-radius: 3px 3px 3px 3px;
+    display: block;
+    height: 28px;
+	width:120px; 
+}
+.sbico { 
+    color: #FFFFFF;
+    display: inline-block;
+    margin: -4px auto 0;
+}
+.isb button:hover {
+    border: 1px solid #333333;
+}
+.isb:active {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) inset;
+}
+.isb:hover {
+    background: -moz-linear-gradient(center top , #99031E 0%, #770214 44%, #4C0015 100%) repeat scroll 0 0 transparent;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #FFFFFF;
+}
+
+
+  
