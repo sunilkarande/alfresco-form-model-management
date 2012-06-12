@@ -1,5 +1,10 @@
 = Details =
 
+== June 12th 2012 ==
+*FM Module WCS 1.2.5*
+  * Added Hidden attribute for aspect (only used for drawOptions feature)
+  * Added drawOptions; Draw options allows us to use the traditional method of building forms. A form is build around aspects that are applied to a node. NOTE: If an aspect is not in the FM Module within alfresco it WILL be skipped and will not render as part of the form. This way it can skip alfresco's default model if you only want to display custom aspects.
+
 == Mar 11th 2012 ==
 *FM Module WCS 1.2.2*
   * Added a home page for user to start off. Depending if your admin it will show you different options;
