@@ -38,7 +38,7 @@ In order to get this working in Share's edit metadata form you need to extend th
 
 classpath:classes\alfresco\site-webscripts\org\alfresco\components\form
 
-I have uploaded two files:
+I have uploaded two files (in the download section Share Form Extension.zip):
   # form.get.html.ftl
   # form.get.head.ftl
 
