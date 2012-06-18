@@ -113,7 +113,7 @@ body {
 }
 .ui-tabs-nav a { font-weight:normal!important; }
 .loading {
-    background: url("/alfresco/images/ajax-loader.gif") no-repeat scroll 50% 50% transparent;
+    background: url("/alfresco/css/images/ajax-load-bw.gif") no-repeat scroll 50% 50% transparent;
     height: 232px;
     width: 100%;
 }
