@@ -1,6 +1,7 @@
 /* Records/ doc stuff */
 
 /* Alfresco edit metadata screen */
+.fm-form-buttons { margin-left: -2px; padding-top: 15px; }
 #fmEditMetadata {  }
 #fmEditMetadata .form-alf-wrapper .frm_formName, .form-alf-wrapper .frm_desc {
 	margin-left:20px!important;
