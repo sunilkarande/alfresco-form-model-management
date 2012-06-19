@@ -22,7 +22,6 @@
 #fmEditMetadata .fm-edit-metadata .top, .fm-edit-metadata.bottom {
 	border:0!important;
     background:none!important;
-    margin-left:10px;
 }
 #fmEditMetadata .fm-edit-metadata  #formFormat {
     height: auto !important;
