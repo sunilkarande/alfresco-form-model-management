@@ -3,7 +3,7 @@
 == June 20th 2012 ==
 *FM Module WCS 1.2.6*
    *  Added search functionality (when isSearch = true on init)
-   *  Hidden in search option for fields (in form builder validation section)
+   *  "Hidden in search" option for fields (in form builder validation section)
    *  Date fields (have the "date" class name) are duplicated. This allows the user to input FROM and TO dates
    *  Added search query builder javascript function that builds out a query string from a form and its values. This string can be consumed by the search service and a lucence query is fired
    *  Added demo material for Share form extension
