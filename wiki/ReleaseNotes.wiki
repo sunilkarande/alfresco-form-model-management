@@ -1,7 +1,7 @@
 = Details =
 
 == June 20th 2012 ==
-*FM Module WCS 1.2.6*
+*FM Module WCS 1.2.7*
    *  Added search functionality (when isSearch = true on init)
    *  "Hidden in search" option for fields (in form builder validation section)
    *  Date fields (have the "date" class name) are duplicated when in search mode. This allows the user to input FROM and TO dates
