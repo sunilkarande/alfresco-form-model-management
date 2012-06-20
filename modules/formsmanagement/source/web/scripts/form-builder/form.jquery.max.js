@@ -204,7 +204,9 @@
 			for (var i = 0; i < aspect.properties.length; i++) {
                 var prop = aspect.properties[i];
 
+				if(prop.hiddenSearch && settings.isSearch) prop.hidden = true;
 				if($('.fm-main-window').length > 0) prop.hidden = false;
+
 				if(prop.hidden) prop.fieldType = "hidden";
 
 				prop = methods.validateProperties(prop);
