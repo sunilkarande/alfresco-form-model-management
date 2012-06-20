@@ -36,9 +36,9 @@ function bytesToSize(bytes) {
 /**
  * Returns the creation date range query for the given dates.
  */
-function getCreationDateRangeQuery(fromDate, toDate)
+function getCreationDateRangeQuery(prefix, prop, fromDate, toDate)
 {
-   var luceneQuery = " +@cm\\:modified:[";
+   var luceneQuery = " +@"+prefix+"\\:"+prop+":[";
    if (fromDate !== null && ! isNaN(fromDate.getTime()))
    {
       luceneQuery += getLuceneDateString(fromDate);
@@ -59,6 +59,7 @@ function getCreationDateRangeQuery(fromDate, toDate)
    luceneQuery += "] ";
    return luceneQuery;
 }
+
 function isRMFile(n){
 	var isRM = false;
 
@@ -75,6 +76,7 @@ function isRMFile(n){
 }
 
 function main(){
+
 	/* END DATE UTILS */
 	var searchTerms = decodeURIComponent( url.extension);
 	var searchParams = searchTerms.split("/");
@@ -136,14 +138,33 @@ function main(){
 				if(a == "cm_mimetype"){
 					a = "\\{http\\://www.alfresco.org/model/content/1.0\\}content.mimetype";
 				}
-				mSearch += "@"+ a.replace("_", "\\:") +":\"" + b + "\" "+type+" ";
+
+				logger.log("Checking date range " +  b);
+				if(b.indexOf("-TO-") > 0){
+					logger.log("Searching date range for " +  a);
+
+					var prefixProp = a.split("_");
+				 	var dateParse = b.split("-TO-");
+
+				 	var modFromArr = dateParse[0].split("-");
+					var sModFrom = new Date(parseInt(modFromArr[0]), (parseInt(modFromArr[1]) - 1), parseInt(modFromArr[2]));
+
+					var modToArr = dateParse[1].split("-");
+					var sModTo = new Date(parseInt(modToArr[0]), (parseInt(modToArr[1]) - 1), parseInt(modToArr[2]));
+
+					mSearch += getCreationDateRangeQuery(prefixProp[0], prefixProp[1], sModFrom, sModTo) + " AND ";
+
+
+				}else{
+					mSearch += "@"+ a.replace("_", "\\:") +":\"" + b + "\" "+type+" ";
+				}
 			}
 		}
 
 		if(hasExt) mSearch = mSearch.slice(0, -4);
 		//Check Query Mods
 		if(modFrom && modTo){
-			mSearch += " " + getCreationDateRangeQuery(modFrom, modTo);
+			mSearch += " " + getCreationDateRangeQuery("cm", "modified", modFrom, modTo);
 		}
 
 		//If keyword search append it to query with OR. If not close the statement

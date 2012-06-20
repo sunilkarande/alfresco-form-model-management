@@ -1,8 +1,8 @@
 <h3><a href="#">Validation</a></h3>
 <div>
 	<div class="val-wrapper">
-		<#assign lbl = [ "Hidden", "Required", "Numbers only", "Alphanumeric", "Verification"]>
-		<#assign val = [ "hidden", "required",  "numOnly",     "alphanumOnly", "verification"]>
+		<#assign lbl = [ "Hidden", "Hidden in search", "Required", "Numbers only", "Alphanumeric", "Verification"]>
+		<#assign val = [ "hidden", "hiddenSearch", "required",  "numOnly",     "alphanumOnly", "verification"]>
 
 		<!-- CHECKBOXES -->
 		<#list lbl as label>
@@ -52,12 +52,12 @@
 				<option value="date">Date</option>
 				<option value="other">Other..</option>
 			</select>
-	 
+
 			<div class="regExpOther" style="display:none;">
 			<label>e.g. 999-aaa</label>
 			<input type="text" class="regExpOtherFld" value="" />
 			</div>
-	 
-		</div> 
+
+		</div>
 	</div>
 </div>
