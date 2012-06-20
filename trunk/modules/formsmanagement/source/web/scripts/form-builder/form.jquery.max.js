@@ -16,6 +16,10 @@
 
         'aspects': [],
         'profile': null,
+        'drawOptions': {
+        	'nodeRef': '',
+        	'drawNodeAspects': false
+        },
         'handler': '.handler',
         'isSearch': false,
         'postUrl': '/share/proxy/alfresco/form-management/formdata/save',
@@ -91,7 +95,50 @@
 						$this.html(formS);
 						$this.data('origAspectCollection', $this.find('.fmAspectCollection:eq(0)').val() + "");
 						methods.onInnerComplete();
+
+					} else if(settings.drawOptions.drawNodeAspects){
+
+						var nodeRef = settings.drawOptions.nodeRef;
+						//Must have a node
+						if(nodeRef != ""){
+							var json = methods.callNodeProperties(nodeRef, $this);
+
+							//Massage data
+							for(i in json.node.aspects){
+								json.node.aspects[i] = json.node.aspects[i].replace(":", "_");
+							}
+
+							var concatAspects = json.node.aspects.join("~");
+							var aspectpropurl = "/share/proxy/alfresco/model/aspects/aspecttoproperty";
+							if(!settings.useShareProxy) aspectpropurl= "/alfresco/wcs/model/aspects/profiletoproperty";
+
+							//Go get the profile needed
+							$.ajax({
+								  url: aspectpropurl,
+								  dataType: 'json',
+								  data: { aspects: concatAspects },
+								  async: false,
+								  success:  function (r) {
+										settings.aspects = r;
+								  }
+							});
+
+							//Build form on aspects
+							var formS = "";
+							for (a in settings.aspects) {
+								formS += methods.buildAspect($this, settings.aspects[a], false);
+							}
+							$this.html(formS);
+							$this.data('origAspectCollection', $this.find('.fmAspectCollection:eq(0)').val() + "");
+							methods.onInnerComplete();
+
+						}else{
+							alert("If you are using drawNodeAspects property it requires a nodeRef to load from!");
+						}
+
+
 					}
+
 					if (settings.onComplete) settings.onComplete($this);
 				}
 			});
@@ -206,7 +253,6 @@
 
 				if(prop.hiddenSearch && settings.isSearch) prop.hidden = true;
 				if($('.fm-main-window').length > 0) prop.hidden = false;
-
 				if(prop.hidden) prop.fieldType = "hidden";
 
 				prop = methods.validateProperties(prop);
@@ -339,6 +385,12 @@
 							formString += '<textarea ' + methods.addGlobalProperties(prop, true) + '></textarea>';
 						}else{
 							formString += '<input ' + methods.addGlobalProperties(prop, true) + '  value="" />';
+
+							if(settings.isSearch && prop.className.indexOf("date") >= 0){
+								 prop.name = prop.name + "_toDate";
+								 prop.id = prop.name + "_toDateId";
+								 formString += '<span style="color:#aaa; font-size:11px;"> to </span><input ' + methods.addGlobalProperties(prop, true) + '  value="" />';
+							}
 						}
 					}
 				}
@@ -529,6 +581,30 @@
             }
 			//if(settings.readonly) $(".frm-fld").readonly(true);
         },
+        callNodeProperties : function(uid, $this){
+
+			var settings = $this.data('settings');
+
+        	var json = null;
+        	var getUrl = "/share/proxy/alfresco/form-management/node/get-properties";
+            if(!settings.useShareProxy) url= "/alfresco/wcs/form-management/node/get-properties";
+
+            if (uid.length > 1) {
+				$.ajax({
+					url: getUrl,
+					dataType: 'json',
+					async: false,
+					data: { uid: uid },
+					success: function(nodeObj) {
+						json = nodeObj;
+						var storageId = nodeObj.node.properties["sys:node-uuid"];
+						$('body').prepend('<div id="fm_store_'+storageId+'" class="fm-property-store" style="display:none!important">'+ JSON.stringify( nodeObj ) +'</div>');
+					}
+				});
+            }
+
+            return json;
+        },
         loadNode: function (uid, readonly, callback) {
 			var $this = $(this);
             var settings = $this.data('settings');
@@ -544,24 +620,8 @@
 					 var objNode = eval( "(" +  cacheUidNode.html() + ")" );
 					 methods.loadPropertiesToFields(objNode, $this);
 				}else{
-
-	                var getUrl = "/share/proxy/alfresco/form-management/node/get-properties";
-	                if(!settings.useShareProxy) url= "/alfresco/wcs/form-management/node/get-properties";
-
-	                if (uid.length > 1) {
-						$.ajax({
-							url: getUrl,
-							dataType: 'json',
-							async: false,
-							data: { uid: uid },
-							success: function(nodeObj) {
-
-								var storageId = nodeObj.node.properties["sys:node-uuid"];
-								$('body').prepend('<div id="fm_store_'+storageId+'" class="fm-property-store" style="display:none!important">'+ JSON.stringify( nodeObj ) +'</div>');
-								methods.loadPropertiesToFields(nodeObj, $this);
-							}
-						});
-	                }
+	                 var nodeObj = methods.callNodeProperties(uid, $this);
+	                 methods.loadPropertiesToFields(nodeObj, $this);
 	            }
             }
 			if(callback) callback( $this );
