@@ -441,14 +441,11 @@ $(function () {
 	});
 
 	$('.prg_hidden').live('click', function() {
-		if($(".ui-helper").find(".frm-fld").hasClass('frm-hidden')){
-			$(".ui-helper").find(".frm-fld").removeClass('frm-hidden');
-			$(".ui-helper").find('.lbRequired').remove();
-			$(".ui-helper > label").html( $(".ui-helper > label").html().replace('*', '') );
+		 $(".ui-helper").find(".frm-fld").toggleClass('frm-hidden');
+	});
 
-		}else{
-			$(".ui-helper").find(".frm-fld").addClass('frm-hidden');
-		}
+	$('.prg_hiddenSearch').live('click', function() {
+		$(".ui-helper").find(".frm-fld").toggleClass('frm-hiddenSearch');
 	});
 
 	$('.frmFormat').livequery('change', function() {
@@ -620,6 +617,13 @@ $(function () {
 			$('.prg_hidden').attr("checked", "checked");
 		}else{
 			$('.prg_hidden').attr("checked", "");
+		}
+
+		//Is it a hiddenSearch field?
+		if(fieldNode.hasClass('frm-hiddenSearch')){
+			$('.prg_hiddenSearch').attr("checked", "checked");
+		}else{
+			$('.prg_hiddenSearch').attr("checked", "");
 		}
 
 		//Is it a verification field?
