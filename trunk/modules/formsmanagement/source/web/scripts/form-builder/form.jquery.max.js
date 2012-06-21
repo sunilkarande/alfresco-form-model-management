@@ -547,7 +547,7 @@
                     if (nodeObj.node.properties[qName]) {
                         nodeVal = nodeObj.node.properties[qName];
                     }
-					if(qName.indexOf("Date") >= 0 || $(this).attr("title").indexOf("date") >= 0 ){
+					if(qName.indexOf("Date") >= 0 || $(this).attr("title").indexOf("date") >= 0 || $(this).hasClass("date") ){
 						if(nodeVal != ""){
 							var iD = new Date( nodeVal );
 							var month = (iD.getMonth() + 1) + "";
