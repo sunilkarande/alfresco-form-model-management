@@ -37,8 +37,16 @@ function collectQuery(){
 			//ignore replication
 		}else if(node.hasClass("date")){
 
-			var toVal = $("input[name='" + node.attr('name') + "_toDate']").val();
-			qString += node.attr('name') + "=" + encodeURIComponent( node.val()) + "-TO-"+toVal+"&";
+			if( node.val() != ""){
+				var toVal = $("input[name='" + node.attr('name') + "_toDate']").val();
+				qString += node.attr('name') + "=" + encodeURIComponent( node.val());
+
+				if(toVal != ""){
+					qString += node.attr('name') + "=" + encodeURIComponent( node.val()) + "-TO-"+toVal+"&";
+				} else{
+					qString += node.attr('name') + "=" + encodeURIComponent( node.val()) +"&";
+				}
+			}
 
 		} else if( hasVal && node.val() != "false"){
 
