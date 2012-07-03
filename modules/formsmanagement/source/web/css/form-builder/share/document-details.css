@@ -21,7 +21,11 @@
     float: left;
     width: auto !important;
 	margin-right: 0.4em;
+	padding-right: 8px;
 }
 #my-frm .left .group {
     width: 306px;
+}
+.group-tmp  {
+	display:none;
 }
