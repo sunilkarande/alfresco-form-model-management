@@ -11,6 +11,12 @@
    *  Added search query builder javascript function that builds out a query string from a form and its values. This string can be consumed by the search service and a lucence query is fired (/scripts/form-builder/search/createQuery.js)
    *  Added demo material for Share form extension
  
+*June 15th 2012 - FM Module WCS 1.2.6*
+
+NOTE: There was an issue with the 1.2.6 AMP. There was a file collision on the form.jquery.js file (The main jquery plugin) Please update to 1.2.7 
+
+1.2.6 Will be removed from the download list. My apologies for any inconvenience i'm only human :P 
+
 *June 12th 2012 - FM Module WCS 1.2.5*
   * Added Hidden attribute for aspect (only used for drawOptions feature)
   * Added drawOptions; Draw options allows us to use the traditional method of building forms. A form is build around aspects that are applied to a node. NOTE: If an aspect is not in the FM Module within alfresco it WILL be skipped and will not render as part of the form. This way it can skip alfresco's default model if you only want to display custom aspects.
