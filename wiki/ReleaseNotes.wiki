@@ -1,5 +1,10 @@
 = Details =
 
+== July 6th 2012 ==
+*FM Module WCS 1.2.8*
+  *  Added some styling for the Share custom form extension
+  *  createQuery.js added date fix for search
+
 == June 20th 2012 ==
 *FM Module WCS 1.2.7*
    *  Added search functionality (when isSearch = true on init)
