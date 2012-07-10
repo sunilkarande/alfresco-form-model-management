@@ -548,14 +548,29 @@
                     if (nodeObj.node.properties[qName]) {
                         nodeVal = nodeObj.node.properties[qName];
                     }
-					if(qName.indexOf("Date") >= 0 || $(this).attr("title").indexOf("date") >= 0 || $(this).hasClass("date") ){
-						if(nodeVal != ""){
-							var iD = new Date( nodeVal );
-							var month = (iD.getMonth() + 1) + "";
-							var day = iD.getDate() + "";
-							if(parseInt(month) < 9) month = "0" + month;
-							if(parseInt(day) < 9) day = "0" + day;
-							nodeVal = iD.getFullYear() + "-" + (month) + "-" + day;
+					if( $(this).data("type") == "date" || $(this).hasClass("date") ){
+
+						if(settings.isSearch)
+						{
+							if(nodeVal.indexOf("-TO-") > 0){
+								var splitVal = nodeVal.split("-TO-");
+
+								$("input[name='"+ $(this).attr('name') + "_toDate']").val( splitVal[1]);
+								nodeVal = splitVal[0];
+							}
+
+							//Already loaded prior
+							if( $(this).attr('name').indexOf('_toDate') > 0 ) nodeVal = $(this).val();
+
+						}else{
+							if(nodeVal != ""){
+								var iD = new Date( nodeVal );
+								var month = (iD.getMonth() + 1) + "";
+								var day = iD.getDate() + "";
+								if(parseInt(month) < 9) month = "0" + month;
+								if(parseInt(day) < 9) day = "0" + day;
+								nodeVal = iD.getFullYear() + "-" + (month) + "-" + day;
+							}
 						}
 					}
 
