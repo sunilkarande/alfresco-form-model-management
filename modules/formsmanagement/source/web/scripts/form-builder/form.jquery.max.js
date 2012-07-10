@@ -580,7 +580,7 @@
 
 						if( $(this).data("type") == "d_boolean" )
 						{
-							if( nodeVal === true ) $(this).attr("checked", true);
+							if( nodeVal === true || nodeVal == "true" ) $(this).attr("checked", true);
 						}
 						else
 						{
