@@ -279,9 +279,9 @@
 
 				var tPropType = prop.type.split("_")[1];
 				if(tPropType == "boolean"){
-					prop.fieldType = "radio";
+					prop.fieldType = "checkbox";
 					prop.options = {};
-					prop.options.value = [ {"true": "Yes"},{"false": "No"} ];
+					prop.options.value = [ {"true": ""} ];
 				}
 
 				if (prop.fieldType == "select" || prop.fieldType == "radio" || prop.fieldType == "checkbox") {
@@ -475,7 +475,8 @@
             var options = prop.options.value;
             for (x in options) {
                 $.each(options[x], function (key, value) {
-                    tmp += '<input type="' + type + '" ' + methods.addGlobalProperties(prop, false) + ' value="' + value + '"><span class="fld-lbl">' + value + '</span> ';
+
+                    tmp += '<input type="' + type + '" ' + methods.addGlobalProperties(prop, false) + ' value="' + key + '"><span class="fld-lbl">' + value + '</span> ';
                 });
             }
             return tmp;
@@ -559,9 +560,17 @@
 					}
 
                     if ($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") {
-                        if ($(this).val() == nodeVal) {
-                            $(this).attr("checked", true);
-                        }
+
+						$(this).attr("checked", false);
+
+						if( $(this).data("type") == "d_boolean" )
+						{
+							if( nodeVal === true ) $(this).attr("checked", true);
+						}
+						else
+						{
+							if ($(this).val() == nodeVal) $(this).attr("checked", true);
+						}
                     } else {
                         $(this).val(nodeVal);
 
@@ -664,15 +673,23 @@
 
 					if( !$(this).hasClass("fm-dealt-with-store")){
 
-						var t = new Array();
+						if( $(this).val() != "true" && $(this).val() != "false" ){
+							var t = new Array();
 
-						$this.find("input[name='"+ $(this).attr("name") +"']").each(function(){
-							$(this).addClass("fm-dealt-with-store");
+							$this.find("input[name='"+ $(this).attr("name") +"']").each(function(){
+								$(this).addClass("fm-dealt-with-store");
 
+								if ($(this).is(':checked')) {
+									t.push( $(this).val().replace('"', '||') );
+								}
+							});
+						}else{
+
+							var t = false;
 							if ($(this).is(':checked')) {
-								t.push( $(this).val().replace('"', '||') );
+								var t = true;
 							}
-						});
+						}
 						fld = methods.getFldData($(this), t );
 					}
 				}else{
