@@ -32,22 +32,22 @@ a { outline:none; }
     padding: 0;
 }
 .fm-sidebar ul li {
-    list-style: none outside none;  
+    list-style: none outside none;
 }
 .fm-sidebar ul li a {
     border-bottom: 1px dashed #E5E5E5;
     color: #333333;
     display: block;
     padding: 10px;
-    text-decoration: none;   
-} 
+    text-decoration: none;
+}
 .fm-sidebar-dropdown  ul { height:auto!important; }
 .fm-sidebar-dropdown ul li a {
 	display: inline-block;
-	width:141px; 
+	width:141px;
 }
 .fm-sidebar ul li a.delFile {
-    background-position: 11px 11px !important;  
+    background-position: 11px 11px !important;
     float:right;
 	height: 15px;
     width: 16px;
@@ -95,7 +95,7 @@ html, body {
     border-top: 1px solid #E5E5E5;
     color: black;
     font: 13px arial,sans-serif;
-    height: 71px; 
+    height: 71px;
 }
 .fm-footer {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -109,7 +109,7 @@ html, body {
     position: fixed;
     right: 0;
     text-align: center;
-    width: 100%; 
+    width: 100%;
 	z-index: 9999;
 }
 .fm-footer .copyright {
@@ -215,7 +215,7 @@ h2 {
     z-index: 999999;
 }
 .infoMessage.bad span {
-    padding-top: 0px; 
+    padding-top: 0px;
 }
 .internal-error-field {
 	background:#F9F1B8!important; border:1px solid #CCCCCC !important;
@@ -249,7 +249,7 @@ h2 {
     padding-top: 0 !important;
 }
 
-.jfk-button-standard { 
+.jfk-button-standard {
 	background: #f1f1f1; /* Old browsers */
 	background: -moz-linear-gradient(top,  #f1f1f1 0%, #f5f5f5 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1f1f1), color-stop(100%,#f5f5f5)); /* Chrome,Safari4+ */
@@ -258,11 +258,11 @@ h2 {
 	background: -ms-linear-gradient(top,  #f1f1f1 0%,#f5f5f5 100%); /* IE10+ */
 	background: linear-gradient(top,  #f1f1f1 0%,#f5f5f5 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#f5f5f5',GradientType=0 ); /* IE6-9 */
- 
+
     border: 1px solid #DDDDDD;
     color: #444444;
 }
-.jfk-button-standard.jfk-button-hover, .jfk-button-standard.jfk-button-clear-outline.jfk-button-hover { 
+.jfk-button-standard.jfk-button-hover, .jfk-button-standard.jfk-button-clear-outline.jfk-button-hover {
 	background: #F8F8F8; /* Old browsers */
 	background: -moz-linear-gradient(top,  #f1f1f1 0%, #f8f8f8 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1f1f1), color-stop(100%,#f8f8f8)); /* Chrome,Safari4+ */
@@ -311,6 +311,9 @@ h2 {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;
 }
+.ui-dialog h2 {
+    cursor:move;
+}
 .ui-dialog-titlebar {
     display: none;
 }
@@ -352,11 +355,11 @@ form.smallFlds p label {
     width: 150px !important;
 }
 .hform p {
-    clear: left; 
+    clear: left;
     margin: 0;
 }
 .clear {
-    clear: both; 
+    clear: both;
     margin: 0!important;
     padding: 0;
 }
@@ -522,7 +525,7 @@ form.smallFlds p label {
 }
 .fm-body-inner ul li span {
     display: inline-block;
-    padding: 10px; 
+    padding: 10px;
 }
 .fm-body-inner span.fld-lbl {
     float: left;
