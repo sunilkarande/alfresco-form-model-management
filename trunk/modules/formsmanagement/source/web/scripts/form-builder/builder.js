@@ -159,6 +159,17 @@ function updateAspect(model, aspectObj){
 	model.aspects[index] = aspectObj;
 	return model;
 }
+
+function sortUL($item)
+{
+	var mylist = $item;
+	var listitems = mylist.children('li').get();
+	listitems.sort(function(a, b) {
+	   return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
+	})
+	$.each(listitems, function(idx, itm) { mylist.append(itm); });
+}
+
 /* NOT FOR jQuery PLUGIN */
 /* Saves aspect back to model and stores XML and JSON */
 function saveAspectToObj(obj, aspect){
@@ -202,6 +213,10 @@ function saveAspectToObj(obj, aspect){
 		  }
 	  });
 }
+
+$(function(){
+	sortUL($('#titles ul') );
+});
 
 /* NOT FOR jQuery PLUGIN */
 jQuery.fn.center = function () {

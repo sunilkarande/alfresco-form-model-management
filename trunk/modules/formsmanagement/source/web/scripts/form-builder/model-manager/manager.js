@@ -2,16 +2,16 @@ function validateInternalForm(form){
 	var valid = true;
 	form.find('.errBox').hide();
 	$(".error").removeClass("error");
-	
+
 	form.find(".required").each(function(){
-		if( $(this).val() == "" ){  
+		if( $(this).val() == "" ){
 			valid = false;
 			$(this).addClass("error");
 		}
 	});
-	
-	if(!valid)  form.find('.errBox').fadeIn(1000);  
-	return valid; 
+
+	if(!valid)  form.find('.errBox').fadeIn(1000);
+	return valid;
 }
 function cleanString(node){
   string =  node.val().replace(/[^a-zA-Z]+/g,'');
@@ -58,7 +58,7 @@ $(function(){
     draggable: false
   });
 
-  $('.ui-dialog').draggable({ handle : '.fm-button-wrapper' });
+  $('.ui-dialog').draggable({ handle: "h2", cursor: "move" });
 
   $('.fm-close-dialog').click(function(){
     var dialogName = $(this).parents('.ui-dialog-content:eq(0)').attr("id");
@@ -91,15 +91,15 @@ $(function(){
     }else{
        if(wrapper.attr("id") == ""){
          var url = "/alfresco/wcs/form-builder/get-json-model";
-			
+
         $.get(url, { modelName: modelName }, function(response){
           var arr = response.split("~");
           var r = eval("("+arr[0]+")");
-		  
+
 		  //Set options
 		  $('.fm-aspect-prefix').html("");
 		  $('.fm-aspect-prefix').append('<option value="">- Select -</option>');
-		  
+
 		  for(x in r.namespaces){
 			 $('.fm-aspect-prefix ').append('<option value="'+r.namespaces[x]["@prefix"]+'">'+r.namespaces[x]["@prefix"]+'</option>');
 		  }
@@ -138,7 +138,7 @@ $(function(){
 			$('.infoMessage span').html("Please wait...");
     		$('.infoMessage').fadeIn(300);
     		$('.infoMessage').center();
-			
+
 			var filename = $('.open').find('.fm-filename').val().replace(".xml", "");
 			$.ajax({
 		        type: "POST",
@@ -288,7 +288,7 @@ $(function(){
   });
 
   $('.fmCreateAspect').live("click", function(){
-  
+
 	var valid = validateInternalForm( $(".fmCreateAspectForm"));
 	if(valid){
 		var jsonid = $('.open').attr('id').replace("json_", "");
@@ -376,7 +376,7 @@ $(function(){
                    $('.infoMessage span').html("There was a problem deleting that aspect, one or more nodes may be using it");
 		           $('.infoMessage').addClass("bad").center();
 				   setTimeout("$('.infoMessage').fadeOut(1000, function(){ $('.infoMessage').removeClass('bad'); });", 3000);
-					 
+
               }
           });
         }

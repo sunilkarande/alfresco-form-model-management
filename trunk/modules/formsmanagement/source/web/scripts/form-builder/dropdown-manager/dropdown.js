@@ -125,6 +125,7 @@ $(function () { /* Setup */
         height: 'auto',
         draggable: false
     });
+	$('.ui-dialog').draggable({ handle: "h2", cursor: "move" });
 
     $('.addRow').live("click", function () {
         var row = rowTemplate("", "");
