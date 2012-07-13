@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Search Config</shortname>
+	<description>Form Builder Webscript Advanced search setup</description>
+	<url>/form-builder/search-config</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Profile Builder</shortname>
+	<description>Form Builder Webscript</description>
+	<url>/form-builder/profile</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
