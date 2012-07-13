@@ -39,7 +39,9 @@
 		<ul>
 			<#list models as model>
 			<#if model.type == "{http://www.alfresco.org/model/content/1.0}content">
-				<li><a id="${model.id}" style="width:auto!important;" href="/alfresco/d/d/workspace/SpacesStore/${model.id}/${model.name}" href="#" class="docList" ><span>${model.name?replace(".json", "")}</span></a></li>
+				<#if model.name != "advsearch.json">
+					<li><a id="${model.id}" style="width:auto!important;" href="/alfresco/d/d/workspace/SpacesStore/${model.id}/${model.name}" href="#" class="docList" ><span>${model.name?replace(".json", "")}</span></a></li>
+				</#if>
 			</#if>
 		</#list>
 
