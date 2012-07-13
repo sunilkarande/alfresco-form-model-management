@@ -1,0 +1,11 @@
+<webscript>
+	<shortname>Form Management Search Service</shortname>
+	<description>Search the repository from given criteria</description>
+	<url>/fm/search</url>
+	<url>/fm/search/{context}</url>
+	<url>/fm/search/{context}/{query}</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
