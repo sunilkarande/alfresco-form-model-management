@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		var jsonModel = '${json!}';
 		var fmAspectName = "${aspectName!}";
-		var fmModelObj = eval("(" + jsonModel + ")");
+		if(jsonModel != "") var fmModelObj = eval("(" + jsonModel + ")");
 	</script>
 
 </head>
@@ -156,43 +156,43 @@
 </div>
 <#include "*/global/footer.ftl" />
 
-<#if aspectName?exists && json?exists>
+
 <script type="text/javascript" src="/alfresco/scripts/form-builder/validation.js"></script>
 <script type="text/javascript" src="/alfresco/scripts/form-builder/form.jquery.js"></script>
-<script type="text/javascript" src="/alfresco/scripts/form-builder/tools.js"></script>
 <script type="text/javascript" src="/alfresco/scripts/form-builder/builder.js"></script>
+	<#if aspectName?exists && json?exists>
+	<script type="text/javascript" src="/alfresco/scripts/form-builder/tools.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			//Load form and apply save button trigger
+			var aspectArr = [ getAspect(fmModelObj, fmAspectName) ];
+			//jsonToForm(aspectArr , true, $('.formContainerStage'));
 
-<script type="text/javascript">
-	$(function(){
-		//Load form and apply save button trigger
-		var aspectArr = [ getAspect(fmModelObj, fmAspectName) ];
-		//jsonToForm(aspectArr , true, $('.formContainerStage'));
+			$('.formContainerStage').form({
+				'useShareProxy':false,
+				'aspects': aspectArr,
+				'onComplete': function(){
+					$('#formName').val($('#formFormat .frm_formName').text() );
+					$('.prg-desc').val($('.frm_desc').html());
+					$('.frmFormat').val( $('#formFormat').attr("class") );
+					$('.prg-formclass').val( $(".formContainerStage form").attr("class") );
 
-		$('.formContainerStage').form({
-			'useShareProxy':false,
-			'aspects': aspectArr,
-			'onComplete': function(){
-				$('#formName').val($('#formFormat .frm_formName').text() );
-				$('.prg-desc').val($('.frm_desc').html());
-				$('.frmFormat').val( $('#formFormat').attr("class") );
-				$('.prg-formclass').val( $(".formContainerStage form").attr("class") );
+					if( $('#formFormat').hasClass('fm-aspect-hidden') ){
+						$('.prg_aspect_hidden').attr("checked", "checked");
+					}else{
+						$('.prg_aspect_hidden').attr("checked", "");
+					}
+					loadToggleAspectValues();
 
-				if( $('#formFormat').hasClass('fm-aspect-hidden') ){
-					$('.prg_aspect_hidden').attr("checked", "checked");
-				}else{
-					$('.prg_aspect_hidden').attr("checked", "");
+					$(".f_b_root").sortable({
+						items: '.group', distance:20
+					}).disableSelection();
+
 				}
-				loadToggleAspectValues();
+			});
 
-				$(".f_b_root").sortable({
-					items: '.group', distance:20
-				}).disableSelection();
-
-			}
 		});
-
-	});
-</script>
+	</script>
 </#if>
 <script type="text/javascript">
 	/* Filter for aspects */

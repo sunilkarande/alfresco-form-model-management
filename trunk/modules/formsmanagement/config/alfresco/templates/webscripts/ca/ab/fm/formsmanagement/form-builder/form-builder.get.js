@@ -34,22 +34,20 @@ function getAspectList(){
 	}
 	return  "[" + jsonString.slice(0, -1) + "]";
 }
-
 function main(){
-	
+
 	var formFields = [];
 		formFields.push( { "id": "t_text", "label": "Text Field" } );
 		formFields.push( { "id": "t_select", "label": "Drop Down" } );
 		formFields.push( { "id": "t_textarea", "label": "Paragraph" } );
 		formFields.push( { "id": "t_radio", "label": "Multiple Choice" } );
 		formFields.push( { "id": "t_checkbox", "label": "Checkboxes" } );
-	
+
 	var predefinedFields = [];
 		predefinedFields.push( { "id": "t_sliderval", "label": "Slider Options" } );
 		predefinedFields.push( { "id": "t_multifield", "label": "Multifield" } );
-		 
-		 
-	
+
+
 	if(args.jsonNode){
 		model.ready = true;
 		var jsonNode = search.findNode("workspace://SpacesStore/" + args.jsonNode);
@@ -65,6 +63,6 @@ function main(){
 	model.aspectList = eval("(" + getAspectList() + ")" );
 	model.formFields = formFields;
 	model.predefinedFields = predefinedFields;
-	
+
 }
 main();
