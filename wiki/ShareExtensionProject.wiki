@@ -6,6 +6,8 @@ This project will consist of a number of Share enhancements. To start off i have
 
 I have uploaded a share amp fm-share_1_2_0.amp to the download sectoin. This amp contains files that will REPLACE the alfresco search with one that uses the Form Management forms.
 
+[http://code.google.com/p/alfresco-form-model-management/downloads/detail?name=fm-share_1_2_0.amp&can=2&q=#makechanges Here is the AMP]
+
 == Search Setup ==
 
 Click the search menu item in the FM Console. It allows your to create a profile of aspects for your search.
