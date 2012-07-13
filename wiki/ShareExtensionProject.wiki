@@ -1,0 +1,16 @@
+*Please ensure you update the FM Module to version 1.2.9 as this has a new menu item; Advanced search setup.*
+
+= Share Extension Project =
+
+This project will consist of a number of Share enhancements. To start off i have moved the FM Demo dashlet, form extension pieces and the advanced search all into one AMP. There also checked into SVN.
+
+I have uploaded a share amp fm-share_1_2_0.amp to the download sectoin. This amp contains files that will REPLACE the alfresco search with one that uses the Form Management forms.
+
+== Search Setup ==
+
+Click the search menu item in the FM Console. It allows your to create a profile of aspects for your search.
+
+== Nice to know ==
+
+# No server restarts for advanced search changes
+# If there are any fields you want to hide there is a toggle in the form builder to hide FIELDS in search.
