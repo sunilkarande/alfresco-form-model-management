@@ -1,0 +1,10 @@
+<webscript>
+	<shortname>FM Advanced Search</shortname>
+	<description></description>
+	<url>/components/fm/search</url>
+	<url>/components/fm/search/{context}</url>
+	<url>/components/fm/search/{context}/{query}</url>
+	<family>Imaging</family>
+</webscript>
+
+

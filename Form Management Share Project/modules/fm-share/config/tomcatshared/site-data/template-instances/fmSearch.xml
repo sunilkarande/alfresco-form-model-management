@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+<template-type>fm-share/fmSearch</template-type>
+ <properties>
+      <pageFamily>fmSearch</pageFamily>
+      <container>fmSearch</container>
+   </properties>
+</template-instance>

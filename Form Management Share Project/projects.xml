@@ -1,0 +1,58 @@
+<project name="projects">
+
+	<target name="init">
+		<echo message="Initialization." />
+	</target>
+
+	<!-- ************************************************************************** -->
+	<!-- ** This file contains the targets used to build the individual modules/projects ** -->
+	<!-- ************************************************************************** -->
+
+	<!-- ******************************** -->
+		<!-- ** fm Share Project ** -->
+		<!-- ******************************** -->
+		<target name="clean-fm-share" depends="init">
+			<clean projectdir="${dir.module.fm-share}" />
+		</target>
+
+		<target name="package-fm-share-extension" depends="clean-fm-share">
+			<mkdir dir="${dir.module.fm-share.dist}" />
+			<echo message="*** PACKAGE fm SHARE ***" />
+			<echo message='${dir.module.fm-share.dist}-share' />
+			<echo message='${file.name.amp.fm-share}' />
+
+			<!-- <versionamp modpropsdir="${dir.module.fm-share.property}" ampnameproperty="${file.name.amp.fm-share}" />
+			-->
+
+			<zip destfile="${dir.module.fm-share.dist}/${file.name.amp.fm-share}" update="true">
+				<zipfileset file="${dir.module.fm-share.property}/file-mapping.properties" />
+				<zipfileset file="${dir.module.fm-share.property}/module.properties" />
+				<zipfileset file="${dir.module.fm-share.dist}/${file.name.jar.fm-share}" prefix="lib" />
+				<zipfileset dir="${dir.module.fm-share.config}" prefix="WEB-INF">
+					<exclude name="**/tomcatshared**" />
+				</zipfileset>
+				<zipfileset dir="${dir.module.fm-share.tomcatshared}" prefix="tomcatshared">
+				</zipfileset>
+				<zipfileset dir="${dir.module.fm-share.web}" prefix="web" />
+
+			</zip>
+		</target>
+
+		<!-- TODO Copy over source files too -->
+		<target name="deploy-fm-share-webscripts" depends="init">
+
+			<echo message=' aa ${dir.module.fm-share.webscripts.target}' />
+			<echo message="${dir.module.fm-share.webscripts}" />
+			<copy todir="C:\Alfresco4\tomcat\shared\classes\alfresco\web-extension">
+				<fileset dir="C:\Workspaces\4\Form Management Share Project\modules\fm-share\config\tomcatshared">
+				</fileset>
+			</copy>
+			<copy todir="C:\Alfresco4\tomcat\webapps\share">
+				<fileset dir="C:\Workspaces\4\Form Management Share Project\modules\fm-share\source\web">
+				</fileset>
+			</copy>
+		</target>
+
+		<!-- End fm Share AMP -->
+
+</project>

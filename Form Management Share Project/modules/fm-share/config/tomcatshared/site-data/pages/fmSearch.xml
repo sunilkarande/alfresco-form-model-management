@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <title>Advanced Search</title>
+   <description>Form Management Advanced Search</description>
+   <template-instance>fmSearch</template-instance>
+   <authentication>user</authentication>
+   <components>
+
+      <!-- Title -->
+      <component>
+         <region-id>title</region-id>
+         <url>/components/title/search-title</url>
+      </component>
+
+      <!-- Search -->
+      <component>
+         <region-id>search</region-id>
+         <url>/components/fm/search</url>
+      </component>
+
+   </components>
+</page>

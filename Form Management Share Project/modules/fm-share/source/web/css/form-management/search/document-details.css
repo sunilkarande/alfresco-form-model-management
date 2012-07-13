@@ -1,0 +1,27 @@
+#fmEditMetadata .form-alf-wrapper {
+	margin-left: 0 !important;
+    width: auto !important;
+	border-right: 0;
+}
+#fmEditMetadata .form-container .form-fields {
+	margin-left:0;
+}
+#fmEditMetadata .fm-edit-metadata {
+   width: auto !important;
+}
+#fmEditMetadata .form-alf-wrapper .frm_formName, .form-alf-wrapper .frm_desc {
+    margin-left: 0px !important;
+}
+#saveMetadataBtn, #cancelMetadataBtn { display:none; }
+.metadata-header {
+    padding: 1.5em 0;
+}
+.frm_desc, .fld-tip { display:none; }
+#my-frm .left .group label {
+    float: left;
+    width: auto !important;
+	margin-right: 0.4em;
+}
+#my-frm .left .group {
+    width: 306px;
+}

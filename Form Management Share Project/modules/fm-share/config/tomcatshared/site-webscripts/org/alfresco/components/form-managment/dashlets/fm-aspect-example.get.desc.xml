@@ -1,0 +1,6 @@
+<webscript>
+   <shortname>FM Form Demo</shortname>
+   <description>Demonstration of using the FM APIs</description>
+   <family>dashlet</family>
+   <url>/components/dashlets/fm-demo</url>
+</webscript>

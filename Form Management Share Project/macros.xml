@@ -1,0 +1,279 @@
+<project name="macros">
+
+   <!-- **************************************************************************** -->
+   <!-- ** This file contains the macro definitions used by the main build script ** -->
+   <!-- **************************************************************************** -->
+   
+   <macrodef name="clean" description="Cleans the given project">
+      <attribute name="projectdir" />
+      <sequential>
+         <delete includeEmptyDirs="true" quiet="yes" dir="@{projectdir}/${dir.name.build}/${dir.name.classes}" />
+         <delete includeEmptyDirs="true" quiet="yes" dir="@{projectdir}/${dir.name.build}/${dir.name.dist}" />
+         <delete includeEmptyDirs="true" quiet="yes" dir="@{projectdir}/${dir.name.build}/${dir.name.lib}" />
+         <delete includeEmptyDirs="true" quiet="yes" dir="@{projectdir}/${dir.name.build}/${dir.name.assemble}" />
+         <delete includeEmptyDirs="true" quiet="yes" dir="@{projectdir}/${dir.name.build}/${dir.name.test.results}" />
+         <delete includeEmptyDirs="true" quiet="yes" dir="@{projectdir}/${dir.name.build}/${dir.name.docs}" />
+      </sequential>
+   </macrodef>
+   
+   <macrodef name="compile-java" description="Compiles Java source files in the given project">
+      <attribute name="projectdir" />
+      <attribute name="compileExcludes" default="" />
+      <sequential>
+         <mkdir dir="@{projectdir}/${dir.name.build}/${dir.name.classes}" />
+         <javac destdir="@{projectdir}/${dir.name.build}/${dir.name.classes}" fork="true"
+                memoryMaximumSize="${mem.size.max}" deprecation="${javac.deprecation}" 
+                debug="${javac.debug}"  target="${javac.target}" source="${javac.source}" encoding="${javac.encoding}"
+                excludes="@{compileExcludes}" >
+            <src path="@{projectdir}/${dir.name.source}/${dir.name.java}" />
+            <classpath refid="classpath.compile" />
+
+            <!-- To run javac with Xlint:unchecked, uncomment the line below  -->
+            <!-- <compilerarg value="-Xlint:unchecked"/> -->
+
+         </javac>
+         
+         <copy todir="@{projectdir}/${dir.name.build}/${dir.name.classes}">
+            <fileset dir="@{projectdir}/${dir.name.source}/${dir.name.java}">
+               <patternset>
+                  <exclude name="**/*.java" />
+                  <exclude name="log4j.properties" />
+               </patternset>
+            </fileset>
+         </copy>
+      </sequential>
+   </macrodef>
+
+   <macrodef name="compile-java-inc-generated" 
+             description="Compiles Java source files and generated Java files in the given project">
+      <attribute name="projectdir" />
+      <sequential>
+         <mkdir dir="@{projectdir}/${dir.name.build}/${dir.name.classes}" />
+         <javac destdir="@{projectdir}/${dir.name.build}/${dir.name.classes}" fork="true"
+                memoryMaximumSize="${mem.size.max}" deprecation="${javac.deprecation}" 
+                debug="${javac.debug}"  target="${javac.target}" source="${javac.source}" encoding="${javac.encoding}">
+            <src path="@{projectdir}/${dir.name.source}/${dir.name.java}" />
+            <src path="@{projectdir}/${dir.name.source}/${dir.name.generated}" />
+            <classpath refid="classpath.compile" />
+         </javac>
+         
+         <copy todir="@{projectdir}/${dir.name.build}/${dir.name.classes}">
+            <fileset dir="@{projectdir}/${dir.name.source}/${dir.name.java}">
+               <patternset>
+                  <exclude name="**/*.java" />
+                  <exclude name="log4j.properties" />
+               </patternset>
+            </fileset>
+         </copy>
+      </sequential>
+   </macrodef>
+   
+   <macrodef name="generate-javadocs">
+      <attribute name="projectdir" />
+      <attribute name="documenttitle" />
+      <attribute name="windowtitle" />
+      <sequential>
+         <mkdir dir="@{projectdir}/${dir.name.build}/${dir.name.docs}/${dir.name.java}" />
+         <javadoc maxmemory="${mem.size.max}" author="true" version="true" 
+                  sourcepath="@{projectdir}/${dir.name.source}/${dir.name.java}" 
+                  destdir="@{projectdir}/${dir.name.build}/${dir.name.docs}/${dir.name.java}" 
+                  packagenames="${javadoc.packages.include}"
+                  excludepackagenames="${javadoc.packages.exclude}" 
+                  bottom="${javadoc.copyright}"
+                  doctitle="@{documenttitle}"
+                  windowtitle="@{windowtitle}" 
+                  classpathref="classpath.javadoc">
+            <!-- doclet that hides public classes/members via @exclude -->
+            <doclet name="ExcludeDoclet" path="${dir.project.3rdparty.lib}/${dir.name.devenv}/exclude-doclet.jar"/>
+         </javadoc>
+      </sequential>
+   </macrodef>
+	
+	<macrodef name="generate-generated-javadocs">
+      <attribute name="projectdir" />
+      <attribute name="documenttitle" />
+      <attribute name="windowtitle" />
+      <sequential>
+         <mkdir dir="@{projectdir}/${dir.name.build}/${dir.name.docs}/${dir.name.java}" />
+         <javadoc maxmemory="${mem.size.max}" author="true" version="true" 
+                  sourcepath="@{projectdir}/${dir.name.source}/${dir.name.generated}" 
+                  destdir="@{projectdir}/${dir.name.build}/${dir.name.docs}/${dir.name.java}" 
+                  packagenames="${javadoc.packages.include}"
+                  excludepackagenames="${javadoc.packages.exclude}" 
+                  bottom="${javadoc.copyright}"
+                  doctitle="@{documenttitle}"
+                  windowtitle="@{windowtitle}" 
+                  classpathref="classpath.javadoc">
+            <!-- doclet that hides public classes/members via @exclude -->
+            <doclet name="ExcludeDoclet" path="${dir.project.3rdparty.lib}/${dir.name.devenv}/exclude-doclet.jar"/>
+         </javadoc>
+      </sequential>
+   </macrodef>
+   
+   <macrodef name="run-tests" description="Runs the tests for the given project">
+      <attribute name="projectdir" />
+      <sequential>
+         <mkdir dir="@{projectdir}/${dir.name.build}/${dir.name.test.results}" />
+         <junit printsummary="yes" fork="yes" maxmemory="${mem.size.max}" haltonfailure="yes" dir="@{projectdir}">
+            <jvmarg value="-server"/>
+            <classpath refid="classpath.unit.test" />
+            <formatter type="xml" />
+            <batchtest todir="@{projectdir}/${dir.name.build}/${dir.name.test.results}">
+               <fileset dir="@{projectdir}/${dir.name.source}/${dir.name.java}">
+                  <patternset refid="files.tests" />
+               </fileset>
+            </batchtest>
+         </junit>
+      </sequential>
+   </macrodef>
+
+   <macrodef name="deploy-virtual-tomcat" 
+             description="Deploys the files required for the virtualisation server to the given location">
+      <attribute name="location" />
+      <sequential>
+         <copy todir="@{location}/server/lib"  file="${dir.project.3rdparty.lib}/spring-2.0.2.jar"/>
+         <copy todir="@{location}/server/lib"  file="${dir.project.3rdparty.lib}/hibernate-3.2.1-patched.jar"/>
+         <copy todir="@{location}/server/lib"  file="${dir.project.catalinavirtual.dist}/${file.name.jar.catalinavirtual}"/>
+         <copy todir="@{location}/common/lib"  file="${dir.project.jndi.dist}/${file.name.jar.jndi}"/>
+         <copy todir="@{location}/common/lib"  file="${dir.project.repository.dist}/${file.name.jar.repository}"/>
+         <copy todir="@{location}/common/lib"  file="${dir.project.core.dist}/${file.name.jar.core}"/>
+         <copy todir="@{location}/conf"        file="${dir.project.repository.config}/alfresco/alfresco-shared.properties"/>
+         <copy todir="@{location}/conf"        file="${dir.project.repository.config}/alfresco/alfresco-jmxrmi.password"/>
+         <copy todir="@{location}/conf"        file="${dir.project.repository.config}/alfresco/alfresco-jmxrmi.access"/>
+         <copy todir="@{location}/conf"        file="${dir.project.jndi.config}/alfresco-virtserver-context.xml"/>
+         <copy todir="@{location}/conf"        file="${dir.project.jndi.config}/alfresco-virtserver.properties"/>
+         <copy todir="@{location}/conf"        file="${dir.project.catalinavirtual.config}/server.xml" overwrite="yes"/>
+         <copy todir="@{location}/conf"        file="${dir.project.catalinavirtual.config}/web.xml"    overwrite="yes"/>
+      </sequential>
+   </macrodef>
+
+   <macrodef name="install-amp" description="Installs an AMP file into the given WAR file">
+      <attribute name="ampfile" />
+      <attribute name="warfile" />
+      <sequential>
+         <java dir="." fork="true" classname="org.alfresco.repo.module.tool.ModuleManagementTool">
+            <classpath refid="classpath.compile"/>
+            <arg line="install @{ampfile} @{warfile} -force -verbose -nobackup"/>
+         </java>
+      </sequential>
+   </macrodef>
+
+
+   <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+       Wrapper that brings the Alfresco webapp and the virtualization
+       server up (if they weren't already up) to execute the Ant target 
+       specified by the 'target' parameter.   After the command has 
+       completed, both servers are stopped if this wrappper was 
+       responsible for starting them (otherwise, they're left up).
+
+       Example:
+           <target name="moo">
+               <alfresco-virtual-antcall target="_moo"/>
+           </target>
+
+           <target name="_moo">
+               <echo>Alfresco webapp + virtual tomcat are both up</echo>
+           </target>
+
+       This makes it easy to run tests that need both servers when you're
+       you're doing iterative development work & don't want to wait for 
+       heavy processes to start/stop every time... yet it accommodates the 
+       need to automatically start/stop servers when in a "clean" test 
+       environment (all it assumes is that both servers are installed).
+
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+   <macrodef name="alfresco-virtual-antcall">
+      <attribute name="target"/>
+      <sequential>         
+         <default-if-not-set  propname ="tomcat.home"
+                              propvalue="${env.TOMCAT_HOME}"/>
+
+         <default-if-not-set  propname ="virtual.tomcat.home"
+                              propvalue="${env.VIRTUAL_TOMCAT_HOME}"/>
+
+         <check-server-status propname="virtual.tomcat.previously.started"
+                              server  ="localhost"
+                              port    ="8180"/>
+
+         <check-server-status propname="tomcat.previously.started"
+                              server  ="localhost"
+                              port    ="8080"/>
+
+         <parallel>
+            <antcall target="start-tomcat-if-necessary"/>
+            <antcall target="start-virtual-tomcat-if-necessary"/>
+            <sequential>
+               <echo>Waiting for Alfresco Tomcat...</echo>
+               <antcall target="wait-for-alfresco"/>
+               <echo>Alfresco's Tomcat is up</echo>
+
+               <echo>Waiting for Virtual Tomcat...</echo>
+               <antcall target="wait-for-virtual-tomcat"/>
+               <echo>Virtual Tomcat is up</echo>
+
+               <antcall target="@{target}"/>
+
+               <antcall target="virtual-tomcat-stop-if-necessary"/>
+               <antcall target="tomcat-stop-if-necessary"/>
+            </sequential>
+         </parallel>
+      </sequential>
+   </macrodef>
+
+   <macrodef name="default-if-not-set">
+      <attribute name="propname"/>
+      <attribute name="propvalue"/>
+      <sequential>
+         <condition property= "@{propname}"  value="@{propvalue}">
+            <not> <isset property="@{propname}"/>  </not>
+         </condition>
+      </sequential>
+   </macrodef>
+
+   <macrodef name="check-server-status">
+      <attribute name="propname"/>
+      <attribute name="server"/>
+      <attribute name="port"/>
+      <sequential>
+         <condition property="@{propname}">
+            <socket server="@{server}" port="@{port}"/>
+         </condition>
+      </sequential>
+   </macrodef>
+
+   <macrodef name="tomcat-start">
+      <attribute name="heapmax" default="-Xmx512M"/>
+      <sequential>
+         <echo>Starting Alfresco Tomcat:  ${tomcat.home}</echo>
+         <java jar="${tomcat.home}/bin/bootstrap.jar" 
+               fork="true">
+            <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
+            <jvmarg value="-Dcatalina.base=${tomcat.home}"/>
+            <jvmarg value="-server"/>
+            <jvmarg value="@{heapmax}"/>
+            <jvmarg value="-Djava.io.tmpdir=${tomcat.home}/temp"/>
+            <jvmarg value="-Djava.security.policy=${tomcat.home}/conf/catalina.policy"/>
+         </java>
+      </sequential>
+   </macrodef>
+
+   <macrodef name="virtual-tomcat-start">
+       <attribute name="heapmax" default="-Xmx512M"/>
+       <sequential>
+           <antcall  target="wait-for-alfresco"/>
+           <echo>Starting Virtual Tomcat:  ${virtual.tomcat.home}</echo>
+           <java jar="${virtual.tomcat.home}/bin/bootstrap.jar" 
+                 fork="true">
+               <jvmarg value="-Dcatalina.home=${virtual.tomcat.home}"/>
+               <jvmarg value="-Dcatalina.base=${virtual.tomcat.home}"/>
+               <jvmarg value="-server"/>
+               <jvmarg value="@{heapmax}"/>
+               <jvmarg value="-Djava.io.tmpdir=${virtual.tomcat.home}/temp"/>
+               <jvmarg value="-Djava.security.policy=${virtual.tomcat.home}/conf/catalina.policy"/>
+           </java>
+       </sequential>
+   </macrodef>
+
+</project>
+

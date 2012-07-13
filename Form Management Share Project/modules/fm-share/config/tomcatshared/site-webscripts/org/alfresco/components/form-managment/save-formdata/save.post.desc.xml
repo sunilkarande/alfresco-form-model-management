@@ -1,0 +1,6 @@
+<webscript>
+   <shortname>Form Management SHARE Save</shortname>
+   <description>Own Proxy for Alfresco Store API,share proxy is too slow</description>
+   <family>Form Management</family>
+   <url>/components/form-management/ajax/save</url>
+</webscript>
