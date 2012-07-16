@@ -11,7 +11,7 @@ function injectAlfrescoDefaults()
 	});
 
 	var nodeObj = getQueryObject();
-	console.log( JSON.stringify(nodeObj) );
+
 	$('.fm-profile').form("loadPropertiesToFields", nodeObj);
 }
 
