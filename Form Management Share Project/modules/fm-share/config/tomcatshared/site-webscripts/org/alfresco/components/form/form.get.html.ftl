@@ -63,7 +63,7 @@
 				<div class="fm-edit-metadata <#if form.mode == "view">fmViewMode</#if>">
 					<div class="fm-profile"></div>
 
-					<div class="fm-form-buttons">
+					<div class="fm-form-buttons" style="display:none">
 						<span class="yui-button yui-push-button" id="saveMetadataBtn">
 							<span class="first-child">
 								<button type="button" tabindex="0" id="saveMetadata" name="-">Save</button>

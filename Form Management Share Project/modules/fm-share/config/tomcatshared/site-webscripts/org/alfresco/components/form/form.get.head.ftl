@@ -68,8 +68,8 @@
 						'postUrl' : "/share/service/components/form-management/ajax/save",
 						'readonly': readonly,
 						'onComplete': function(fo){
-							if( $('#formFormat').length <= 0){
-								$('.fm-form-buttons').hide();
+							if( $('#formFormat').length > 0){
+								$('.fm-form-buttons').show();
 							}
 							$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
 						}
