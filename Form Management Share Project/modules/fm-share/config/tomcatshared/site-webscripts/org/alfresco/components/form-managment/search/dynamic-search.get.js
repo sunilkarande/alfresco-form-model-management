@@ -54,7 +54,7 @@ function main()
 
 	if(page.url.queryString != "")
 	{
-		var searchApi = remote.call("/fm/search/"+siteid + "?t="+textSearch+"&r="+repoSearch+"&a="+allSiteSearch+"&o="+orOperator+"&" + encodeURIComponent( page.url.queryString ) );
+		var searchApi = remote.call("/fm/search/"+siteid + "?r="+repoSearch+"&a="+allSiteSearch+"&o="+orOperator+"&" + encodeURIComponent( page.url.queryString ) );
 			model.results = eval("(" + searchApi + ")");
 			model.header = '<tr><th style="width:92px"></th><th>Filename</th><th style="width:137px;">Actions</th></tr>';
 	}
