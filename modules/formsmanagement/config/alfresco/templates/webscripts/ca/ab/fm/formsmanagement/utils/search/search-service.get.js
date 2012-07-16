@@ -170,7 +170,7 @@ function main(){
 				var ab = "cm_name";
 				var ac = "cm_title";
 
-				var keywords = b.split(" ");
+				var keywords = b.split("%20");
 				var keywordOperator = "OR";
 
 				for(i in keywords){
@@ -224,8 +224,8 @@ function main(){
 			mSearch += ")";
 		}
 
-		query += mSearch + ")";
-		logger.log("SEARCH SERVICE LUCENE: " + query);
+		query += mSearch + ") AND NOT ASPECT:\"sys:hidden\"";
+		logger.log("SEARCH SERVICE LUCENE fmSearch: " + query);
 		var results = search.luceneSearch(query);
 	}
 
