@@ -1,6 +1,6 @@
 var siteid = page.url.templateArgs.site;
 var repoSearch = "false";
-var allSiteSearch = "false";
+var allSiteSearch = "true";
 var orOperator = "";
 var textSearch = "";
 
@@ -8,13 +8,10 @@ model.isAdvSearchProfile = true;
 model.keywords = page.url.args.keywords;
 model.siteid = siteid;
 
-//Get the search type
-if(page.url.args.a == "true"){ allSiteSearch = "true"; model.searchType = "all-sites"; }
-else if(page.url.args.r == "true"){ repoSearch = "true"; model.searchType = "repo"; }
-else { model.searchType = "site"; }
 //Default when no site to all sites
-if(!siteid) { model.searchType = "all-sites"; }
-
+model.searchType = "all-sites";
+if(siteid){ model.searchType = "site"; allSiteSearch = "false"; }
+if(page.url.args.r == "true"){ repoSearch = "true"; model.searchType = "repo"; allSiteSearch = "false";  }
 
 if(page.url.args.o == "true") orOperator = "true";
 if(page.url.args.t != "") textSearch = page.url.args.t;
