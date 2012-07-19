@@ -59,7 +59,7 @@
 			{
 				if( $('.fm-profile').length > 0)
 				{
-					 /*  Traditional method
+					 /*  Traditional method */
 					 $('.fm-profile').form({
 						 'drawOptions': {
 							'nodeRef': $('#nodeRef:last').val(),
@@ -74,9 +74,9 @@
 							$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
 						}
 					});
-					*/
 
-					/* Strict method; Use pre-determined aspect collection or profiles */
+
+					/* Strict method; Use pre-determined aspect collection or profiles
 					$.getJSON("/share/proxy/alfresco/model/aspects/aspecttoproperty?aspects=img_documentTypeAspect", {}, function(jsonObj)
 					{
 						$('.fm-profile').form({
@@ -86,14 +86,14 @@
 							'postUrl' : "/share/service/components/form-management/ajax/save",
 							'readonly': readonly,
 							'onComplete': function(fo){
-								if( $('#formFormat').length <= 0){
-									$('.fm-form-buttons').hide();
+								if( $('#formFormat').length > 0){
+									$('.fm-form-buttons').show();
 								}
 								$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
 							}
 						});
 					});
-
+ */
 				}
 			}
 			$(function(){
