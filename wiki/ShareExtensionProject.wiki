@@ -33,10 +33,10 @@ Click the search menu item in the FM Console. It allows your to create a profile
 
 == Nice to know ==
 
-# No server restarts for advanced search changes
-# If there are any fields you want to hide there is a toggle in the form builder to hide FIELDS in search.
+ #  No server restarts for advanced search changes
+ #  If there are any fields you want to hide there is a toggle in the form builder to hide FIELDS in search.
 
 == Coming soon ==
-# Filter search results
-# Search sorting
-# Favorite searches
+ #  Filter search results
+ #  Search sorting
+ #  Favorite searches
