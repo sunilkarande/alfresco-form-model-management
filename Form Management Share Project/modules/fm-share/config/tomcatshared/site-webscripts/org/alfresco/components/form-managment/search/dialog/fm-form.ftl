@@ -34,7 +34,7 @@
 	</div>
 </div>
 
-<div class="dynamic-criteria">
+<div class="dynamic-criteria" style="display:none;">
 	<div id="configTabs">
 		<ul>
 			<li><a href="#config-1">${msg("search.title")}</a></li>

@@ -59,7 +59,7 @@
 			{
 				if( $('.fm-profile').length > 0)
 				{
-					 /*  Traditional method  */
+					 /*  Traditional method
 					 $('.fm-profile').form({
 						 'drawOptions': {
 							'nodeRef': $('#nodeRef:last').val(),
@@ -74,10 +74,10 @@
 							$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
 						}
 					});
+					*/
 
-
-					/* Strict method; Use pre-determined aspect collection or profiles
-					$.getJSON("/share/proxy/alfresco/model/aspects/aspecttoproperty?aspects=bns_documentTypeAspect", {}, function(jsonObj)
+					/* Strict method; Use pre-determined aspect collection or profiles */
+					$.getJSON("/share/proxy/alfresco/model/aspects/aspecttoproperty?aspects=img_documentTypeAspect", {}, function(jsonObj)
 					{
 						$('.fm-profile').form({
 
@@ -93,7 +93,6 @@
 							}
 						});
 					});
-					*/
 
 				}
 			}

@@ -13,7 +13,9 @@
 	<#else>
 		var advsearchAspects = ${docTypeAspect!};
 	</#if>
+
 </script>
+
 <div style="display: none;" class="infoMessage saving"><span>${msg("search.saving")}</span></div>
 
 <div class="sym-header">
@@ -66,7 +68,13 @@
 </div>
 <#if results?exists>
 	<div class="sym-search-info" style="">
+		<div class="toggle-detail">
+			<a class="btn-simple-view btn-jq" href="#"><span>&nbsp;</span></a>
+			<a class="btn-detail-view btn-jq btn-jq-active" href="#"><span>&nbsp;</span></a>
+		</div>
+
 		<div class="ilabel outputRow"><span>${results?size}</span> result(s) found (showing 10 results)</div>
+ 		<p class="clear"></p>
 	</div>
 </#if>
 <div class="sym-search-body">
