@@ -19,16 +19,11 @@
 {
 	display: none;
 }
-#fmEditMetadata
-{
-}
 #fmEditMetadata .form-alf-wrapper .frm_formName, .form-alf-wrapper .frm_desc
 {
 	margin-left: 20px!important;
 }
-#fmEditMetadata .form-container .form-buttons
-{
-}
+
 #fmEditMetadata .form-container .form-fields
 {
 	margin-left: 20px;
@@ -77,12 +72,7 @@
 {
 	display: none;
 }
-#fmEditMetadata .fm-edit-buttons
-{
-}
-.resultTools
-{
-}
+
 .sym-search-body
 {
 	position: relative;
