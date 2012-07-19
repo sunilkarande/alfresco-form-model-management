@@ -8,6 +8,23 @@ I have uploaded a share amp fm-share_1_2_0.amp to the download sectoin. This amp
 
 [http://code.google.com/p/alfresco-form-model-management/downloads/detail?name=fm-share_1_2_0.amp&can=2&q=#makechanges Here is the AMP]
 
+== Installation ==
+Please diable SOLR 
+
+ #  Locate \tomcat\shared\classes\alfresco-global.properties
+ #  Comment out solr and change the index subsystem to lucene like below
+{{{
+### Solr indexing ###
+##index.subsystem.name=solr
+#dir.keystore=${dir.root}/keystore
+#solr.port.ssl=8443
+
+index.subsystem.name=lucene
+index.recovery.mode=FULL
+}}}
+
+Install the AMP
+
 == Search Setup ==
 
 Click the search menu item in the FM Console. It allows your to create a profile of aspects for your search.
