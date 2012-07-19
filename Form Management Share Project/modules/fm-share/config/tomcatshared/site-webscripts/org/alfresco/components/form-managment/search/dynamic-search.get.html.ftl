@@ -66,28 +66,12 @@
 		<p class="clear"></p>
 	</div>
 </div>
-<#if results?exists>
-	<div class="sym-search-info" style="">
-		 <#include 'actions.ftl' />
-	</div>
-</#if>
+
+<div class="sym-search-info" style="">
+	 <#include 'actions.ftl' />
+</div>
 <div class="sym-search-body">
-	<#if results?exists>
-		<#assign count = 0>
-		<#assign pCount = 0>
-		<#assign pStyle = "">
-			<div id="uaPages">
-				<#list results as doc>
-					<#assign class="repo">
-					<#if doc.record><#assign class="record"></#if>
-					<div class="${class} ua-res-doc">
-						 <@searchitem doc />
-					</div>
-				</#list>
-			</div>
-	<#else>
-		<div class="info">${msg("search.tip")}</div>
-	</#if>
+	 <div class="info">${msg("search.tip")}</div>
 </div>
 <div class="sym-footer"></div>
 <input type="hidden" class="sb-main-id" value="" />

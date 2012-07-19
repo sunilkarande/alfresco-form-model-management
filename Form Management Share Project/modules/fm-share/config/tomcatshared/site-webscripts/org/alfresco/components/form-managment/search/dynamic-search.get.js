@@ -1,60 +1,47 @@
 var siteid = page.url.templateArgs.site;
 var repoSearch = "false";
 var allSiteSearch = "true";
-var orOperator = "";
-var textSearch = "";
-
-model.isAdvSearchProfile = true;
-model.keywords = page.url.args.keywords;
-model.siteid = siteid;
-
-//Default when no site to all sites
-model.searchType = "all-sites";
-if(siteid){ model.searchType = "site"; allSiteSearch = "false"; }
-if(page.url.args.r == "true"){ repoSearch = "true"; model.searchType = "repo"; allSiteSearch = "false";  }
-
-if(page.url.args.o == "true") orOperator = "true";
-if(page.url.args.t != "") textSearch = page.url.args.t;
-
-//Get Advsearch profile
-model.advsearchAspects = remote.call("/form-builder/search-config/get-profile-properties");
-
 
 function doSiteStuff()
 {
-
 	//Get site information
 	var siteString = remote.call("/api/sites/" + siteid);
 		siteJsonObj = eval( "(" + siteString + ")" );
 		model.site = siteJsonObj;
 
-/*
+	/*
 		model.isAdvSearchProfile = false;
 
 		//Get site settings formAspect
-		var appSettingString = remote.call('/gmail/user-settings?siteid='+ siteid ) + "";
-		var appSettingsObj = eval("(" + appSettingString  + ")");
+	var appSettingString = remote.call('/gmail/user-settings?siteid='+ siteid ) + "";
+	var appSettingsObj = eval("(" + appSettingString  + ")");
 		model.formAspect = appSettingsObj.site.formAspect;
 
-	//Get User Dropbox node
+		//Get User Dropbox node
 	var dropboxNode = remote.call("/slingshot/doclib/treenode/site/"+siteid+"/documentLibrary/Dropbox/"+user.name+"?children=false");
 		dropboxObj = eval("(" + dropboxNode + ")");
 		model.fmDropboxNodeRef = dropboxObj.parent.nodeRef;
-*/
+	*/
+
 	var result = remote.call("/model/aspects/aspecttoproperty?aspects=" + model.formAspect);
 		model.docTypeAspect = result + "";
 }
 
 function main()
 {
-	if(siteid) doSiteStuff();
+	model.isAdvSearchProfile = true;
+	model.siteid = siteid;
 
-	if(page.url.queryString != "")
-	{
-		var searchApi = remote.call("/fm/search/"+siteid + "?r="+repoSearch+"&a="+allSiteSearch+"&o="+orOperator+"&" + encodeURIComponent( page.url.queryString ) );
-			model.results = eval("(" + searchApi + ")");
-			model.header = '<tr><th style="width:92px"></th><th>Filename</th><th style="width:137px;">Actions</th></tr>';
-	}
+	//Default when no site to all sites
+	model.searchType = "all-sites";
+
+	if(siteid && page.url.args.a != "true"){ model.searchType = "site"; allSiteSearch = "false"; }
+	if(page.url.args.r == "true"){ repoSearch = "true"; model.searchType = "repo"; allSiteSearch = "false";  }
+
+	//Get Advsearch profile
+	model.advsearchAspects = remote.call("/form-builder/search-config/get-profile-properties");
+
+	if(siteid) doSiteStuff();
 }
 
 main();
