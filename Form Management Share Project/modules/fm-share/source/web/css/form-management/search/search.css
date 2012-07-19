@@ -59,11 +59,11 @@
 .resultTools ul l i { margin:0; list-style:none; }
 .resultTools ul li a {  border: 1px solid transparent;
     display: block;
-    padding: 5px; }
+    padding: 2px 5px; }
 .resultTools  ul li a:hover {
     background-color: none repeat scroll 0 0 #EFEFEF;
     border: 1px solid #CCCCCC;
-    padding: 5px;
+
     text-decoration: none;
 }
 .ico-view {   background-image: url("/share/images/form-management/eye.png");
@@ -955,6 +955,8 @@ span.jPag-snext-img {
 }
 
 /* Search Table */
+.doc-search-icon { position:relative; }
+.preview-jump-out { display:block!important; position:absolute; z-index:1; background:#FFF; border:4px solid #ccc; padding:10px; top:-15px; left:50px; }
 .ua-res-foot { background-color: #F8F8F8;   border-bottom: 1px dashed #C0C0C0;   padding: 13px 5px 5px; }
 .resultTools {
 	border-left: 1px dotted #C5E6E9;
@@ -973,7 +975,11 @@ span.jPag-snext-img {
 .doc-search-details { vertical-align: top;  padding-left: 10px; }
 .doc-search-details .title { font-weight:bold; color:#606060; }
 
-/* Simple Detail view */
+/* Actions */
+.search-filter { float:right; padding-top:2px; padding-left:10px; }
+.search-filter .ibg { width:155px; padding: 2px 2px 3px;  }
+.search-filter .ibg input  { width:150px!important;    }
+
 .doc-search-icon { float: left; padding-right: 20px; width:80px; }
 .doc-search-details { float:left; }
 
