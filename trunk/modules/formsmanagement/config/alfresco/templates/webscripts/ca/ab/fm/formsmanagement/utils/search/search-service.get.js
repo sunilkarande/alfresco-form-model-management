@@ -166,21 +166,22 @@ function main(){
 			}else if(a == "r"){
 				//Repository search
 			}else if(a == "t"){
-				//Caught keyword search
-				var ab = "cm_name";
-				var ac = "cm_title";
+				if(b != "" && b != "null"){
+					//Caught keyword search
+					var ab = "cm_name";
+					var ac = "cm_title";
 
-				var keywords = b.split("%20");
-				var keywordOperator = "OR";
+					var keywords = b.split("%20");
+					var keywordOperator = "OR";
 
-				for(i in keywords){
+					for(i in keywords){
 
-					keywordSearch += "@"+ ab.replace("_", "\\:") +":\"" + keywords[i] + "\" "+keywordOperator+" ";
-					keywordSearch += "@"+ ac.replace("_", "\\:") +":\"" + keywords[i] + "\" "+keywordOperator+" ";
-					keywordSearch += "TEXT:\"" + keywords[i] + "\" "+keywordOperator+" ";
+						keywordSearch += "@"+ ab.replace("_", "\\:") +":\"" + keywords[i] + "\" "+keywordOperator+" ";
+						keywordSearch += "@"+ ac.replace("_", "\\:") +":\"" + keywords[i] + "\" "+keywordOperator+" ";
+						keywordSearch += "TEXT:\"" + keywords[i] + "\" "+keywordOperator+" ";
+					}
+					keywordSearch = keywordSearch.slice(0, -4);
 				}
-				keywordSearch = keywordSearch.slice(0, -4);
-
 			}else{
 				hasExt = true;
 				if(a == "cm_mimetype"){
@@ -204,7 +205,7 @@ function main(){
 
 
 				}else{
-					mSearch += "@"+ a.replace("_", "\\:") +":\"" + b + "\" "+type+" ";
+					mSearch += "@"+ a.replace("_", "\\:") +":\"" + decodeURIComponent(b) + "\" "+type+" ";
 				}
 			}
 		}
