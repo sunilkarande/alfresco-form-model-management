@@ -153,8 +153,35 @@ function moveDocument(nodes, aspectsToValidate, isRecord, moveNodeRef){
 	});
 
 }
+
+function toggleSearchView(showSimple)
+{
+	if(showSimple)
+	{
+		$('.detail-view').hide();
+		$('.simple-view').show();
+		$('.btn-simple-view').addClass("btn-jq-active");
+		$('.btn-detail-view').removeClass("btn-jq-active");
+		$('.doc-search-icon').css({ 'padding-right': '5px', 'width':'auto' });
+	}
+	else
+	{
+		$('.detail-view').show();
+		$('.simple-view').hide();
+		$('.btn-simple-view').removeClass("btn-jq-active");
+		$('.btn-detail-view').addClass("btn-jq-active");
+		$('.doc-search-icon').css({ 'padding-right': '20px', 'width':'80px' });
+	}
+}
+
 $(function(){
 
+	$('.btn-simple-view').click(function(){
+		 toggleSearchView(true);
+	});
+	$('.btn-detail-view').click(function(){
+		 toggleSearchView(false);
+	});
 	$('.search-type .ibg a').click(function(){
 		$('.search-type ul').toggle();
 	});
@@ -171,9 +198,7 @@ $(function(){
 		return false;
 	});
 
-
 	var pagingCount = parseInt( $('.sb-page-count').val() );
-
 	if( pagingCount > 0){
 		$(".uaSearchPaging").paginate({
 			count 		: pagingCount,

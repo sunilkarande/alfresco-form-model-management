@@ -35,6 +35,14 @@ $(function (){
 	}).mouseleave(function(){
 		$(this).removeClass('img-button-hover');
 	});
+
+
+	$('.btn-jq').mouseenter(function(){
+		$(this).addClass("btn-jq-hover");
+	})
+	.mouseleave(function(){
+		$(this).removeClass("btn-jq-hover");
+	})
 });
 
 

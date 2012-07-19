@@ -53,12 +53,11 @@
 /* imaging */
 
 .resultTools {
-
 }
 .sym-search-body { position:relative;}
 .resultTools ul { margin:0; padding:0;}
 .resultTools ul l i { margin:0; list-style:none; }
-.resultTools ul li a {  border: 1px solid #F4FAFF;
+.resultTools ul li a {  border: 1px solid transparent;
     display: block;
     padding: 5px; }
 .resultTools  ul li a:hover {
@@ -66,7 +65,6 @@
     border: 1px solid #CCCCCC;
     padding: 5px;
     text-decoration: none;
-	color:#00703B;
 }
 .ico-view {   background-image: url("/share/images/form-management/eye.png");
 		    background-repeat: no-repeat;
@@ -960,7 +958,6 @@ span.jPag-snext-img {
 .ua-res-foot { background-color: #F8F8F8;   border-bottom: 1px dashed #C0C0C0;   padding: 13px 5px 5px; }
 .resultTools {
 	border-left: 1px dotted #C5E6E9;
-    height: 97px;
     padding-left: 5px;
     padding-right: 0;
     display:none;
@@ -973,9 +970,28 @@ span.jPag-snext-img {
 .ua-res-detail em {   font-style: normal;
     margin-right: 3px;}
 
-.doc-search-details { vertical-align: top; padding-top: 5px;  padding-left: 10px; }
+.doc-search-details { vertical-align: top;  padding-left: 10px; }
 .doc-search-details .title { font-weight:bold; color:#606060; }
 
+/* Simple Detail view */
+.doc-search-icon { float: left; padding-right: 20px; width:80px; }
+.doc-search-details { float:left; }
+
+.toggle-detail { float:right; padding-top:3px;  }
+.toggle-detail a { display:inline-block; text-decoration:none; }
+.toggle-detail a:hover { text-decoration:none; }
+.toggle-detail a span { display:block; height: 17px;  width: 17px;}
+.btn-detail-view span { background:url('/share/res/components/documentlibrary/images/detailed-view-on-16.png') no-repeat; }
+.btn-simple-view span { background:url('/share/res/components/documentlibrary/images/simple-view-on-16.png') no-repeat; }
+
+.btn-jq {
+	border:1px solid transparent;
+	padding: 4px 6px;
+}
+.btn-jq-hover, .btn-jq-active {
+	background:url('/share/res/themes/default/images/sprite.png');
+	border-color:#808080;
+}
 
 /* CUSTOM jQuery DIALOG WITH TABS */
 #configTabs { border:0!important; }
