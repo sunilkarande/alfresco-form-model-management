@@ -174,7 +174,40 @@ function toggleSearchView(showSimple)
 	}
 }
 
+function setupFilterField()
+{
+
+	var list = ".doc-search-details";
+
+
+	$('.filter-field')
+	.change( function () {
+        var filter = $(this).val();
+        if(filter != "" && filter.replace(/ /g, "").length > 0 ){
+          // this finds all links in a list that contain the input,
+          // and hide the ones not containing the input while showing the ones that do
+          $(list).find("h3:not(:Contains(" + filter + "))").parents(".ua-res-doc").slideUp();
+          $(list).find("h3:Contains(" + filter + ")").parents(".ua-res-doc").slideDown();
+        } else {
+          $('.ua-res-doc').slideDown();
+        }
+        return false;
+      })
+    .keyup( function () {
+        // fire the above change event after every letter
+        $(this).change();
+    });
+}
+
 $(function(){
+
+	$('a.simple-view').mouseover(function(){
+		$(this).parent().find('.detail-view').addClass('preview-jump-out');
+	})
+	.mouseleave(function(){
+		$(this).parent().find('.detail-view').removeClass('preview-jump-out');
+	})
+
 
 	$('.btn-simple-view').click(function(){
 		 toggleSearchView(true);
@@ -198,30 +231,6 @@ $(function(){
 		return false;
 	});
 
-	var pagingCount = parseInt( $('.sb-page-count').val() );
-	if( pagingCount > 0){
-		$(".uaSearchPaging").paginate({
-			count 		: pagingCount,
-			start 		: 1,
-			start 		: 1,
-			display     : 10,
-			border					: false,
-			text_color  			: '#79B5E3',
-			background_color    	: 'none',
-			text_hover_color  		: '#2573AF',
-			background_hover_color	: 'none',
-			images		: false,
-			mouse		: 'press',
-			onChange : function(page){
-				$('#uaPages .ua-res-page').removeClass('_current').hide();
-				$('#uaPages .ua-res-page:eq('+(page - 1)+')').addClass('_current').show();
-			}
-		});
-	}
-	else
-	{
-		$(".ua-res-foot").hide();
-	}
 
 	$('.fileSelect').click(function(){
 		var totalSelected = $('.fileSelect:checked').length;
@@ -289,17 +298,20 @@ $(function(){
 	$( "#configTabs" ).tabs({
 		selected: 0
 	});
-	var defaultLbl = "Search by keywords...";
-	$('.default').val(defaultLbl);
-	$('.default').livequery("focus", function(){
-		$(this).removeClass("default");
-		$(this).val("");
+
+
+	$('.default').each(function(){
+		$(this).val( $(this).attr("title") );
 	});
 
-	$('.search-field').livequery("blur", function(){
+	$('.sym-header input, .search-filter input').focus(function(){
+		$(this).removeClass("default");
+		$(this).val("");
+	})
+	.blur (function(){
 		if( $(this).val() == "") {
 			$(this).addClass("default");
-			$(this).val( defaultLbl );
+			$(this).val( $(this).attr("title")  );
 		}
 	});
 
@@ -373,7 +385,18 @@ $(function(){
 		$(this).removeClass("ua-res-row-highlight");
 		$(this).find(".resultTools").hide();
 	});
+
+	// custom css expression for a case-insensitive contains()
+	jQuery.expr[':'].Contains = function(a,i,m){
+	    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+	};
+
+	/* Filter */
+	setupFilterField();
+
 });
+
+
 
  jQuery.fn.center = function () {
     this.css("position", "absolute");
