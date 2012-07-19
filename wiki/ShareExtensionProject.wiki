@@ -23,6 +23,8 @@ index.subsystem.name=lucene
 index.recovery.mode=FULL
 }}}
 
+Once you have reindexed. You can change FULL to VALIDATE. This will stop it from indexing everything each time.
+
 Install the AMP
 
 == Search Setup ==
