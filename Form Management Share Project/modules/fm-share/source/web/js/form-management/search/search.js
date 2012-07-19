@@ -1,3 +1,93 @@
+function bytesToSize(bytes) {
+    var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return 'n/a';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+
+function docDetailTemplate(doc)
+{
+	var dTemp ="";
+	var linkPath = "/share/page/repository?path=" + doc.path;
+	var siteLink = "";
+
+	if(doc.site){
+		linkPath = "/share/page/site/"  + doc.site.shortName + "/documentlibrary?path=" + doc.path;
+		siteLink = 'Site: <a href="/share/page/site/'+doc.site.shortName+'/dashboard">'+doc.site.title+'</a>,';
+	}
+
+	dTemp = '<div class="doc-search-details">';
+	dTemp += '	<h3>';
+	dTemp += '		<a class="theme-color-1 ua-res-doc-title" href="document-details?nodeRef='+doc.nodeRef+'">'+doc.name+' </a>';
+	dTemp += '		<span class="title">('+doc.title+')</span>';
+	dTemp += '	</h3>';
+	dTemp += '	<div class="ua-res-detail"> ';
+	dTemp += '	<span class="item"><em>Modified on:</em>'+doc.modifiedOn+' by <a href="/share/page/user/'+doc.modifiedByUser+'/profile">'+doc.modifiedBy+'</a></span>';
+	dTemp += '	<div class="detail-view">';
+
+	if ( doc.type != "folder" )
+	{
+		dTemp += 	'<span>'+siteLink+' size: '+bytesToSize( doc.size ) +'</span>';
+	}
+	dTemp += 	'<span>In Folder: <a href="'+linkPath+'">'+doc.path+'</a></span> </div> </div> </div>';
+
+	return dTemp;
+}
+
+function rowTemplate(doc)
+{
+	var rTemp = "";
+		doc.loccontext = "repo";
+	if(doc.site) doc.loccontext = "site";
+
+	rTemp += '<div class="'+doc.loccontext+' ua-res-doc">';
+	rTemp += '<table style="width:100%" class="detail-list">';
+	rTemp += '	<tr>';
+	rTemp += '		<td style="  padding-left: 10px;  vertical-align: top; width: 45px;">';
+	rTemp += '			<input type="checkbox" class="fileSelect" id="'+doc.id+'" />';
+	rTemp += '			<span class="ico-'+doc.loccontext+'">&nbsp;</span> ';
+	rTemp += '		</td>';
+	rTemp += '		<td class="doc-search-details">';
+	rTemp += '			<div class="doc-search-icon">';
+	rTemp += '				<a href="#" class="simple-view" style="display:none;"><img title="'+doc.name+'" alt=".pdf" src="/share/res/components/images/filetypes/pdf-file-32.png" id="yui-gen111"></a>';
+
+	if( doc.type == "folder")
+	{
+		rTemp += '			<a href="#" class="detail-view" id="yui-gen126"><img title="test" alt="test" src="/share/res/components/search/images/folder.png" id="yui-gen125"></a>';
+	}
+	else
+	{
+		rTemp += '			<a target="_blank" class="detail-view" href="/share/proxy/alfresco/api/node/content/workspace/SpacesStore//'+doc.id+'/'+doc.name+'?a=true"><img src="/share/proxy/alfresco/api/node/workspace/SpacesStore/'+doc.id+'/content/thumbnails/doclib?ph=true&c=queue" /></a>';
+	}
+
+	rTemp += '			</div>';
+
+	rTemp +=  docDetailTemplate(doc);
+
+	rTemp += '			<p class="clear"></p>';
+	rTemp += '		</td>';
+	rTemp += '		<td style="width: 170px;">';
+	rTemp += '			<div class="resultTools">';
+	rTemp += '				<ul>';
+	rTemp += '					<li><a href="document-details?nodeRef='+doc.nodeRef+'" class="ico-view">View Metadata</a></li>';
+
+	/*
+	if(!doc.record){
+		if (doc.creator == user.name) rTemp += '<li><a href="'+doc.id!+'" class="ico-move-dropbox">Move to Dropbox</a></li></#if>';
+	}
+	*/
+
+	rTemp += '					<li><a target="_blank" href="/share/proxy/alfresco/api/node/content/workspace/SpacesStore//'+doc.id+'/'+doc.name+'?a=true" class="ico-download">Download</a></li>';
+	rTemp += '				</ul>';
+	rTemp += '			</div>';
+	rTemp += '		</td>';
+	rTemp += '	</tr>';
+	rTemp += '</table>';
+	rTemp += '</div>';
+	return rTemp;
+}
+
+
 function injectAlfrescoDefaults()
 {
 	var injectionForm = $('.injectionForm').html();
@@ -27,30 +117,33 @@ function getQueryPath()
 }
 function getQueryObject()
 {
-	var queryString = decodeURIComponent( location.search.substring(1) );
-	var paramArr    =  queryString.split("&");
-	var queryMap = {};
 	var nodeObj = {};
 		nodeObj.node = {};
+		nodeObj.node.properties = {};
 
-	for(i in paramArr)
+	if(getURLParameter("q") != "")
 	{
-		var keyVal = paramArr[i].split("=");
-		queryMap[ keyVal[0].replace("_", ":") ] = keyVal[1];
+		var queryString = decodeURIComponent( getURLParameter("q").replace(/prop_/g, "").replace(/_/g, ":") );
+		var queryMap = eval("(" + queryString + ")");
+
+		var nodeObj = {};
+			nodeObj.node = {};
+			nodeObj.node.properties = queryMap;
+
 	}
-
-	nodeObj.node.properties = queryMap;
-
 	return nodeObj;
 }
 
 function collectQuery(){
 	var qString = "";
+	var queryObj = {};
 
 	$('#formFormat .group .frm-fld').each(function(){
 		var node = $(this);
 		var hasVal = false;
 		var dataType = "";
+		var nodeProperty = "prop_" + node.attr('name');
+
 		if(node.data("type")) dataType = node.data("type");
 
 		if(node.attr("name") == "cm_modified_from" || node.attr("name") == "cm_modified_to"){
@@ -72,12 +165,14 @@ function collectQuery(){
 			if(node.is(':checked')){
 				var nodeName = node.attr("name");
 				var rVal = node.val();
-				qString += node.attr('name') + "=" + encodeURIComponent( $("input[name='"+nodeName+"']:checked").val()  ) + "&";
+
+				queryObj[nodeProperty] = encodeURIComponent( $("input[name='"+nodeName+"']:checked").val()  );
+
 			}
 
 		}else if( dataType.indexOf("boolean") > 0){
 			//Add boolean true only so we can still get docs undefined
-			if(node.is(":checked")) qString += node.attr('name') + "=true&";
+			if(node.is(":checked")) queryObj[nodeProperty] = true
 
 		}else if(node.attr('name').indexOf('_toDate') > 0){
 			//ignore replication
@@ -85,11 +180,14 @@ function collectQuery(){
 
 			if( node.val() != ""){
 				var toVal = $("input[name='" + node.attr('name') + "_toDate']").val();
+				var frDate= new Date( node.val() );
 
-				if(toVal != ""){
-					qString += node.attr('name') + "=" + encodeURIComponent( node.val()) + "-TO-"+toVal+"&";
+				if(toVal){
+					var toDate = new Date( toVal );
+					queryObj[nodeProperty + "-date-range"] =  ISODateString(frDate)+ "|" + ISODateString(toDate);
+
 				} else{
-					qString += node.attr('name') + "=" + encodeURIComponent( node.val()) +"&";
+					queryObj[nodeProperty] = ISODateString(frDate);
 				}
 			}
 
@@ -97,14 +195,19 @@ function collectQuery(){
 
 			if(node.attr("name") == "img_documenttype"){
 				if($('.docInSearch').attr("checked")){
-					qString += node.attr('name') + "=" + encodeURIComponent( node.val()) + "&";
+					queryObj[nodeProperty] = encodeURIComponent( node.val());
 				}
 			}else{
-				qString += node.attr('name') + "=" + encodeURIComponent( node.val()) + "&";
+				queryObj[nodeProperty] =  encodeURIComponent( node.val());
 			}
 		}
 	});
-	return qString;
+
+	queryObj["datatype"] = "cm:content";
+	var jsonString = JSON.stringify(queryObj);
+	var urlEncodedQ = "q=" + (jsonString);
+
+	return urlEncodedQ;
 }
 function moveDocument(nodes, aspectsToValidate, isRecord, moveNodeRef){
 	if(!moveNodeRef) moveNodeRef = "";
@@ -198,16 +301,74 @@ function setupFilterField()
         $(this).change();
     });
 }
+function getURLParameter(name) {
+    var query = decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
 
+    if(query == "null") query = "";
+
+    return query;
+}
+
+
+function search(query){
+
+	$('.sym-search-body .info').hide();
+	$('.infoMessage span').html("Searching, please wait...");
+	$('.infoMessage').removeClass("good").center();
+	$('.infoMessage').fadeIn(300).center();
+
+	var qData = {};
+		qData.site= $(".fm-site-id").val().slice(0, -5);
+		qData.term=getURLParameter("t");
+		qData.tag=getURLParameter("tag");
+		qData.maxResults=251;
+		qData.sort=getURLParameter("s");
+		qData.query=getURLParameter("q");
+		qData.repo=getURLParameter("r");
+
+	$.ajax({
+		type: "GET",
+		url: "/share/proxy/alfresco/slingshot/search",
+		dataType:"json",
+		data:qData,
+		success:function(r){
+
+			$('.outputRow span').html( r.items.length);
+
+			for(i in r.items)
+			{
+				var doc = r.items[i];
+					doc.id = doc.nodeRef.replace("workspace://SpacesStore/", "");
+
+				var rowHTML = rowTemplate( doc )
+
+				$('.sym-search-body').append( rowHTML );
+			}
+
+			$(".infoMessage").fadeOut(300, function(){});
+		},
+		error:function (xhr, ajaxOptions, thrownError){
+
+			$('.infoMessage').addClass("warning");
+			$('.infoMessage span').html("There was an issue with the search service. Contact your administrator.");
+			$('.infoMessage').center();
+			setTimeout( '$(".infoMessage").fadeOut(300, function(){  $(".infoMessage").removeClass("warning"); }); ', 4000 );
+		}
+	});
+
+}
 $(function(){
 
-	$('a.simple-view').mouseover(function(){
+	if(getURLParameter("t") != "" || getURLParameter("q") != "") search();
+
+	$('a.simple-view').live("mouseover", function(){
 		$(this).parent().find('.detail-view').addClass('preview-jump-out');
 	})
-	.mouseleave(function(){
+	.live("mouseout", function(){
 		$(this).parent().find('.detail-view').removeClass('preview-jump-out');
-	})
-
+	});
 
 	$('.btn-simple-view').click(function(){
 		 toggleSearchView(true);
@@ -224,13 +385,26 @@ $(function(){
 	});
 
 	$('.search-type > ul > li > a').click(function(){
-		var tClass = $(this).attr("class");
-		$('#btnSearchType span').attr("class",  tClass );
-		$('.fm-search-type').val(tClass.replace("ico-", ""));
-		$('.search-type ul').hide();
-		return false;
-	});
+		var tC = $(this).attr("class");
+	 	var r = "false";
+	 	var a = "false";
+	 	var query = "";
 
+	 	if(tC == "ico-repo") r = "true";
+	 	if(tC == "ico-all-sites") a = "true";
+
+		var params = ["t", "s", "q", "tag", "a", "r"];
+
+		for(i in params){
+			var t = getURLParameter(params[i]);
+			if(params[i] == "r") t = r;
+			if(params[i] == "a") t = a;
+
+			if(t != "") query += params[i] + "="+t +"&";
+		}
+
+	    window.location = "?" + query;
+	});
 
 	$('.fileSelect').click(function(){
 		var totalSelected = $('.fileSelect:checked').length;
@@ -377,11 +551,11 @@ $(function(){
     $('.ua-menu li ul').mouseenter(function(){ clearTimeout(submenuTimer) });
 
 	/* Search table */
-	$('.ua-res-doc').mouseenter(function(){
+	$('.ua-res-doc').live("mouseover", function(){
 		$(this).addClass("ua-res-row-highlight");
 		$(this).find(".resultTools").show();
 	})
-	.mouseleave(function(){
+	.live("mouseout", function(){
 		$(this).removeClass("ua-res-row-highlight");
 		$(this).find(".resultTools").hide();
 	});
