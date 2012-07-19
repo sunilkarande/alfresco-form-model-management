@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<div class="ft ibgw">
-			<div class="ibg"><input type="text" class="default search-field" value="Search by keywords..." />  </div>
+			<div class="ibg"><input type="text" class="default search-field" title="Search by keywords..." value="" />  </div>
 			<a href="#" class="advanced-search-button theme-color-1"><span>${msg("search.title")}</span></a>
 		</div>
 		<div id="sblsbb" class="ft ise">
@@ -68,13 +68,7 @@
 </div>
 <#if results?exists>
 	<div class="sym-search-info" style="">
-		<div class="toggle-detail">
-			<a class="btn-simple-view btn-jq" href="#"><span>&nbsp;</span></a>
-			<a class="btn-detail-view btn-jq btn-jq-active" href="#"><span>&nbsp;</span></a>
-		</div>
-
-		<div class="ilabel outputRow"><span>${results?size}</span> result(s) found (showing 10 results)</div>
- 		<p class="clear"></p>
+		 <#include 'actions.ftl' />
 	</div>
 </#if>
 <div class="sym-search-body">
@@ -84,19 +78,12 @@
 		<#assign pStyle = "">
 			<div id="uaPages">
 				<#list results as doc>
-					<#if (pCount > 0) ><#assign pStyle = "display:none;"></#if>
-					<#if (count == 0) > <div class="ua-res-page" style="${pStyle}"> </#if>
-
 					<#assign class="repo">
 					<#if doc.record><#assign class="record"></#if>
 					<div class="${class} ua-res-doc">
 						 <@searchitem doc />
 					</div>
-					<#if (count == 9) || doc_has_next == false></div> <#assign count = 0><#assign pCount = pCount + 1><#else> <#assign count = count + 1> </#if>
 				</#list>
-			</div>
-			<div class="ua-res-foot">
-				<div class="uaSearchPaging"></div>
 			</div>
 	<#else>
 		<div class="info">${msg("search.tip")}</div>
