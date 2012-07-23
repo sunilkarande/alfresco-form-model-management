@@ -46,22 +46,23 @@
 			</div>
 		</div>
 
+		<!--
 		<div class="recdocflip">
 		 <div class="ua-menu ua-disabled">
 			<span>Selected Items...</span>
 			<ul>
-				<!-- <li><a class="ac-mvrecords" href="#">Move > Records</a></li>  -->
+				<li><a class="ac-mvrecords" href="#">Move > Records</a></li>
 			    <li><a class="ac-mvdropbox" href="#">Move > Dropbox</a></li>
 			</ul>
 		</div>
+		-->
 
-
-			<!--
-			<div class="switch show-records"><span class="ico-record" ></span></div>
-			<div class="switch show-all switch-selected"><span  class="ico-all"></span></div>
-			<div class="switch show-document slast"><span  class="ico-document"></span></div>
-			<p class="clear"></p>
-			 -->
+		<!--
+		<div class="switch show-records"><span class="ico-record" ></span></div>
+		<div class="switch show-all switch-selected"><span  class="ico-all"></span></div>
+		<div class="switch show-document slast"><span  class="ico-document"></span></div>
+		<p class="clear"></p>
+		 -->
 
 		</div>
 		<p class="clear"></p>
