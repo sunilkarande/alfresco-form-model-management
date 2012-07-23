@@ -66,7 +66,6 @@ function loadProfileProperties(key){
 				}
 			}
 			$('.aspect-picker-wrapper').show();
-			sortUL( $('.fm-aspect-assigned .connectedSortable') );
 		});
 	}
 }
