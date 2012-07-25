@@ -9,6 +9,7 @@ function doSiteStuff()
 		siteJsonObj = eval( "(" + siteString + ")" );
 		model.site = siteJsonObj;
 
+	/*
 		model.isAdvSearchProfile = false;
 
 		//Get site settings formAspect
@@ -20,6 +21,7 @@ function doSiteStuff()
 	var dropboxNode = remote.call("/slingshot/doclib/treenode/site/"+siteid+"/documentLibrary/Dropbox/"+user.name+"?children=false");
 		dropboxObj = eval("(" + dropboxNode + ")");
 		model.fmDropboxNodeRef = dropboxObj.parent.nodeRef;
+	*/
 
 	var result = remote.call("/model/aspects/aspecttoproperty?aspects=" + model.formAspect);
 		model.docTypeAspect = result + "";
