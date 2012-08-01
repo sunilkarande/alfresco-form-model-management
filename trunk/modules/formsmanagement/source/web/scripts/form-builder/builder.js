@@ -23,7 +23,7 @@ function formToJson(){
 
 		jObj.namespace = $('.prg-aspectprefix').val();
 		jObj.name = $('.prg-aspectname').val();
-		jObj.description = $('.prg-desc').val();
+		jObj.description = escapeFn($('.prg-desc').val());
 		jObj.formStyle = $('#formFormat').attr("class");
 		jObj.isHidden = $('#my-frm #formFormat').hasClass("fm-aspect-hidden");
 
@@ -38,7 +38,7 @@ function formToJson(){
 		var typeFullname = input.attr('title');
 
 		fieldObj.title = escapeFn( $(this).find('label').text().replace("*", "") );
-		if($(this).find('.fld-tip').length > 0)  fieldObj.tooltip = $(this).find('.fld-tip').html();
+		if($(this).find('.fld-tip').length > 0)  fieldObj.tooltip = escapeFn( $(this).find('.fld-tip').html() );
 		fieldObj.regex = input.attr('regex');
 		fieldObj.minlength = parseInt(input.attr('minlength'));
 		fieldObj.maxlength = parseInt(input.attr('maxlength'));
