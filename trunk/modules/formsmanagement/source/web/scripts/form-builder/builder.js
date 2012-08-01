@@ -2,6 +2,10 @@
 var aspectIndex = null;
 var jsonObjModel = null;
 
+function escapeFn(str) {
+    return (str + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+}
+
 function formToJson(){
 	$(".fm-connect-container").html("");
 	$(".fm-dynamic-dropdown").removeClass("fm-dynamic-dropdown");
@@ -14,7 +18,7 @@ function formToJson(){
 
 	//Start JSON Form Object
 	var jObj = {};
-		jObj.title = $('.frm_formName').text();
+		jObj.title = escapeFn( $('.frm_formName').text() );
 		jObj.visible = true;
 
 		jObj.namespace = $('.prg-aspectprefix').val();
@@ -33,7 +37,7 @@ function formToJson(){
 		var propFullname = input.attr('name').split("_");
 		var typeFullname = input.attr('title');
 
-		fieldObj.title = $(this).find('label').text().replace("*", "");
+		fieldObj.title = escapeFn( $(this).find('label').text().replace("*", "") );
 		if($(this).find('.fld-tip').length > 0)  fieldObj.tooltip = $(this).find('.fld-tip').html();
 		fieldObj.regex = input.attr('regex');
 		fieldObj.minlength = parseInt(input.attr('minlength'));
@@ -176,6 +180,8 @@ function saveAspectToObj(obj, aspect){
 
 	fmModelObj = updateAspect(obj, aspect);
 	var jsonString = JSON.stringify(fmModelObj);
+		jsonString = jsonString.replace(/\\'/g, "\'");
+
 	$('.json').html(jsonString);
 
 	var xmlString = "";
