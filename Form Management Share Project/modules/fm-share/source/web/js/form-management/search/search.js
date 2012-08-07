@@ -71,11 +71,10 @@ function rowTemplate(doc)
 	rTemp += '				<ul>';
 	rTemp += '					<li><a href="document-details?nodeRef='+doc.nodeRef+'" class="ico-view">View Metadata</a></li>';
 
-	/*
-	if(!doc.record){
-		if (doc.creator == user.name) rTemp += '<li><a href="'+doc.id!+'" class="ico-move-dropbox">Move to Dropbox</a></li></#if>';
+
+	if(doc.type == "document"){
+		if (doc.hasWriteAccess) rTemp += '<li><a href="'+doc.id+'" class="ico-move-dropbox">Move to Dropbox</a></li>';
 	}
-	*/
 
 	rTemp += '					<li><a target="_blank" href="/share/proxy/alfresco/api/node/content/workspace/SpacesStore//'+doc.id+'/'+doc.name+'?a=true" class="ico-download">Download</a></li>';
 	rTemp += '				</ul>';
@@ -321,7 +320,7 @@ function search(query){
 
 	var qData = {};
 		qData.site= $(".fm-site-id").val().slice(0, -5);
-		qData.term=getURLParameter("t");
+		qData.term=decodeURIComponent( getURLParameter("t") );
 		qData.tag=getURLParameter("tag");
 		qData.maxResults=251;
 		qData.sort=getURLParameter("s");
@@ -406,7 +405,7 @@ $(function(){
 	    window.location = "?" + query;
 	});
 
-	$('.fileSelect').click(function(){
+	$('.fileSelect').live("click", function(){
 		var totalSelected = $('.fileSelect:checked').length;
 		if(totalSelected > 0){
 			$('.recdocflip .ua-menu').removeClass("ua-disabled");
@@ -437,14 +436,14 @@ $(function(){
 		return false;
 	});
 
-    $('.ico-move').click(function(){
+    $('.ico-move').live("click", function(){
 		var conf = confirm("Are you sure you want to move this item to Records?");
 		if(conf){
 			moveDocument($(this).attr("href"), nodeValFormAspect, true);
 		}
 		return false;
 	});
-	$('.ico-move-dropbox').click(function(){
+	$('.ico-move-dropbox').live("click", function(){
 		var conf = confirm("Are you sure you want to move this item to your Dropbox?");
 		if(conf){
 			moveDocument($(this).attr("href"), "", false, $('.fm-dropbox-nodeRef').val().replace("workspace://SpacesStore/", "") );
