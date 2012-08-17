@@ -36,7 +36,7 @@
 	<#if page.url.args.nodeRef?exists && page.url.args.nodeRef != "">
 		<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/share/forms.css"  />
 		<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/share/search.css" />
-		<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/jquery/jquery.ui.css" />
+		<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/jquery/jquery-ui.css" />
 		<#if url.uri?ends_with("document-details") >
 			<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/share/document-details.css" />
 		</#if>
@@ -57,6 +57,17 @@
 
 			function initForm()
 			{
+				//Added in use of Share constants
+				//Keeping in the HTML input as you can change it when ever you see fit; More flexible
+				var thisSiteid = "";
+				try {
+					thisSiteid = Alfresco.constants.SITE;
+					$('.fm-site-id').val(thisSiteid + "-site");
+				}
+				catch(err){
+					//Fail silently
+				}
+
 				if( $('.fm-profile').length > 0)
 				{
 					 /*  Traditional method */
@@ -92,8 +103,8 @@
 								$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
 							}
 						});
-					});
-					*/
+					}); */
+
 				}
 			}
 			$(function(){
