@@ -24,6 +24,7 @@
         'isSearch': false,
         'postUrl': '/share/proxy/alfresco/form-management/formdata/save',
         'useShareProxy': true,
+        'nestAspects': false,
         'customProperites': null,
         'connect': "",
         'readonly': false,
@@ -90,7 +91,7 @@
 						//Load aspects if we are deailing with aspect only
 						var formS = "";
 						for (a in settings.aspects) {
-							formS += methods.buildAspect($this, settings.aspects[a], false);
+							formS += methods.buildAspect($this, settings.aspects[a], settings.nestAspects);
 						}
 						$this.html(formS);
 						$this.data('origAspectCollection', $this.find('.fmAspectCollection:eq(0)').val() + "");
