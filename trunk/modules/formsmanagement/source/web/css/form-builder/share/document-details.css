@@ -29,3 +29,12 @@
 .group-tmp  {
 	display:none;
 }
+
+#fmEditMetadata div.fmViewMode {
+	clear: left;
+    width: 100% !important;
+}
+
+#fmEditMetadata div.group {
+    width: 100% !important;
+}
