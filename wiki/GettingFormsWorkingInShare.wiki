@@ -15,7 +15,7 @@ NOTE: fm-share_x_x_x.amp can be found in the downloads section
 = Edit properties form=
 == Traditional Method (document focused) ==
 
-By default the Share edit properties form will look for any aspects already added to a document. If it finds any aspects that have corresponding forms built in the form management console, it will then build the form based on that metadata i.e. You need to add the custom aspects to that document first. The FM builder will then create a form grouping all the custom aspects you applied.
+By default the Share edit properties form will look for any aspects already added to a document. If it finds any aspects that have corresponding forms built in the form management console, it will then build the form based on that metadata i.e. You need to add the custom aspects to that document first (if you want to do this then you need to make the aspects available to the share UI using share-custom-config.xml | http://blogs.alfresco.com/wp/wabson/2010/02/25/adding-custom-aspect-support-in-alfresco-share/ ). The FM builder will then create a form grouping all the custom aspects you applied.
 
 _In order to see this setup you can look at the file:
 <install path>\tomcat\shared\classes\alfresco\web-extension\site-webscripts\org\alfresco\components\form\form.get.head.ftl (line 71)_
