@@ -8,8 +8,9 @@ One of the most common questions people have asked is how they can get the FM fo
 = FM Share Extension Project =
 The Form Management Share Extension project was made available mid July 2012. The FM module has been moving pretty fast and in this project you can replace the Alfresco Share default search and the edit properties form in the document library.
 
-NOTE: fm-share_x_x_x.amp can be found in the downloads section.
-NOTE: The default configuration for the edit properties screen is the *traditional method* see below for more info.
+NOTE: fm-share_x_x_x.amp can be found in the downloads section
+
+*NOTE: The default configuration for the edit properties screen is the traditional method see below for more info*
 
 = Edit properties form=
 == Traditional Method (document focused) ==
