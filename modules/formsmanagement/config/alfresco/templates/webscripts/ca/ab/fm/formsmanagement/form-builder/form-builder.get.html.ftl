@@ -169,6 +169,7 @@
 			//jsonToForm(aspectArr , true, $('.formContainerStage'));
 
 			$('.formContainerStage').form({
+				'demoMode' : true,
 				'useShareProxy':false,
 				'aspects': aspectArr,
 				'onComplete': function(){
