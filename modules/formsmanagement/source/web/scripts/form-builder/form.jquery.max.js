@@ -31,7 +31,8 @@
         'ownDropSource': false,
 		'onComplete': null,
         'onSaveComplete': null,
-		'onDynamicLoad': null
+		'onDynamicLoad': null,
+		'demoMode': false
 
 	};
     var methods = {
@@ -295,6 +296,11 @@
 
 						var downloadUriArr = prop.id.split("/");
 						var url = prop.id;
+
+						if(settings.demoMode){
+							//Replace share service with alfresco
+							url = url.replace("/share/proxy/alfresco", "/alfresco/wcs");
+						}
 						if(prop.id.indexOf("dropdown/byShareSite") != -1){
 							if(settings.useShareProxy){ url = "/share/proxy/alfresco/dropdown/byShareSite?siteid=" + $('.fm-site-id').val(); }
 							else{  url = "/alfresco/wcs/dropdown/byShareSite?siteid=" + $('.fm-site-id').val(); }
