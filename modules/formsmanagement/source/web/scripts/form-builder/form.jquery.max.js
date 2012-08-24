@@ -32,8 +32,8 @@
 		'onComplete': null,
         'onSaveComplete': null,
 		'onDynamicLoad': null,
-		'demoMode': false
-
+		'demoMode': false,
+		'cacheNodeProperties': true
 	};
     var methods = {
         init: function (options) {
@@ -646,7 +646,7 @@
 	            var cacheUidNode = $("#fm_store_" + uidArr[uidArr.length-1] );
 	            //var cacheUidNode = $(".fm-property-store");
 
-				if( cacheUidNode.length > 0 ) {
+				if( cacheUidNode.length > 0 && settings.cacheNodeProperties) {
 					 //CACHED PROPERTY VALUES
 					 var objNode = eval( "(" +  cacheUidNode.html() + ")" );
 					 methods.loadPropertiesToFields(objNode, $this);
