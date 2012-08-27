@@ -1,11 +1,29 @@
 <import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/scriptUtils/jsonUtils.js">
+<import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/model/convertJsonToModel.js">
+<import resource="classpath:alfresco/templates/webscripts/ca/ab/fm/formsmanagement/utils/locale/alfresco-locale.js">
 
 function saveJson(jsonNode, jsonObject){
-	var newObjString = JSON.stringify(jsonObject);
-	//Remove NULLS
-	newObjString = newObjString.replace(/,null/g, "");
-	jsonNode.content = newObjString;
-	jsonNode.save();
+
+	var xmlString = convertJsonToXml(jsonObject);
+	model.status = 1;
+	model.msg = "";
+
+	var xmlName = jsonNode.name.replace(".json", ".xml");
+	var xmlModel = companyhome.childByNamePath(fmPath.models + "/" + xmlName);
+	model.status = xmlString;
+
+	try{
+		xmlModel.content = xmlString;
+		xmlModel.properties["cm:modelActive"] = true;
+		xmlModel.save();
+
+		jsonNode.content = args.jsonString;
+		jsonModel.save();
+
+	}catch(err){
+		model.status = 0;
+		model.msg += "There was an error trying to save the model. " + err;
+	}
 }
 
 var aspectName = args.aspect;
