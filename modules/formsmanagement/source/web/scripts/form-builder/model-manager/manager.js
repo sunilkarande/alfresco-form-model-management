@@ -349,37 +349,37 @@ $(function(){
       $('.infoMessage').center();
 
       $.ajax({
-              type: "POST",
-              url: "/alfresco/wcs/form-builder/model-update",
-              dataType:"json",
-              data:{
-                jsonid: jsonid, aspect:aspect, action : "delete"
-              },
-              success:function(r){
-                  if(r.status == 1){
+          type: "POST",
+          url: "/alfresco/wcs/form-builder/model-update",
+          dataType:"json",
+          data:{
+            jsonid: jsonid, aspect:aspect, action : "delete"
+          },
+          success:function(r){
+              if(r.status == 1){
 
-            node.remove();
+        node.remove();
 
-            $('.infoMessage span').html("Saved Successfully");
-            $('.infoMessage').addClass("good").center().fadeOut(1000, function(){
-              $('.infoMessage').removeClass("good");
-            });
+        $('.infoMessage span').html("Saved Successfully");
+        $('.infoMessage').addClass("good").center().fadeOut(1000, function(){
+          $('.infoMessage').removeClass("good");
+        });
 
-                  }else{
-                    $('.infoMessage span').html(r.msg);
-		            $('.infoMessage').addClass("bad").center().fadeOut(3000, function(){
-		              $('.infoMessage').removeClass("bad");
-		            });
-                  }
-              },
-              error:function (xhr, ajaxOptions, thrownError){
-                   $('.infoMessage span').html("There was a problem deleting that aspect, one or more nodes may be using it");
-		           $('.infoMessage').addClass("bad").center();
-				   setTimeout("$('.infoMessage').fadeOut(1000, function(){ $('.infoMessage').removeClass('bad'); });", 3000);
-
+              }else{
+                $('.infoMessage span').html(r.msg);
+	            $('.infoMessage').addClass("bad").center().fadeOut(3000, function(){
+	              $('.infoMessage').removeClass("bad");
+	            });
               }
-          });
-        }
+          },
+          error:function (xhr, ajaxOptions, thrownError){
+               $('.infoMessage span').html("There was a problem deleting that aspect, one or more nodes may be using it");
+	           $('.infoMessage').addClass("bad").center();
+			   setTimeout("$('.infoMessage').fadeOut(1000, function(){ $('.infoMessage').removeClass('bad'); });", 3000);
+
+          }
+      });
+    }
 
   });
 
