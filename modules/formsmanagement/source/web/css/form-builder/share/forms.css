@@ -472,6 +472,11 @@ span.fld-lbl {
 #my-frm .top .group div, #my-frm .top .group-tmp div {
     padding-top: 10px;
 }
+.fld-required-lbl {
+	 color: green;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+}
 /* Button */
 .saveButtonWrapper div { float:left; margin-left:10px; font-family:helvetica; font-size:12px; }
 .saveButtonWrapper a {
