@@ -52,6 +52,12 @@ function getFieldTemplate(fieldType, attr){
 		fieldTmp = '<div class="group slidervalCss">';
 		fieldTmp += '<label>'+attr.label+'</label><div class="slider-wrapper"><select value="" title="'+attr.title+'" class="val_slider frm-fld select" name="'+attr.name+'"></select></div>';
 		fieldTmp += '</div>';
+
+	}else if(fieldTypeArr[1] == "htmlfield"){
+		fieldTmp = '<div class="group">';
+		fieldTmp += '<label>'+attr.label+'</label><div class="hasTinyMce"><textarea title="'+attr.title+'" class="mceEditor frm-fld textarea" name="'+attr.name+'"></textarea></div>';
+		fieldTmp += '</div>';
+
 	}else{
 		fieldTmp = '<div class="group">';
 		fieldTmp += '<label>'+attr.label+'</label><div><'+fieldTypeArr[1]+' value="" title="'+attr.title+'" class="frm-fld '+fieldTypeArr[1]+'" name="'+attr.name+'"></'+fieldTypeArr[1]+'></div>';
