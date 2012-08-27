@@ -50,7 +50,7 @@
     margin-bottom: 0;
     position: inherit;
 }
- 
+
 /* UI CSS CHANGES */
 .ui-dialog { font-size:13px!important; font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif!important;  }
 .uofa-styles .ui-tabs { border:0!important; }
@@ -62,7 +62,7 @@
 .ui-corner-top {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-} 
+}
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
     color: #8E8E8E;
 }
@@ -75,23 +75,23 @@
     color: #EB8F00;
     font-weight: bold;
     outline: medium none;
-} 
-.ui-state-default, .ui-widget-content .ui-state-default { 
-	color:#444444; 
-} 
+}
+.ui-state-default, .ui-widget-content .ui-state-default {
+	color:#444444;
+}
 .ui-dialog .ui-widget-header {
     background: none repeat scroll 0 0 #EAD862;
     border: 1px solid #DBC851;
     color: #FFFFFF;
     font-weight: bold;
-} 
+}
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
     color: #444444!important;
-} 
+}
 
 #my-frm .left .group label {
     padding-top: 4px;
-}  
+}
 form#my-frm .slider-value {
 	border: 1px dashed #CCCCCC;
     color: #111111;
@@ -113,7 +113,7 @@ form#my-frm .sliderForm .ui-state-default, form#my-frm .ui-widget-content .ui-st
     color: #1C94C4;
     font-weight: bold;
     outline: medium none;
-} 
+}
 form#my-frm .sliderForm .ui-slider-handle {
     cursor: default!important;
     height: 1.2em!important;
@@ -132,7 +132,7 @@ form#my-frm .ui-slider { position:relative; }
 form#my-frm .ui-slider-horizontal .ui-slider-handle {
     margin-left: -0.6em!important;
     top: -0.3em!important;
-} 
+}
 form#my-frm .sliderForm { float:left; display:block; width:55%;   }
 form#my-frm .slider-start { display: block;
 	float: left;
@@ -140,8 +140,8 @@ form#my-frm .slider-start { display: block;
 	text-align: right;
 	width: 13%;
 	font-weight:bold;
-} 
-form#my-frm .slider-end { 
+}
+form#my-frm .slider-end {
 	display: block;
     float: left;
     padding: 0 10px 0 20px;
@@ -169,7 +169,7 @@ form#my-frm   .ui-slider-horizontal .ui-slider-range {
     height: 100%;
     top: 0;
 	padding:0!important;
-} 
+}
 .saveButtonWrapper {
 	float: right;
     margin-right: 98px;
@@ -222,7 +222,7 @@ html[xmlns] .clearfix {
 }
 .formBuilderContainer {
 	width:300px; float:left;  margin-right: 20px; font-family: Verdana,Geneva,sans-serif !important;
-} 
+}
 .formTabs {
     left: -5px;
     margin: 0;
@@ -266,7 +266,7 @@ li.ui-state-default {
 }
 .toolBox {
     background: none repeat scroll 0 0 #EBF1F4;
-    border: 1px solid #CCC; 
+    border: 1px solid #CCC;
     padding: 10px;
 }
 .formContainerStage {
@@ -276,7 +276,7 @@ li.ui-state-default {
     width: 500px;
 }
 .frmBuilder label {
-    font-size: 12px !important; 
+    font-size: 12px !important;
     text-shadow: 0 1px 0 #FFFFFF;
 }
 .frmBuilder input, .frmBuilder textarea, .frmBuilder select {
@@ -289,7 +289,7 @@ li.ui-state-default {
 .checkbox {
     width: 20px !important;
 }
-.fieldAddOptions a { 
+.fieldAddOptions a {
     color: #333333;
     display: block;
     padding: 5px;
@@ -346,8 +346,8 @@ span.fld-lbl {
 }
 .prg-frm-button-wrapper {
 	margin-top:15px;
-	border-top:1px solid #ccc; 
-	padding-top:10px; 
+	border-top:1px solid #ccc;
+	padding-top:10px;
 	text-align:right;
 }
 .frm_desc {
@@ -362,13 +362,13 @@ span.fld-lbl {
     font-size: 20px;
     margin: 0;
 	color: #333333;
-	
+
 }
 #tabs-3 a:hover {
     text-decoration: underline;
 }
 .ui-accordion-header {
-      
+
     border: 1px solid #B6CEDB;
     display: block;
     font-size: 13px;
@@ -376,7 +376,7 @@ span.fld-lbl {
     margin: 0 0 5px;
     outline: medium none !important;
     padding: 3px 3px 3px 11px;
-    position: relative; 
+    position: relative;
 }
 #accordion .ui-state-active, #accordion-tab1 .ui-state-active {
     background: #C9DEEA!important;
@@ -448,32 +448,28 @@ span.fld-lbl {
     background: url("images/ico-check.png") no-repeat scroll 0 5px transparent;
 }
 .group {
-    
+
     position: relative;
 }
-#my-frm .left .group {
+#my-frm .left .group, #my-frm .left .group-tmp  {
     padding: 5px 0;
     width: 100%;
 }
-#my-frm .left .group label {
+#my-frm .left .group label, #my-frm .left .group-tmp label {
     float: left;
     width: 140px;
 }
-#my-frm .left .group div {
-}
-#my-frm .right .group {
+#my-frm .right .group, ##my-frm .right .group-tmp {
     padding: 5px 0;
     width: 100%;
 }
-#my-frm .right .group label {
+#my-frm .right .group label, #my-frm .right .group-tmp label {
     float: left;
     padding-right: 10px;
     text-align: right;
     width: 140px;
 }
-#my-frm .right .group div {
-}
-#my-frm .top .group div {
+#my-frm .top .group div, #my-frm .top .group-tmp div {
     padding-top: 10px;
 }
 /* Button */
@@ -481,10 +477,10 @@ span.fld-lbl {
 .saveButtonWrapper a {
 	color:#0000CC;
 }
-.isb { 
+.isb {
 	background: -moz-linear-gradient(center top , #A90329 0%, #8F0222 44%, #6D0019 100%) repeat scroll 0 0 transparent;
     border-radius: 3px 3px 3px 3px;
-      
+
 }
 .isb button {
     background: none repeat scroll 0 50% transparent;
@@ -492,9 +488,9 @@ span.fld-lbl {
     border-radius: 3px 3px 3px 3px;
     display: block;
     height: 28px;
-	width:120px; 
+	width:120px;
 }
-.sbico { 
+.sbico {
     color: #FFFFFF;
     display: inline-block;
     margin: -4px auto 0;
@@ -512,4 +508,3 @@ span.fld-lbl {
 }
 
 
-  
