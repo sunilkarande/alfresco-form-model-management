@@ -472,7 +472,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbdb05', end
 }
 .group input[type="text"], .group select, .group textarea {
 	background: none repeat scroll 0 0 #FFFFFF;
-    border-color: #A0A0A0 #B9B9B9 #B9B9B9;
     -webkit-border-radius: 1px;
 	-moz-border-radius: 1px;
 	border-radius: 1px;
@@ -678,7 +677,7 @@ tr.even, .even td {
     margin: 0 !important;
     padding: 4px 0 0 !important;
 }
-.fld-tip { display:block; padding-top:2px; padding-bottom:2px; color:#aaa; padding-left:140px; font-size:11px; }
+.fld-tip { display:block; padding-top:2px; padding-bottom:2px; color:#aaa; padding-left:145px; font-size:11px; }
 .top .fld-tip { padding-left:0!important; }
 .infoMessage {
     background: url("/share/images/uofa/ajax-load-bw.gif") no-repeat scroll 50% 18px #2D2D2D;
