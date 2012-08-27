@@ -11,6 +11,12 @@
 	background: none repeat scroll 0 0 #FCD9D6;
     border: 1px solid #F4C4C1;
 }
+.readonly-html-out { clear:left; }
+label.frmErr {
+	background:none;
+	color:red;
+	border:0;
+}
 .errHandleBox p {  font-size: 12px;
     font-weight: bold;
     margin: 0;
@@ -477,6 +483,7 @@ span.fld-lbl {
     margin-left: 0.4em;
     margin-right: 0.4em;
 }
+
 /* Button */
 .saveButtonWrapper div { float:left; margin-left:10px; font-family:helvetica; font-size:12px; }
 .saveButtonWrapper a {
