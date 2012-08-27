@@ -45,7 +45,8 @@ function main(){
 
 	var predefinedFields = [];
 		predefinedFields.push( { "id": "t_sliderval", "label": "Slider Options" } );
-		predefinedFields.push( { "id": "t_multifield", "label": "Multifield" } );
+		//predefinedFields.push( { "id": "t_multifield", "label": "Multifield" } );
+		predefinedFields.push( { "id": "t_htmlfield", "label": "HTML Editor" } );
 
 
 	if(args.jsonNode){

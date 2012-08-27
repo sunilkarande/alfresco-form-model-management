@@ -8,12 +8,26 @@
 	<style type="text/css">
 		.alf-dummy-group { background:#FFEBB7; }
 	</style>
+	<script type="text/javascript" >
+		//Fake alfresco util object
+		//This fixes the Alfresco.util.RichEditorManager.addEditor does not exist when tiny_mce is initialized in this webscript.
+		var Alfresco = {};
+			Alfresco.util = {};
+			Alfresco.util.RichEditorManager= {};
+			Alfresco.util.RichEditorManager.addEditor = (function(){});
+	</script>
+
+	<!--  Start TINY MCE -->
+	<link rel="stylesheet" href="/share/res/modules/editors/tiny_mce/themes/advanced/skins/default/ui.css">
+	<script src="/share/res/modules/editors/tiny_mce/tiny_mce.js" type="text/javascript"></script>
+	<script src="/share/res/modules/editors/tiny_mce-min.js" type="text/javascript"></script>
+	<!--  END TINY CMCE  -->
+
 	<script type="text/javascript">
 		var jsonModel = '${json!}';
 		var fmAspectName = "${aspectName!}";
 		if(jsonModel != "") var fmModelObj = eval("(" + jsonModel + ")");
 	</script>
-
 </head>
 <body>
 <#assign fmNoneAdminStyle = "" />
@@ -136,7 +150,6 @@
 
 							<input name="prg-frm-redirect" class="prg-frm-redirect" type="hidden" value=""/>
 							<input id="modelName" type="hidden" value="" />
-
 	                        </div>
 						</form>
 						<div class="outputMessage" style="display:none"><h1>Thank you</h1><p>Your message here</p></div>
