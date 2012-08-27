@@ -20,22 +20,22 @@ var JSON;if(!JSON){JSON={};}(function(){function f(n){return n<10?"0"+n:n;}if(ty
  * http://www.filamentgroup.com
  * reference article: http://www.filamentgroup.com/lab/update_jquery_ui_16_slider_from_a_select_element/
  * demo page: http://www.filamentgroup.com/examples/slider_v2/index.html
- * 
+ *
  * Copyright (c) 2008 Filament Group, Inc
  * Dual licensed under the MIT (filamentgroup.com/examples/mit-license.txt) and GPL (filamentgroup.com/examples/gpl-license.txt) licenses.
  *
  * Usage Notes: please refer to our article above for documentation
- *  
+ *
  * --------------------------------------------------------------------
  */
 jQuery.fn.selectToUISlider=function(settings){var selects=jQuery(this);var options=jQuery.extend({labels:3,tooltip:true,tooltipSrc:"text",labelSrc:"value",sliderOptions:null},settings);var handleIds=(function(){var tempArr=[];selects.each(function(){tempArr.push("handle_"+jQuery(this).attr("id"));});return tempArr;})();var selectOptions=(function(){var opts=[];selects.eq(0).find("option").each(function(){opts.push({value:jQuery(this).attr("value"),text:jQuery(this).text()});});return opts;})();var groups=(function(){if(selects.eq(0).find("optgroup").size()>0){var groupedData=[];selects.eq(0).find("optgroup").each(function(i){groupedData[i]={};groupedData[i].label=jQuery(this).attr("label");groupedData[i].options=[];jQuery(this).find("option").each(function(){groupedData[i].options.push({text:jQuery(this).text(),value:jQuery(this).attr("value")});});});return groupedData;}else{return null;}})();function isArray(obj){return obj.constructor==Array;}function ttText(optIndex){return(options.tooltipSrc=="text")?selectOptions[optIndex].text:selectOptions[optIndex].value;}var sliderOptions={step:1,min:0,orientation:"horizontal",max:selectOptions.length-1,range:selects.length>1,slide:function(e,ui){var thisHandle=jQuery(ui.handle);var textval=ttText(ui.value);thisHandle.attr("aria-valuetext",textval).attr("aria-valuenow",ui.value).find(".ui-slider-tooltip .ttContent").text(textval);var currSelect=jQuery("#"+thisHandle.attr("id").split("handle_")[1]);currSelect.find("option").eq(ui.value).attr("selected","selected");},values:(function(){var values=[];selects.each(function(){values.push(jQuery(this).get(0).selectedIndex);});return values;})()};options.sliderOptions=(settings)?jQuery.extend(sliderOptions,settings.sliderOptions):sliderOptions;selects.bind("change keyup click",function(){var thisIndex=jQuery(this).get(0).selectedIndex;var thisHandle=jQuery("#handle_"+jQuery(this).attr("id"));var handleIndex=thisHandle.data("handleNum");thisHandle.parents(".ui-slider:eq(0)").slider("values",handleIndex,thisIndex);});var sliderComponent=jQuery("<div></div>");selects.each(function(i){var hidett="";var thisLabel=jQuery("label[for="+jQuery(this).attr("id")+"]");var labelText=(thisLabel.size()>0)?"Slider control for "+thisLabel.text()+"":"";var thisLabelId=thisLabel.attr("id")||thisLabel.attr("id","label_"+handleIds[i]).attr("id");if(options.tooltip==false){hidett=' style="display: none;"';}jQuery("<a "+'href="#" tabindex="0" '+'id="'+handleIds[i]+'" '+'class="ui-slider-handle" '+'role="slider" '+'aria-labelledby="'+thisLabelId+'" '+'aria-valuemin="'+options.sliderOptions.min+'" '+'aria-valuemax="'+options.sliderOptions.max+'" '+'aria-valuenow="'+options.sliderOptions.values[i]+'" '+'aria-valuetext="'+ttText(options.sliderOptions.values[i])+'" '+'><span class="screenReaderContext">'+labelText+"</span>"+'<span class="ui-slider-tooltip ui-widget-content ui-corner-all"'+hidett+'><span class="ttContent"></span>'+'<span class="ui-tooltip-pointer-down ui-widget-content"><span class="ui-tooltip-pointer-down-inner"></span></span>'+"</span></a>").data("handleNum",i).appendTo(sliderComponent);});if(groups){var inc=0;var scale=sliderComponent.append('<dl class="ui-slider-scale ui-helper-reset" role="presentation"></dl>').find(".ui-slider-scale:eq(0)");jQuery(groups).each(function(h){scale.append('<dt style="width: '+(100/groups.length).toFixed(2)+"%"+"; left:"+(h/(groups.length-1)*100).toFixed(2)+"%"+'"><span>'+this.label+"</span></dt>");var groupOpts=this.options;jQuery(this.options).each(function(i){var style=(inc==selectOptions.length-1||inc==0)?'style="display: none;"':"";var labelText=(options.labelSrc=="text")?groupOpts[i].text:groupOpts[i].value;scale.append('<dd style="left:'+leftVal(inc)+'"><span class="ui-slider-label">'+labelText+'</span><span class="ui-slider-tic ui-widget-content"'+style+"></span></dd>");inc++;});});}else{var scale=sliderComponent.append('<ol class="ui-slider-scale ui-helper-reset" role="presentation"></ol>').find(".ui-slider-scale:eq(0)");jQuery(selectOptions).each(function(i){var style=(i==selectOptions.length-1||i==0)?'style="display: none;"':"";var labelText=(options.labelSrc=="text")?this.text:this.value;scale.append('<li style="left:'+leftVal(i)+'"><span class="ui-slider-label">'+labelText+'</span><span class="ui-slider-tic ui-widget-content"'+style+"></span></li>");});}function leftVal(i){return(i/(selectOptions.length-1)*100).toFixed(2)+"%";}if(options.labels>1){sliderComponent.find(".ui-slider-scale li:last span.ui-slider-label, .ui-slider-scale dd:last span.ui-slider-label").addClass("ui-slider-label-show");}var increm=Math.max(1,Math.round(selectOptions.length/options.labels));for(var j=0;j<selectOptions.length;j+=increm){if((selectOptions.length-j)>increm){sliderComponent.find(".ui-slider-scale li:eq("+j+") span.ui-slider-label, .ui-slider-scale dd:eq("+j+") span.ui-slider-label").addClass("ui-slider-label-show");}}sliderComponent.find(".ui-slider-scale dt").each(function(i){jQuery(this).css({"left":((100/(groups.length))*i).toFixed(2)+"%"});});sliderComponent.insertAfter(jQuery(this).eq(this.length-1)).slider(options.sliderOptions).attr("role","application").find(".ui-slider-label").each(function(){jQuery(this).css("marginLeft",-jQuery(this).width()/2);});sliderComponent.find(".ui-tooltip-pointer-down-inner").each(function(){var bWidth=jQuery(".ui-tooltip-pointer-down-inner").css("borderTopWidth");var bColor=jQuery(this).parents(".ui-slider-tooltip").css("backgroundColor");jQuery(this).css("border-top",bWidth+" solid "+bColor);});var values=sliderComponent.slider("values");if(isArray(values)){jQuery(values).each(function(i){sliderComponent.find(".ui-slider-tooltip .ttContent").eq(i).text(ttText(this));});}else{sliderComponent.find(".ui-slider-tooltip .ttContent").eq(0).text(ttText(values));}return this;};
 
 
-/* 
+/*
    Alfresco form management validation
    Author: Mike Priest
    Copyright (c) MPT Mozilla Public License
-   
+
 */
 $(function () {
 	$( ".sliderForm" ).each(function() {
@@ -52,7 +52,6 @@ $(function () {
 			}
 		});
 	});
-	$('.slider-value').val("5");
 
 	$(".frm_submit").live('click', function() {
 		return validateForm($('.fm-doctypes'));
@@ -60,11 +59,11 @@ $(function () {
 
 	$('.numOnly').live('keydown', function (e) {
         //if the letter is not digit then display error and don't type anything
-        if (e.which != 8 && e.which != 46 && e.which != 37 && e.which != 190 && e.which != 110 && e.which != 39 && e.which != 0 && (!((e.which >= 48 && e.which <= 57) || (e.which <= 105 && e.which >= 96)))) {
+        if (e.which != 9 && e.which != 8 && e.which != 46 && e.which != 37 && e.which != 190 && e.which != 110 && e.which != 39 && e.which != 0 && (!((e.which >= 48 && e.which <= 57) || (e.which <= 105 && e.which >= 96)))) {
         	return false;
         }
     });
-	
+
 	$('.alphanumOnly').live('keyup', function () {
        if (this.value.match(/[^a-zA-Z0-9 ]/g)) {
 			this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '');
@@ -119,33 +118,44 @@ function validateForm(wrapper){
 	var frmValid = true;
 	form.find(".required").each( function(){
 
-		//Added select just becuase im used to doing that
-		if($(this).val().length < 1 || $(this).val() == "-Select-" || $(this).val() == "- select-" || $(this).val() == "select"){
-			$(this).addClass('frmErr');
-			frmValid = false;
+		if($(this).hasClass('mceEditor')){
+			//Check tiny mce for values
+			var mceId = $(this).attr("id");
+				htmlval= tinyMCE.get(mceId).getContent();
+
+			if(htmlval == ""){
+				frmValid = false;
+				$(this).parents('.group').children('label').addClass('frmErr');
+			}
+
+		}else{
+			//Added select just becuase im used to doing that
+			if($(this).val().length == 0 || $(this).val() == "-Select-" || $(this).val() == "- select-" || $(this).val() == "select"){
+				$(this).addClass('frmErr');
+				frmValid = false;
+			}
 		}
 	});
 	if(!frmValid){ li +="<li>Please check all required fields</li>"; }
-	
-	form.find(" .verification").each( function(){
+
+	form.find(".verification").each( function(){
 
 		//Added select just becuase im used to doing that
 		var vVal = $(this);
 		var cVal = $(this).parents(".group").next().find(".verification-check");
 		var label = $(this).parents('.group').children('label');
-		
+
 		if(vVal.val() != cVal.val()){
 			vVal.addClass('frmErr');
 			cVal.addClass('frmErr');
-			
-			li +="<li>"+label.html()+" fields did not match. Please verify</li>";
-			 
-			frmValid = false;
-		} 
-	});
-	 
 
-	form.find(' .frm-fld').each( function(){
+			li +="<li>"+label.html()+" fields did not match. Please verify</li>";
+
+			frmValid = false;
+		}
+	});
+
+	form.find('.frm-fld').each( function(){
 		var minLength = parseInt($(this).attr('minlength'));
 		var maxLength = parseInt($(this).attr('maxlength'));
 		var thisLength = $(this).val().length;
@@ -155,21 +165,44 @@ function validateForm(wrapper){
 			if(thisLength >= minLength){ }else{
 				frmValid = false;
 				li +="<li>"+label.html()+" requires a minimum value of "+minLength+"</li>";
-				label.addClass('frmErr');
+				$(this).addClass('frmErr');
 			}
 		}
 		if(isNaN(maxLength) == false && maxLength > 1 && maxLength < 51 && maxLength != 0){
 			if(thisLength >= maxLength){ }else{
 				frmValid = false;
 				li +="<li>"+label.html()+" requires a maximum value of "+maxLength+"</li>";
-				label.addClass('frmErr');
+				$(this).addClass('frmErr');
 			}
 		}
 	});
 	if(!frmValid){
-		form.find(' .errHandleBox').show();
-		form.find(' .errHandleBox ul').append(li);
+		form.find('.errHandleBox').show();
+		form.find('.errHandleBox ul').append(li);
 		return false;
 	}
 	return true;
+}
+
+/* Tiny MCE Setup */
+function setTinyMce(){
+	tinyMCE.init({
+        mode : "textareas",
+        width : 400,
+        editor_selector : "mceEditor",
+        force_p_newlines : true,
+        theme : "advanced",
+        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+
+
+        // Theme options
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect",
+        theme_advanced_buttons2 : "pastetext,pasteword,|, bullist,numlist,|,outdent,indent,|,forecolor,backcolor",
+        theme_advanced_buttons3 : "",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_statusbar_location : "bottom",
+        theme_advanced_resizing : true
+
+	});
 }
