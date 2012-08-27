@@ -687,7 +687,7 @@ h3
 }
 .group
 {
-	padding: 4px 0;
+	padding: 4px 0;  clear: left;
 }
 .group label
 {
@@ -1312,10 +1312,6 @@ span.jPag-snext-img
 	float: left;
 	padding-right: 20px;
 	width: 80px;
-}
-.doc-search-details
-{
-	float: left;
 }
 .toggle-detail
 {
