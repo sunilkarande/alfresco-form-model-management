@@ -136,11 +136,13 @@ function getQueryObject()
 function collectQuery(){
 	var qString = "";
 	var queryObj = {};
+	var keywords = "";
 
 	$('#formFormat .group .frm-fld').each(function(){
 		var node = $(this);
 		var hasVal = false;
 		var dataType = "";
+
 		var nodeProperty = "prop_" + node.attr('name');
 
 		if(node.data("type")) dataType = node.data("type");
@@ -175,6 +177,10 @@ function collectQuery(){
 
 		}else if(node.attr('name').indexOf('_toDate') > 0){
 			//ignore replication
+		}else if(node.attr('name') == "t"){
+			//ignore keywords
+			if(node.val() != "") keywords = "t=" + node.val() + "&";
+
 		}else if(node.hasClass("date")){
 
 			if( node.val() != ""){
@@ -192,7 +198,7 @@ function collectQuery(){
 
 		} else if( hasVal && node.val() != "false"){
 
-			if(node.attr("name") == "img_documenttype"){
+			if(node.attr("name") == "ua_documenttype"){
 				if($('.docInSearch').attr("checked")){
 					queryObj[nodeProperty] = encodeURIComponent( node.val());
 				}
@@ -204,7 +210,7 @@ function collectQuery(){
 
 	queryObj["datatype"] = "cm:content";
 	var jsonString = JSON.stringify(queryObj);
-	var urlEncodedQ = "q=" + (jsonString);
+	var urlEncodedQ = keywords + "q=" + (jsonString);
 
 	return urlEncodedQ;
 }
