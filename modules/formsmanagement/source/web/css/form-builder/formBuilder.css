@@ -437,7 +437,7 @@ span.fld-lbl {
 }
 #my-frm .right .group div {
 }
-#my-frm .top .group div, #my-frm .top .group-tmp div {
+#my-frm .top .group > div, #my-frm .top .group-tmp > div {
     padding-top: 10px;
 }
 
