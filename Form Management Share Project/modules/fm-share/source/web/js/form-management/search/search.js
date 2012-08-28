@@ -100,8 +100,7 @@ function injectAlfrescoDefaults()
 	});
 
 	var nodeObj = getQueryObject();
-
-	$('.fm-profile').form("loadPropertiesToFields", nodeObj);
+	if(advsearchAspects.length > 0) $('.fm-profile').form("loadPropertiesToFields", nodeObj);
 }
 
 function getQueryPath()
