@@ -1,11 +1,11 @@
-/* -------------------------------------------------------------- 
-   
+/* --------------------------------------------------------------
+
    Boilerplate forms.css
    * Sets up some default styling for forms
-   
+
 -------------------------------------------------------------- */
- 
-label { font-weight: bold; } 
+
+label { font-weight: bold; }
 /* Fieldsets */
 fieldset { padding: 1.4em; margin: 0 0 1.5em 0; border: 1px solid #ddd; }
 legend { padding: 0 .4em; font-weight: bold; font-size: 1.2em; }
@@ -42,7 +42,7 @@ form.vform p.checkbox label { display: inline; }
 /* ERROR HANDLING
 ------------------------------------------------------------------*/
 .container_12 {
-	width:960px; 
+	width:960px;
 	margin:0 auto;
 }
 form#my-frm .slider-value {
@@ -66,7 +66,7 @@ form#my-frm .sliderForm .ui-state-default, form#my-frm .ui-widget-content .ui-st
     color: #1C94C4;
     font-weight: bold;
     outline: medium none;
-} 
+}
 form#my-frm .sliderForm .ui-slider-handle {
     cursor: default!important;
     height: 1.2em!important;
@@ -85,7 +85,7 @@ form#my-frm .ui-slider { position:relative; }
 form#my-frm .ui-slider-horizontal .ui-slider-handle {
     margin-left: -0.6em!important;
     top: -0.3em!important;
-} 
+}
 form#my-frm .sliderForm { float:left; display:block; width:55%;   }
 form#my-frm .slider-start { display: block;
 	float: left;
@@ -93,8 +93,8 @@ form#my-frm .slider-start { display: block;
 	text-align: right;
 	width: 13%;
 	font-weight:bold;
-} 
-form#my-frm .slider-end { 
+}
+form#my-frm .slider-end {
 	display: block;
     float: left;
     padding: 0 10px 0 20px;
@@ -122,7 +122,7 @@ form#my-frm   .ui-slider-horizontal .ui-slider-range {
     height: 100%;
     top: 0;
 	padding:0!important;
-} 
+}
 .saveButtonWrapper {
 	float: right;
     margin-right: 98px;
@@ -169,7 +169,7 @@ html[xmlns] .clearfix {
 }
 .formBuilderContainer {
 	width:300px; float:left;  margin-right: 20px; font-family: Verdana,Geneva,sans-serif !important;
-} 
+}
 .formTabs {
     left: -5px;
     margin: 0;
@@ -213,7 +213,7 @@ li.ui-state-default {
 }
 .toolBox {
     background: none repeat scroll 0 0 #EBF1F4;
-    border: 1px solid #CCC; 
+    border: 1px solid #CCC;
     padding: 10px;
 }
 .formContainerStage {
@@ -223,7 +223,7 @@ li.ui-state-default {
     width: 500px;
 }
 .frmBuilder label {
-    font-size: 12px !important; 
+    font-size: 12px !important;
     text-shadow: 0 1px 0 #FFFFFF;
 }
 .frmBuilder input, .frmBuilder textarea, .frmBuilder select {
@@ -236,7 +236,7 @@ li.ui-state-default {
 .checkbox {
     width: 20px !important;
 }
-.fieldAddOptions a { 
+.fieldAddOptions a {
     color: #333333;
     display: block;
     padding: 5px;
@@ -293,8 +293,8 @@ span.fld-lbl {
 }
 .prg-frm-button-wrapper {
 	margin-top:15px;
-	border-top:1px solid #ccc; 
-	padding-top:10px; 
+	border-top:1px solid #ccc;
+	padding-top:10px;
 	text-align:right;
 }
 .frm_desc {
@@ -313,7 +313,7 @@ span.fld-lbl {
     text-decoration: underline;
 }
 .ui-accordion-header {
-      
+
     border: 1px solid #B6CEDB;
     display: block;
     font-size: 13px;
@@ -321,7 +321,7 @@ span.fld-lbl {
     margin: 0 0 5px;
     outline: medium none !important;
     padding: 3px 3px 3px 11px;
-    position: relative; 
+    position: relative;
 }
 #accordion .ui-state-active, #accordion-tab1 .ui-state-active {
     background: #C9DEEA!important;
@@ -404,8 +404,6 @@ span.fld-lbl {
     float: left;
     width: 140px;
 }
-#my-frm .left .group div {
-}
 #my-frm .right .group {
     padding: 5px 0;
     width: 100%;
@@ -416,9 +414,7 @@ span.fld-lbl {
     text-align: right;
     width: 140px;
 }
-#my-frm .right .group div {
-}
-#my-frm .top .group div {
+#my-frm .top .group > div {
     padding-top: 10px;
 }
 /* Button */
@@ -426,10 +422,10 @@ span.fld-lbl {
 .saveButtonWrapper a {
 	color:#0000CC;
 }
-.isb { 
+.isb {
 	background: -moz-linear-gradient(center top , #A90329 0%, #8F0222 44%, #6D0019 100%) repeat scroll 0 0 transparent;
     border-radius: 3px 3px 3px 3px;
-    width: 120px;  
+    width: 120px;
 }
 .isb button {
     background: none repeat scroll 0 50% transparent;
@@ -437,9 +433,9 @@ span.fld-lbl {
     border-radius: 3px 3px 3px 3px;
     display: block;
     height: 28px;
-	width:120px; 
+	width:120px;
 }
-.sbico { 
+.sbico {
     color: #FFFFFF;
     display: inline-block;
     margin: -4px auto 0;
@@ -457,5 +453,4 @@ span.fld-lbl {
 }
 
 .fld-tip { display:block; padding-top:2px; padding-bottom:2px; color:#aaa; padding-left:140px; font-size:11px; }
- 
-  
+
