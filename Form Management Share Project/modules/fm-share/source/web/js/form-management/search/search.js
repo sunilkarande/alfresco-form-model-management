@@ -148,9 +148,18 @@ function collectQuery(){
 		if(node.data("type")) dataType = node.data("type");
 
 		if(node.attr("name") == "cm_modified_from" || node.attr("name") == "cm_modified_to"){
-			if($("input[name='cm_modified_to']").val() != "" || $("input[name='cm_modified_from']").val() != ""){
-				hasVal = true;
+			var modFrom = $("input[name='cm_modified_from']").val();
+			var modTo = $("input[name='cm_modified_to']").val();
+
+			if(modFrom != "" || modTo != ""){
+				var toDate = new Date( modTo );
+				var frDate = new Date( modFrom );
+				queryObj["prop_cm_modified-date-range"] =  ISODateString(frDate)+ "|" + ISODateString(toDate);
 			}
+
+			//Dealt with date already
+			hasVal = false;
+
 		}else if( node.val() != "" ){
 			hasVal = true;
 		}
