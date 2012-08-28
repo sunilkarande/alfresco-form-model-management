@@ -13,7 +13,6 @@
 	<#else>
 		var advsearchAspects = ${docTypeAspect!};
 	</#if>
-
 </script>
 
 <div style="display: none;" class="infoMessage saving"><span>${msg("search.saving")}</span></div>
@@ -46,16 +45,16 @@
 			</div>
 		</div>
 
-		<!--
+
 		<div class="recdocflip">
 		 <div class="ua-menu ua-disabled">
 			<span>Selected Items...</span>
 			<ul>
-				<li><a class="ac-mvrecords" href="#">Move > Records</a></li>
+				<!-- <li><a class="ac-mvrecords" href="#">Move > Records</a></li> -->
 			    <li><a class="ac-mvdropbox" href="#">Move > Dropbox</a></li>
 			</ul>
 		</div>
-		-->
+
 
 		<!--
 		<div class="switch show-records"><span class="ico-record" ></span></div>

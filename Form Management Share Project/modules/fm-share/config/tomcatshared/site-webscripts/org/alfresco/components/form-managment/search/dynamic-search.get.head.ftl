@@ -10,15 +10,19 @@
 	var alf_ticket = "";
 	$(function()
 	{
-		$('.fm-profile').form({
-			'customFormStyle': 'left',
-			'aspects': advsearchAspects,
-			'isSearch': true,
-			'postUrl' : "/share/service/components/form-management/ajax/save",
+		if(advsearchAspects.length > 0){
+			$('.fm-profile').form({
+				'customFormStyle': 'left',
+				'aspects': advsearchAspects,
+				'isSearch': true,
+				'postUrl' : "/share/service/components/form-management/ajax/save",
 
-			'onComplete': function(){
-				 injectAlfrescoDefaults();
-			}
-		});
+				'onComplete': function(){
+					 injectAlfrescoDefaults();
+				}
+			});
+		}else{
+			injectAlfrescoDefaults();
+		}
 	});
 </script>

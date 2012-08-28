@@ -40,7 +40,12 @@
 			<li><a href="#config-1">${msg("search.title")}</a></li>
 		</ul>
 		<div id="config-1">
-			<div class="fm-profile"></div>
+			<div class="fm-profile">
+
+				<form method="POST" id="my-frm" class="" name="">
+					<div id="formFormat" class="left"><div class="f_b_root"></div></div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
