@@ -73,7 +73,7 @@ function rowTemplate(doc)
 
 
 	if(doc.type == "document"){
-		if (doc.hasWriteAccess) rTemp += '<li><a href="'+doc.id+'" class="ico-move-dropbox">Move to Dropbox</a></li>';
+		//if (doc.hasWriteAccess) rTemp += '<li><a href="'+doc.id+'" class="ico-move-dropbox">Move to Dropbox</a></li>';
 	}
 
 	rTemp += '					<li><a target="_blank" href="/share/proxy/alfresco/api/node/content/workspace/SpacesStore//'+doc.id+'/'+doc.name+'?a=true" class="ico-download">Download</a></li>';
