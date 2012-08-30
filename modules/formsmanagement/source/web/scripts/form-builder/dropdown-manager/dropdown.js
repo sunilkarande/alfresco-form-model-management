@@ -188,7 +188,7 @@ $(function () { /* Setup */
 		$('.fileLink').attr("href", url);
 
 
-		var shareUrl = url.replace("/alfresco/d/d/workspace/SpacesStore/", "/share/proxy/alfresco/api/node/content/workspace//SpacesStore/");
+		var shareUrl = url.replace("/alfresco/d/d/workspace/SpacesStore/", "/share/proxy/alfresco/api/node/content/workspace/SpacesStore/");
 		$('.shareLink').attr("href", shareUrl + "?a=true");
 
 
