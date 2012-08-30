@@ -54,9 +54,8 @@
 			    <li><a class="ac-mvdropbox" href="#">Move > Dropbox</a></li>
 			</ul>
 		</div>
-		-->
 
-		<!--
+
 		<div class="switch show-records"><span class="ico-record" ></span></div>
 		<div class="switch show-all switch-selected"><span  class="ico-all"></span></div>
 		<div class="switch show-document slast"><span  class="ico-document"></span></div>
