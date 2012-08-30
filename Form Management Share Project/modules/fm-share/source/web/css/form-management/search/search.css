@@ -193,9 +193,25 @@ tr .ico-record, tr .ico-document, tr .ico-site, tr .ico-repo
 {
 	background: #FFF!important;
 }
-body
-{
+
+/* Sort button YUI */
+.yui-skin-default .sort-button {
+	 background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    margin: 0;
+    padding: 0;
 }
+
+.yui-skin-default .sort-button button {
+	padding-left: 0;
+    padding-top: 0;
+}
+.yui-skin-default .sort-button .first-child {
+	border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+
 .ui-tabs-nav a
 {
 	font-weight: normal!important;
@@ -514,6 +530,14 @@ h3
 	color: #AAA;
 	padding: 10px 4px;
 }
+.search-sort {
+	padding-bottom: 9px;
+}
+.search-sort .sort-button {
+	position: relative;
+    top: 4px;
+}
+
 .entry
 {
 	border-bottom: 1px dashed #E5E5E5;
