@@ -363,23 +363,38 @@
 									}
 									prop.options.value = options;
 
-									if(!settings.readonly){ formString += (methods.selectTemplate(prop) + profileData); }
-										else{ formString += (methods.readonlyTemplate(prop) + profileData);  prop.fieldType = "done"; }
+									if(settings.readonly){
+										formString += (methods.readonlyTemplate(prop) + profileData);  prop.fieldType = "done";
+									}else{
+
+										if(prop.fieldType == "select"){
+										  	formString += (methods.selectTemplate(prop) + profileData);
+										}else if( prop.fieldType == "radio" ){
+											formString += (methods.radioCheckTemplate(prop, "radio") + profileData);
+										}else if( prop.fieldType == "checkbox" ){
+											formString += (methods.radioCheckTemplate(prop, "checkbox") + profileData);
+										}
+									}
 								}
 							},
 							error:function (xhr, ajaxOptions, thrownError){
-								alert("There was an issue contacting one of the services that populates the dropdown for '" + prop.title + "', please contact your administrator.");
-								formString += methods.selectTemplate(prop);
+								alert(prop.fieldType + "There was an issue contacting one of the services that populates the dropdown for '" + prop.title + "', please contact your administrator.");
+
+								if(prop.fieldType == "select"){
+								  	formString += (methods.selectTemplate(prop));
+								}else if( prop.fieldType == "radio" ){
+									formString += (methods.radioCheckTemplate(prop, "radio"));
+								}else if( prop.fieldType == "checkbox" ){
+									formString += (methods.radioCheckTemplate(prop, "checkbox"));
+								}
 							}
 						});
 
 					}else if (prop.fieldType == "select") {
 						formString += methods.selectTemplate(prop);
-					}
-					if (prop.fieldType == "radio") {
+					}else if (prop.fieldType == "radio") {
 						formString += methods.radioCheckTemplate(prop, "radio");
-					}
-					if (prop.fieldType == "checkbox") {
+					}else if (prop.fieldType == "checkbox") {
 						formString += methods.radioCheckTemplate(prop, "checkbox");
 					}
 					if(prop.fieldType == "readonly"){
@@ -388,7 +403,7 @@
 
 				}else if(prop.fieldType == "hidden"){
 					formString += methods.hiddenTemplate(prop);
-				} else{
+				}else{
 					if(settings.readonly){
 						formString += methods.readonlyTemplate(prop);
 					}else{
@@ -492,10 +507,10 @@
         radioCheckTemplate: function (prop, type) {
             var tmp = '';
             var options = prop.options.value;
+
             for (x in options) {
                 $.each(options[x], function (key, value) {
-
-                    tmp += '<input type="' + type + '" ' + methods.addGlobalProperties(prop, false) + ' value="' + key + '"><span class="fld-lbl">' + value + '</span> ';
+					if(key != "" || options.length == 1) tmp += '<input type="' + type + '" ' + methods.addGlobalProperties(prop, false) + ' value="' + key + '"><span class="fld-lbl">' + value + '</span> ';
                 });
             }
             return tmp;
@@ -565,7 +580,10 @@
                     var qName = $(this).attr("name").replace("_", ":") + "";
 
                     var nodeVal = "";
-                    if (nodeObj.node.properties[qName]) {
+
+                    if(typeof nodeObj.node.properties[qName] == "object"){
+						nodeVal = nodeObj.node.properties[qName];
+                    }else if( nodeObj.node.properties[qName] ) {
                         nodeVal = nodeObj.node.properties[qName];
                     }
 
@@ -602,14 +620,19 @@
 	                    if ($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") {
 
 							$(this).attr("checked", false);
-
 							if( $(this).data("type") == "d_boolean" )
 							{
 								if( nodeVal === true || nodeVal == "true" ) $(this).attr("checked", true);
 							}
 							else
 							{
-								if ($(this).val() == nodeVal) $(this).attr("checked", true);
+								if(typeof nodeObj.node.properties[qName] == "object"){
+									for(i in nodeVal){
+										if ($(this).val() == nodeVal[i]) $(this).attr("checked", true);
+									}
+								}else{
+									if ($(this).val() == nodeVal) $(this).attr("checked", true);
+								}
 							}
 	                    } else {
 	                        $(this).val(nodeVal);
