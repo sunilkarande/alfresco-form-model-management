@@ -99,6 +99,7 @@ function pushOptionsToField(){
 			var fldValue = $(this).children('input').val();
 			buildListOpt += '<input type="'+fieldType+'" class="frm-fld" name="'+$('.frm-alf-property-prefix').val()+'_'+$('.frm-alf-property-name').val()+'" value="'+fldValue+'" /><span class="fld-lbl">'+fldValue+ '</span>';
 		});
+		if(buildListOpt == "") buildListOpt += '<input type="'+fieldType+'" class="frm-fld" name="'+$('.frm-alf-property-prefix').val()+'_'+$('.frm-alf-property-name').val()+'" value="" /><span class="fld-lbl"></span>';
 		$('.ui-helper > div').append(buildListOpt);
 	}else{
 		//Must be a drop down
@@ -213,18 +214,16 @@ $(function () {
     });
 
 	$(".prg_pop_script").livequery('change', function() {
-		var thisPop = $('.ui-helper').find('.frm-fld');
+		var thisPop = $('.ui-helper').find('.frm-fld:eq(0)');
 		var tVal = $(this).val();
 
-		if(thisPop.hasClass("select")){
-			if(tVal != ""){
-				thisPop.attr('id', $(this).val() + "");
-				if(!thisPop.hasClass("hasPopScript")){ thisPop.addClass('hasPopScript'); }
+		if(tVal != ""){
+			thisPop.attr('id', $(this).val() + "");
+			if(!thisPop.hasClass("hasPopScript")){ thisPop.addClass('hasPopScript'); }
 
-			}else{
-				thisPop.removeClass('hasPopScript');
-				thisPop.attr('id', "");
-			}
+		}else{
+			thisPop.removeClass('hasPopScript');
+			thisPop.attr('id', "");
 		}
 	});
 
@@ -398,6 +397,15 @@ $(function () {
 			$(".ui-helper > label").append('*');
 		}
 	});
+
+	$('.prg_multiple').live('click', function() {
+		if($(".ui-helper").find(".frm-fld:eq(0)").hasClass('alf-multiple')){
+			$(".ui-helper").find(".frm-fld:eq(0)").removeClass('alf-multiple');
+		}else{
+			$(".ui-helper").find(".frm-fld:eq(0)").addClass('alf-multiple');
+		}
+	});
+
 
 	$('.prg_aspect_hidden').live('click', function() {
 		$("#formFormat").toggleClass('fm-aspect-hidden');
@@ -599,7 +607,6 @@ $(function () {
 			$('.prg_dummyfield').attr("checked", "");
 			$(".frm-alf-property-prefix-text").hide();
 			$(".frm-alf-property-prefix").show();
-
 		}
 
 		//Is it a index?

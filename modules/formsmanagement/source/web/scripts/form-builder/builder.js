@@ -91,7 +91,8 @@ function formToJson(){
 
 			if(input.hasClass('hasPopScript')){
 				fieldObj.options.service = true;
-				fieldObj.options.value = [  ];
+				fieldObj.options.value = [];
+
 			}
 		}
 
