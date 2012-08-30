@@ -5,5 +5,5 @@ var jsonNode = companyhome.childByNamePath(fmPath.constraints + siteid);
 if(jsonNode){
 	model.result = jsonNode.content;
 }else{
-	model.result = 0;
+	model.result = "[]";
 }
