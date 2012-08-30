@@ -6,7 +6,7 @@ var filename = args.filename;
 model.status = 1;
 
 if(path){
-	var fileCheck = companyhome.childByNamePath(args.path + "/" + filename);
+	var fileCheck = path.childByNamePath(filename);
 	if(!fileCheck){
 
 		var newNode = path.createFile(filename);
@@ -18,7 +18,6 @@ if(path){
 	}else{
 		model.status = 0;
 		model.msg = "The file "+filename+" already exists. Please try another name";
-
 	}
 
 }else{
