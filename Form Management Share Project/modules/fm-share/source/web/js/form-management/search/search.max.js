@@ -59,9 +59,16 @@ function docDetailTemplate(doc)
 	return dTemp;
 }
 
+function ImgError(source){
+    source.src = "/share/res/components/images/filetypes/generic-file-32.png";
+    source.onerror = "";
+    return true;
+}
+
 function rowTemplate(doc)
 {
-	var fileExt = doc.name.substr( (doc.name.lastIndexOf('.') +1) );
+	var fileExt = doc.name.substr( (doc.name.lastIndexOf('.') +1) ) + '-file';
+	if( doc.type == "folder") fileExt = "generic-folder";
 
 	var rTemp = "";
 		doc.loccontext = "repo";
@@ -76,11 +83,11 @@ function rowTemplate(doc)
 	rTemp += '		</td>';
 	rTemp += '		<td class="doc-search-details">';
 	rTemp += '			<div class="doc-search-icon">';
-	rTemp += '				<a href="#" class="simple-view" style="display:none;"><img title="'+doc.name+'" alt=".'+fileExt+'" src="/share/res/components/images/filetypes/'+fileExt+'-file-32.png" id="yui-gen111"></a>';
+	rTemp += '				<a href="#" class="simple-view" style="display:none;"><img title="'+doc.name+'" alt=".'+fileExt+'" src="/share/res/components/images/filetypes/'+fileExt+'-32.png" id="yui-gen111" onerror="ImgError(this);"></a>';
 
 	if( doc.type == "folder")
 	{
-		rTemp += '			<a href="#" class="detail-view" id="yui-gen126"><img title="test" alt="test" src="/share/res/components/search/images/folder.png" id="yui-gen125"></a>';
+		rTemp += '			<a href="#" class="detail-view" id="yui-gen126"><img title="folder" alt="folder" src="/share/res/components/search/images/folder.png" id="yui-gen125"></a>';
 	}
 	else
 	{
