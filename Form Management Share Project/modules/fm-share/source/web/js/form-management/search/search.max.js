@@ -367,7 +367,11 @@ function search(query){
 	$('.infoMessage').fadeIn(300).center();
 
 	var qData = {};
-		qData.site= $(".fm-site-id").val().slice(0, -5);
+		if(getURLParameter("a") == "true" ){
+			//Search all sites
+		}else{
+			qData.site= $(".fm-site-id").val().slice(0, -5);
+		}
 		qData.term=decodeURIComponent( getURLParameter("t") );
 		qData.tag=getURLParameter("tag");
 		qData.maxResults=255;
