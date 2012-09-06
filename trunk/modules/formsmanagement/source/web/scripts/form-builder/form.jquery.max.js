@@ -40,6 +40,7 @@
             return this.each(function () {
 
 				var $this = $(this);
+
                 data = $this.data('form');
 				$this.data('origAspectCollection', "");
 
@@ -130,6 +131,7 @@
 							for (a in settings.aspects) {
 								formS += methods.buildAspect($this, settings.aspects[a], false);
 							}
+
 							$this.html(formS);
 							$this.data('origAspectCollection', $this.find('.fmAspectCollection:eq(0)').val() + "");
 							methods.onInnerComplete();
@@ -137,8 +139,6 @@
 						}else{
 							alert("If you are using drawNodeAspects property it requires a nodeRef to load from!");
 						}
-
-
 					}
 
 					if (settings.onComplete) settings.onComplete($this);
@@ -236,7 +236,13 @@
 			if(settings.customFormStyle) { formStyle= settings.customFormStyle }
 
             var formString = "";
-            if (!isProfile) formString += '<form name="" class="" id="my-frm" method="POST">';
+
+            if(isProfile){
+            	//if profile remove built aspects that the profile will re-build
+            	$('.frm-aspect-'+ aspect.namespace + "-" + aspect.name ).remove();
+			}
+
+            if (!isProfile) formString += '<form name="" class="frm-aspect-'+ aspect.namespace + "-" + aspect.name +'" id="my-frm" method="POST">';
             if (!isProfile) formString += '	<div class="' + formStyle + '" id="formFormat">';
             if (!isProfile) formString += '	<div class="f_b_root"><div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
             if (isProfile) formString += '	<div id="fm-aspect-'+aspect.title.replace(/ /g, "-").toLowerCase()+'" class="fm-profile-aspect">';
