@@ -48,6 +48,7 @@
 		<script type="text/javascript" src="/alfresco/scripts/form-builder/jquery.live.js"></script>
 		<script type="text/javascript" src="/alfresco/scripts/form-builder/validation.js"></script>
 		<script type="text/javascript" src="/alfresco/scripts/form-builder/form.jquery.js"></script>
+
 		<script type="text/javascript">
 
 			var readonly = true;
@@ -86,7 +87,6 @@
 						}
 					});
 
-
 					/* Strict method; Use pre-determined aspect collection or profiles
 					$.getJSON("/share/proxy/alfresco/model/aspects/aspecttoproperty?aspects=ua_documentTypeAspect", {}, function(jsonObj)
 					{
@@ -103,9 +103,8 @@
 								$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
 							}
 						});
-					}); */
-
-				}
+					});
+				}  */
 			}
 			$(function(){
 				setTimeout('initForm()', 1000);
