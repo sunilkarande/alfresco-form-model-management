@@ -103,8 +103,8 @@
 								$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
 							}
 						});
-					});
-				}  */
+					}); */
+				}
 			}
 			$(function(){
 				setTimeout('initForm()', 1000);
