@@ -1,5 +1,11 @@
 = Details =
 
+*Sept 12 2012 - FM Module WCS 1.3.4.1*
+  * Bug found by anhthan748. Creating aspects on new models was causing issues with validation.
+
+*Aug 30 2012 - FM Module WCS 1.3.4*
+  * Added validation when deleting aspects from the model manager, JSON was being corrupted as it was deleting the aspect from JSON and not the model when aspects were in use
+
 *Aug 30 2012 - FM Module WCS 1.3.3*
   * Fixed issue with option service for checkboxes and radio buttons
   * NOTE: Please use multiple option in alfresco field properties when using multi checkboxes as it stores values in an array form
