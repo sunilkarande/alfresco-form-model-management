@@ -2,7 +2,7 @@
 	<div class="fm-footer">
 		<span class="copyright">
 			<img width="207" height="27" alt="Alfresco Enterprise" src="/share/components/images/alfresco-share-logo-enterprise.png">
-			<span>Form Management 1.2.2</span>
+			<span>Form Management 1.3.4.1</span>
 		</span>
 	</div>
 </div>
