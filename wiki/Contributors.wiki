@@ -4,6 +4,6 @@ This is a list of the great folks who have aided in the development and/or testi
 
 
 Bug fixes/ finding:
-
-anhthan748 
-lucas.tardioli
+  * Andrew Barrett
+  * anhthan748
+  * lucas.tardioli
