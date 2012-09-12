@@ -47,8 +47,6 @@ var jObj = eval("(" + jsonNode.content + ")");
 
 if(action == "add"){
 
-	logger.log("GMAIL:" + jsonNode.content);
-
 	var addTemplate = {"title":"#ASPECT#","visible":true,"namespace":"#PREFIX#","name":"#ASPECT#","description":"Default example description","properties":[]};
 	addTemplate.title = aspectName;
 	addTemplate.name = aspectName;
