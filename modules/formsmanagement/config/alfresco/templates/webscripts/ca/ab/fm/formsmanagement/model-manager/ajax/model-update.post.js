@@ -47,7 +47,10 @@ var jObj = eval("(" + jsonNode.content + ")");
 
 if(action == "add"){
 
+
 	var addTemplate = {"title":"#ASPECT#","visible":true,"namespace":"#PREFIX#","name":"#ASPECT#","description":"Default example description","properties":[]};
+
+	if(args.dummy == "true") addTemplate.dummy = true;
 	addTemplate.title = aspectName;
 	addTemplate.name = aspectName;
 	addTemplate.namespace = prefix;

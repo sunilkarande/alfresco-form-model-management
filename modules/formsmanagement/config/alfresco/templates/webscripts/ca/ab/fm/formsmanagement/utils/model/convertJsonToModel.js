@@ -65,84 +65,87 @@ function convertJsonToXml(modelObj){
 
 	for(x in modelObj.aspects){
 		var aspect = modelObj.aspects[x];
-		var prefix = aspect.namespace;
 
-		mString += '		<aspect name="'+ prefix +':' + aspect.name + '">';
-		mString += '			<title>'+ Encoder.htmlEncode(aspect.title, true) + '</title>';
+		if(!aspect.dummy){
+			var prefix = aspect.namespace;
 
-		if(aspect.associations){
-			if(property["multiple"]) mString += '	<multiple>'+ property["multiple"] + '</multiple>';
+			mString += '		<aspect name="'+ prefix +':' + aspect.name + '">';
+			mString += '			<title>'+ Encoder.htmlEncode(aspect.title, true) + '</title>';
 
-			mString += '			<associations>';
-			for(z in aspect.associations){
-				var assoc = aspect.associations[z];
+			if(aspect.associations){
+				if(property["multiple"]) mString += '	<multiple>'+ property["multiple"] + '</multiple>';
 
-				mString += '				<association name="'+assoc.name+'">';
-				if(assoc.source){
-					mString += '				    <source>';
-					mString += '				        <mandatory>'+assoc.source.mandatory+'</mandatory>';
-					mString += '				        <many>'+assoc.source.many+'</many>';
-					mString += '				    </source>';
+				mString += '			<associations>';
+				for(z in aspect.associations){
+					var assoc = aspect.associations[z];
+
+					mString += '				<association name="'+assoc.name+'">';
+					if(assoc.source){
+						mString += '				    <source>';
+						mString += '				        <mandatory>'+assoc.source.mandatory+'</mandatory>';
+						mString += '				        <many>'+assoc.source.many+'</many>';
+						mString += '				    </source>';
+					}
+					if(assoc.target){
+						mString += '				    <target>';
+						mString += '				        <class>'+assoc.target["class"]+'</class>';
+						mString += '				        <mandatory>'+assoc.target.mandatory+'</mandatory>';
+						mString += '				        <many>'+assoc.target.many+'</many>';
+						mString += '				    </target>';
+					}
+					mString += '				</association>';
 				}
-				if(assoc.target){
-					mString += '				    <target>';
-					mString += '				        <class>'+assoc.target["class"]+'</class>';
-					mString += '				        <mandatory>'+assoc.target.mandatory+'</mandatory>';
-					mString += '				        <many>'+assoc.target.many+'</many>';
-					mString += '				    </target>';
-				}
-				mString += '				</association>';
+				mString += '			</associations>';
 			}
-			mString += '			</associations>';
-		}
-		if(aspect.properties){
-			mString += '			<properties>';
+			if(aspect.properties){
+				mString += '			<properties>';
 
-			for(z in aspect.properties)
-			{
-				var property = aspect.properties[z];
-			 	var isPartOfModel = true;
+				for(z in aspect.properties)
+				{
+					var property = aspect.properties[z];
+				 	var isPartOfModel = true;
 
-			 	if(property.className && property.className != "")
-			 	{
-			 		if( property.className.indexOf('alf-dummyfield') >= 0 ) isPartOfModel = false;
-			 	}
+				 	if(property.className && property.className != "")
+				 	{
+				 		if( property.className.indexOf('alf-dummyfield') >= 0 ) isPartOfModel = false;
+				 	}
 
-			 	if(isPartOfModel)
-			 	{
-					mString += '				<property name="'+prefix+':'+ property.name + '">';
-					mString += '					<title>'+ Encoder.htmlEncode(property.title, true) +'</title>';
-					mString += '					<type>'+ property.type.replace("_", ":") + '</type>';
+				 	if(isPartOfModel)
+				 	{
+						mString += '				<property name="'+prefix+':'+ property.name + '">';
+						mString += '					<title>'+ Encoder.htmlEncode(property.title, true) +'</title>';
+						mString += '					<type>'+ property.type.replace("_", ":") + '</type>';
 
-					//if(property.mandatory && property.mandatory == true) mString += '	<mandatory>'+ property.mandatory + '</mandatory>';
-					if(property["default"]) mString += '	<default>'+ property["default"] + '</default>';
-					if(property["multiple"]) mString += '	<multiple>'+ property["multiple"] + '</multiple>';
-					if(property["index"])
-					{
-						mString += '  <index enabled="true">';
-						mString += '	<atomic>'+ property["index"]["atomic"] +'</atomic>       <!-- index in the background -->';
-						mString += '	<stored>'+property["index"]["stored"]+'</stored>       <!-- store the property value in the index -->';
-						mString += '	<tokenised>'+property["index"]["tokenised"]+'</tokenised>';
-						mString += '	</index>';
-	                }
+						//if(property.mandatory && property.mandatory == true) mString += '	<mandatory>'+ property.mandatory + '</mandatory>';
+						if(property["default"]) mString += '	<default>'+ property["default"] + '</default>';
+						if(property["multiple"]) mString += '	<multiple>'+ property["multiple"] + '</multiple>';
+						if(property["index"])
+						{
+							mString += '  <index enabled="true">';
+							mString += '	<atomic>'+ property["index"]["atomic"] +'</atomic>       <!-- index in the background -->';
+							mString += '	<stored>'+property["index"]["stored"]+'</stored>       <!-- store the property value in the index -->';
+							mString += '	<tokenised>'+property["index"]["tokenised"]+'</tokenised>';
+							mString += '	</index>';
+		                }
 
-					if(property["constraints"])
-					{
-						mString += '						<constraints>';
-						for(y in property["constraints"]){
-							mString += '						<constraint ref="'+ property["constraints"][y]["@ref"] + '" />';
+						if(property["constraints"])
+						{
+							mString += '						<constraints>';
+							for(y in property["constraints"]){
+								mString += '						<constraint ref="'+ property["constraints"][y]["@ref"] + '" />';
+							}
+							mString += '						</constraints>';
 						}
-						mString += '						</constraints>';
+
+						mString += '				</property>';
+
 					}
 
-					mString += '				</property>';
-
 				}
-
+				mString += '			</properties>';
 			}
-			mString += '			</properties>';
+			mString += '		</aspect>';
 		}
-		mString += '		</aspect>';
 	}
 	mString += '	</aspects>';
 	mString += '</model>';
