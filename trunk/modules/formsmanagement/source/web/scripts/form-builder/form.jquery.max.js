@@ -236,13 +236,17 @@
 			if(settings.customFormStyle) { formStyle= settings.customFormStyle }
 
             var formString = "";
+			var dummyAspect = "";
+			if(aspect.dummy) dummyAspect = "prg-dummy-aspect";
 
             if(isProfile){
             	//if profile remove built aspects that the profile will re-build
             	$('.frm-aspect-'+ aspect.namespace + "-" + aspect.name ).remove();
 			}
 
-            if (!isProfile) formString += '<form name="" class="frm-aspect-'+ aspect.namespace + "-" + aspect.name +'" id="my-frm" method="POST">';
+			if(settings.demoMode && aspect.dummy){ $('.prg-aspectprefix').hide(); $('.prg-aspectprefix-text').show(); }
+
+            if (!isProfile) formString += '<form name="" class="frm-aspect-'+ aspect.namespace + "-" + aspect.name +' '+ dummyAspect +'" id="my-frm" method="POST">';
             if (!isProfile) formString += '	<div class="' + formStyle + '" id="formFormat">';
             if (!isProfile) formString += '	<div class="f_b_root"><div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
             if (isProfile) formString += '	<div id="fm-aspect-'+aspect.title.replace(/ /g, "-").toLowerCase()+'" class="fm-profile-aspect">';
@@ -451,12 +455,12 @@
             if (!isProfile) aspectCollection += aspect.namespace + "_" + aspect.name + "~";
 
 			if (!isProfile) formString += '</div><div class="fm-connect-container"></div></div><input type="hidden" name="frm-aspect-collection" class="fmAspectCollection" value="' + aspectCollection + '" /></form>';
-            if ($(".fm-filename")) {
+            if (settings.demoMode) {
 				if(aspect.name.indexOf(":") >= 0){
 					aspect.name = aspect.name.split(":")[1];
 				}
                 $(".prg-aspectname").val(aspect.name);
-                $(".prg-aspectprefix").val(aspect.namespace);
+                $(".prg-aspectprefix, .prg-aspectprefix-text").val(aspect.namespace);
                 $(".fm-filename, .aspect-name-tip").html(aspect.namespace + ":" + aspect.name);
             }
 

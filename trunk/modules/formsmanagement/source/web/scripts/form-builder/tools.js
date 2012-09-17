@@ -737,13 +737,22 @@ $(function () {
 	});
 
 	$('.prg-aspectname').keyup(function(){
-		  var a= $('.prg-aspectname').val();
-		  var b= $('.prg-aspectprefix').val();
+		  var a,b;
+		  	a= $('.prg-aspectname').val();
+
+		  if( $('.prg-aspectprefix').is(':visible') ) b= $('.prg-aspectprefix').val();
+		  if( $('.prg-aspectprefix-text').is(':visible') ) b= $('.prg-aspectprefix-text').val();
 		  $('.aspect-name-tip').html( b + ":" + a);
 	});
 	$('.prg-aspectprefix').change( function(){
 		var a= $('.prg-aspectname').val();
 	    var b= $('.prg-aspectprefix').val();
+		$('.aspect-name-tip').html( b + ":" + a);
+	});
+
+	$('.prg-aspectprefix-text').keyup( function(){
+		var a= $('.prg-aspectname').val();
+	    var b= $('.prg-aspectprefix-text').val();
 		$('.aspect-name-tip').html( b + ":" + a);
 	});
 });
