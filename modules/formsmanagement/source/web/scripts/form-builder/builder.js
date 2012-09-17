@@ -20,8 +20,10 @@ function formToJson(){
 	var jObj = {};
 		jObj.title = escapeFn( $('.frm_formName').text() );
 		jObj.visible = true;
+		if( $('#my-frm').hasClass('prg-dummy-aspect') ) jObj.dummy = true;
 
-		jObj.namespace = $('.prg-aspectprefix').val();
+		if(jObj.dummy){ jObj.namespace = $('.prg-aspectprefix-text').val();  }else{  jObj.namespace = $('.prg-aspectprefix').val(); }
+
 		jObj.name = $('.prg-aspectname').val();
 		jObj.description = escapeFn($('.prg-desc').val());
 		jObj.formStyle = $('#formFormat').attr("class");

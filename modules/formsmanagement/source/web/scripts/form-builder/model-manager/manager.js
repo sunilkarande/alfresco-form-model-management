@@ -294,6 +294,7 @@ $(function(){
 		var jsonid = $('.open').attr('id').replace("json_", "");
 		var prefix = cleanString( $('.fm-aspect-prefix') );
 		var aspect = cleanString( $('.fm-aspect-name') );
+		var isDummy = $('.fm-dummy-aspect').is(':checked');
 
 		$('#aspect-dialog').dialog("close");
 
@@ -306,7 +307,7 @@ $(function(){
 				url: "/alfresco/wcs/form-builder/model-update",
 				dataType:"json",
 				data:{
-				  jsonid: jsonid, prefix:prefix, aspect:aspect, action : "add"
+				  jsonid: jsonid, prefix:prefix, aspect:aspect, dummy: isDummy, action : "add"
 				},
 				success:function(r){
 					if(r.status == 1){
