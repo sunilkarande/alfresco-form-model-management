@@ -25,7 +25,7 @@ a { outline:none; }
     color: #FFFFFF !important;
 }
 .fm-sidebar ul {
-    height: 500px;
+    height: 600px;
     margin: 0;
     overflow-x: hidden;
     overflow-y: auto;
@@ -41,7 +41,7 @@ a { outline:none; }
     padding: 10px;
     text-decoration: none;
 }
-.fm-sidebar-dropdown  ul { height:auto!important; }
+.fm-sidebar-dropdown  ul {   }
 .fm-sidebar-dropdown ul li a {
 	display: inline-block;
 	width:141px;

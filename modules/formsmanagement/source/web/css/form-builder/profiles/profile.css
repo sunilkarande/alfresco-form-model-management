@@ -34,5 +34,5 @@
 
 .fm-sidebar a span {
 	  background: url("../images/ico-drop.png") no-repeat scroll 0 -4px transparent;
-    padding-left: 36px;
+    padding-left: 36px; display: block;
 }
