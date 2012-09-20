@@ -598,7 +598,12 @@
                     }
 
                     if( $(this).hasClass('mceEditor') ){
-						$(".readonly-html-out").html(nodeVal);
+
+						if(settings.readonly){
+							$(".readonly-html-out").html(nodeVal);
+						}else{
+							$(this).val(nodeVal);
+						}
 					}else{
 						if( $(this).data("type") == "date" || $(this).hasClass("date") ){
 
