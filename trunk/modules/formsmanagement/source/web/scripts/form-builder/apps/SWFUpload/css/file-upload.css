@@ -1,0 +1,127 @@
+.dialog-upload #form1 {
+	padding: 7px; 
+}
+.dialog-upload #divStatus {
+	margin-bottom: 10px; padding:5px; border-radius:0px 0px 5px 5px; background:#C3E0CD;
+}
+.dialog-upload  .fileButton {
+	border-top: 1px solid #AAAAAA;
+    padding-top: 10px;
+    text-align: right; padding-right: 5px;
+} 
+.dialog-upload  span.spanB {
+	display: block;
+    float: right;
+    padding-left: 10px;
+}
+.dialog-upload  span.spanB button {
+ font-size: 14px;
+    padding: 4px 6px;
+
+}
+.dialog-upload  div.flash {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #D9E4FF;
+    border-radius: 5px 5px 0 0;
+    height: 200px;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 613px;
+} 
+.dialog-upload  div.fieldset {
+    border: 1px solid #C3E0CD; 
+}
+.dialog-upload  div.fieldset span.legend {
+   display:none; 
+}
+.dialog-upload  input[disabled] {
+    border: 1px solid #CCCCCC;
+} 
+.dialog-upload  button, input, select, textarea {
+    border-width: 1px;
+    margin-bottom: 10px;
+    padding: 2px 3px;
+}
+#metadataTabs .ui-tabs-panel {
+    padding: 6px!important;
+}
+.dialog-upload  .progressWrapper {
+    overflow: hidden; 
+}
+.dialog-upload  .progressContainer {
+    background-color: #F7F7F7;
+    border: 1px solid #E8E8E8;
+    margin: 5px;
+    overflow: hidden;
+    padding: 4px;
+}
+.dialog-upload  .dialog-upload .message {
+    background-color: #FFFFCC;
+    border: 1px solid #FFDD99;
+    margin: 1em 0;
+    overflow: hidden;
+    padding: 10px 20px;
+}
+.dialog-upload  .red {
+    background-color: #FFEBEB;
+    border: 1px solid #B50000;
+}
+.dialog-upload  .green {
+    background-color: #EBFFEB;
+    border: 1px solid #DDF0DD;
+}
+.dialog-upload  .blue {
+    background-color: #F0F5FF;
+    border: 1px solid #CEE2F2;
+} 
+.dialog-upload  .progressName {
+    color: #333;
+    font-size: 10pt;
+    font-weight: 700; 
+    overflow: hidden;
+    text-align: left;
+    white-space: nowrap;
+    width: 323px;
+}
+.dialog-upload  .progressBarInProgress, .progressBarComplete, .progressBarError {
+    background-color: #204F09;
+    font-size: 0;
+    height: 2px;
+    margin-top: 2px;
+    width: 0;
+}
+.dialog-upload  .progressBarComplete {
+    background-color: green;
+    visibility: hidden;
+    width: 100%;
+}
+.dialog-upload  .progressBarError {
+    background-color: red;
+    visibility: hidden;
+    width: 100%;
+}
+.dialog-upload  .progressBarStatus {
+    font-family: Arial;
+    font-size: 7pt;
+    margin-top: 2px;
+    text-align: left;
+    white-space: nowrap;
+    width: 337px;
+}
+.dialog-upload  a.progressCancel {
+    background-image: url("../demos/images/cancelbutton.gif");
+    background-position: -14px 0;
+    background-repeat: no-repeat;
+    display: block;
+    float: right;
+    font-size: 0;
+    height: 14px;
+    width: 14px;
+}
+.dialog-upload  a.progressCancel:hover {
+    background-position: 0 0;
+}
+.dialog-upload  .swfupload {
+    vertical-align: top;
+}
