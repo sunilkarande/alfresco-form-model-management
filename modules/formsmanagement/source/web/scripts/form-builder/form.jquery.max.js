@@ -33,7 +33,8 @@
         'onSaveComplete': null,
 		'onDynamicLoad': null,
 		'demoMode': false,
-		'cacheNodeProperties': true
+		'cacheNodeProperties': true,
+		'siteid': ''
 	};
     var methods = {
         init: function (options) {
@@ -105,6 +106,7 @@
 						//Must have a node
 						if(nodeRef != ""){
 							var json = methods.callNodeProperties(nodeRef, $this);
+							if(json.node.properties['ua:sitecontext'] && json.node.properties['ua:sitecontext'].length > 1) settings.siteid = json.node.properties['ua:sitecontext'] + "-site";
 
 							//Massage data
 							for(i in json.node.aspects){
@@ -316,8 +318,10 @@
 							url = url.replace("/share/proxy/alfresco", "/alfresco/wcs");
 						}
 						if(prop.id.indexOf("dropdown/byShareSite") != -1){
-							if(settings.useShareProxy){ url = "/share/proxy/alfresco/dropdown/byShareSite?siteid=" + $('.fm-site-id').val(); }
-							else{  url = "/alfresco/wcs/dropdown/byShareSite?siteid=" + $('.fm-site-id').val(); }
+							var siteid = $('.fm-site-id').val();
+							if(settings.siteid.length > 1) siteid = settings.siteid;
+							if(settings.useShareProxy){ url = "/share/proxy/alfresco/dropdown/byShareSite?siteid=" + siteid; }
+							else{  url = "/alfresco/wcs/dropdown/byShareSite?siteid=" + siteid; }
 						}
 
 						$.ajax({
