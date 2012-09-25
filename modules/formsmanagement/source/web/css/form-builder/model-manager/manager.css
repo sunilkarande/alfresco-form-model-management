@@ -11,8 +11,7 @@ sup {vertical-align:text-top;}
 sub {vertical-align:text-bottom;}
 input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}
 legend{color:#000;}
-
-
+.fm-aspect-manager-inject { padding-bottom:75px; }
 .model-wrapper {
 	padding-left:10px;
 	margin-bottom:20px;
@@ -91,7 +90,7 @@ legend{color:#000;}
     font-family: arial,sans-serif;
     font-size: 13px;
     padding-top: 5px;
-	width:98px;   
+	width:98px;
 }
 .open .fm-aspect {
 	 float: left;  height: 173px;
