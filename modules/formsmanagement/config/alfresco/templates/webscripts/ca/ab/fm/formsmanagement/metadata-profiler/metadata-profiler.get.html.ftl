@@ -58,7 +58,7 @@
 					<span>Each dropdown value in your list can have a metadata profile attached to it. We can show different groups of aspects dependant on the users choice. </span>
 				</div>
 			</div>
-			<div class="fm-aspect-manager-inject"></div>
+			<div class="fm-aspect-manager-inject clearfix"></div>
 		</div>
 	</div>
 </div>
