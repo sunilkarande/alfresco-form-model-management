@@ -52,9 +52,7 @@
 
 			<#if iNodeRef?exists>
 				<input type="hidden" id="nodeRef" value="${iNodeRef}" />
-				<#if iSiteId?exists>
-					<input type="hidden" class="fm-site-id" value="${iSiteId!}-site" />
-				</#if>
+				<input type="hidden" class="fm-site-id" value="<#if iSiteId?exists>${iSiteId!}-site</#if>" />
 
 				<div style="display: none;" class="infoMessage saving">
 					<span>Saving please Wait...</span>
