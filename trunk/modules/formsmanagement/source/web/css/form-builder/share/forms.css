@@ -475,7 +475,7 @@ span.fld-lbl {
     text-align: right;
     width: 140px;
 }
-#my-frm .top .group div, #my-frm .top .group-tmp div {
+#my-frm .top .group > div, #my-frm .top .group-tmp > div {
     padding-top: 10px;
 }
 .fld-required-lbl {
