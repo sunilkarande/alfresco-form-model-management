@@ -609,7 +609,12 @@
 							$(this).val(nodeVal);
 						}
 					}else{
-						if( $(this).data("type").indexOf("date") != -1 || $(this).hasClass("date") ){
+					    var hasDateType = false;
+
+					    if( $(this).data("type") ){
+					    	if( $(this).data("type").indexOf("date") != -1 ) hasDateType = true;
+					    }
+						if( hasDateType || $(this).hasClass("date") ){
 
 							if(settings.isSearch)
 							{
