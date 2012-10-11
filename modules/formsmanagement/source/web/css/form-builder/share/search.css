@@ -42,11 +42,32 @@
 .share-form .form-container .caption {
     display:none;
 }
-#fmEditMetadata .fm-edit-buttons {}
+
+.fmViewMode .group > div { padding: 0 0 5px !important; }
+.fmViewMode .group:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.fmViewMode .group {
+	display: inline-block;
+}
+html[xmlns] .fmViewMode .group {
+	display: block;
+}
+* html .fmViewMode .group {
+	height: 1%;
+}
+
+.fmViewMode .group > label {    float:left; }
+.fmViewMode .group > div input { padding:0!important; margin:0; }
+
 /* UofA */
 
 .resultTools {
-
 }
 .sym-search-body { position:relative;}
 .resultTools ul { margin:0; padding:0;}
