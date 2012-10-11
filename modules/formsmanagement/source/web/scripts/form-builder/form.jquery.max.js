@@ -609,7 +609,7 @@
 							$(this).val(nodeVal);
 						}
 					}else{
-						if( $(this).data("type") == "date" || $(this).hasClass("date") ){
+						if( $(this).data("type").indexOf("date") != -1 || $(this).hasClass("date") ){
 
 							if(settings.isSearch)
 							{
@@ -628,8 +628,8 @@
 									var iD = new Date( nodeVal );
 									var month = (iD.getMonth() + 1) + "";
 									var day = iD.getDate() + "";
-									if(parseInt(month) < 9) month = "0" + month;
-									if(parseInt(day) < 9) day = "0" + day;
+									if(parseInt(month) <= 9) month = "0" + month;
+									if(parseInt(day) <= 9) day = "0" + day;
 									nodeVal = iD.getFullYear() + "-" + (month) + "-" + day;
 								}
 							}
@@ -654,7 +654,9 @@
 								}
 							}
 	                    } else {
-	                        $(this).val(nodeVal);
+	                        decoded = $("<div/>").html(nodeVal).text();
+
+	                        $(this).val(decoded);
 
 	                        if ($(this).hasClass("fm-dynamic-dropdown")) {
 	                            //Get profile data
