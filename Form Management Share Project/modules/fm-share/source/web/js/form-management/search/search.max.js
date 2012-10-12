@@ -30,6 +30,8 @@ function bytesToSize(bytes) {
 function docDetailTemplate(doc)
 {
 	var dTemp ="";
+	if(doc.path == "") doc.path = "%2F" + doc.name;
+
 	var linkPath = "/share/page/repository?path=" + doc.path;
 	var siteLink = "";
 
@@ -40,8 +42,14 @@ function docDetailTemplate(doc)
 
 	dTemp = '<div class="doc-search-details">';
 	dTemp += '	<h3>';
-	dTemp += '		<a class="theme-color-1 ua-res-doc-title" href="document-details?nodeRef='+doc.nodeRef+'">'+doc.name+' </a>';
 
+	if(doc.type != "folder"){
+		//Go to file preview
+		dTemp += '		<a class="theme-color-1 ua-res-doc-title" href="document-details?nodeRef='+doc.nodeRef+'">'+doc.name+' </a>';
+	}else{
+		//Go into folder
+		dTemp += '		<a class="theme-color-1 ua-res-doc-title" href="'+linkPath+'%2F'+doc.name+'">'+doc.name+' </a>';
+	}
 	if(doc.title && doc.title != ""){
 		dTemp += '		<span class="title">('+doc.title+')</span>';
 	}
@@ -54,6 +62,7 @@ function docDetailTemplate(doc)
 	{
 		dTemp += 	'<span>'+siteLink+' size: '+bytesToSize( doc.size ) +'</span>';
 	}
+
 	dTemp += 	'<span>In Folder: <a href="'+linkPath+'">'+doc.path+'</a></span> </div> </div> </div>';
 
 	return dTemp;
