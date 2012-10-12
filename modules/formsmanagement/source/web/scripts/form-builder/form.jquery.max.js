@@ -343,8 +343,10 @@
 									for (x in r) {
 										var row = {};
 										row[r[x].key] = r[x].label;
-										if (r[x].profile.title) {
-											isProfile = true;
+										if(r[x].profile){
+											if (r[x].profile.title) {
+												isProfile = true;
+											}
 										}
 										options.push(row);
 									}
