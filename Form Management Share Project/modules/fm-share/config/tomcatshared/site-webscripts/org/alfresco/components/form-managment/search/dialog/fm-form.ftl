@@ -37,21 +37,21 @@
 		<div class="group">
 			<label>From:</label>
 			<div>
-				<input type="text" value="" name="cm_mimetype" class="frm-fld " style="width:210px" />
+				<input type="text" value="" name="cm_originator" class="frm-fld " style="width:210px" />
 			</div>
 		</div>
 
 		<div class="group">
 			<label>To:</label>
 			<div>
-				<input type="text" value="" name="cm_mimetype" class="frm-fld " style="width:210px" />
+				<input type="text" value="" name="cm_addressee" class="frm-fld " style="width:210px" />
 			</div>
 		</div>
 
 		<div class="group">
 			<label>Subject:</label>
 			<div>
-				<input type="text" value="" name="cm_mimetype" class="frm-fld " style="width:280px"  />
+				<input type="text" value="" name="cm_subjectline" class="frm-fld " style="width:280px"  />
 			</div>
 		</div>
 	    <!--  END EMAIL FORM  -->
