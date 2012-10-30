@@ -45,7 +45,7 @@
 			</div>
 		</div>
 
-	 <!--
+		<!--
 		<div class="recdocflip">
 		 <div class="ua-menu ua-disabled">
 			<span>Selected Items...</span>
@@ -55,7 +55,6 @@
 			</ul>
 		</div>
 
-		<!--
 		<div class="switch show-records"><span class="ico-record" ></span></div>
 		<div class="switch show-all switch-selected"><span  class="ico-all"></span></div>
 		<div class="switch show-document slast"><span  class="ico-document"></span></div>

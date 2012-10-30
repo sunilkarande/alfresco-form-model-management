@@ -19,18 +19,23 @@ function doSiteStuff()
 		//Get User Dropbox node
 	var dropboxNode = remote.call("/slingshot/doclib/treenode/site/"+siteid+"/documentLibrary/Dropbox/"+user.name+"?children=false");
 		dropboxObj = eval("(" + dropboxNode + ")");
-		model.fmDropboxNodeRef = dropboxObj.parent.nodeRef;
+		if(dropboxNode.parent){
+			model.fmDropboxNodeRef = dropboxObj.parent.nodeRef;
+		}
 
 	if(model.formAspect != ""){
 		var result = remote.call("/model/aspects/aspecttoproperty?aspects=" + model.formAspect);
 		model.docTypeAspect = result + "";
 	}
+
+	model.showEmailForm = true;
 }
 
 function main()
 {
 	model.isAdvSearchProfile = true;
 	model.siteid = siteid;
+    model.showEmailForm = false;
 
 	//Default when no site to all sites
 	model.searchType = "all-sites";

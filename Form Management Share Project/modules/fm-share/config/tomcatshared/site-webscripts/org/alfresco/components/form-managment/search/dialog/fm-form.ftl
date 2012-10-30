@@ -27,6 +27,36 @@
 			</div>
 		</div>
 	</div>
+
+	<#if showEmailForm>
+	    <div class="" style="vertical-align: top; border-bottom: 1px solid rgb(204, 204, 204);padding-bottom: 5px;"></div>
+
+		<!--  START CUSTOM EMAIL FORM  -->
+		<h1 class="frm_formName" style="margin:0;">Email</h1>
+
+		<div class="group">
+			<label>From:</label>
+			<div>
+				<input type="text" value="" name="cm_mimetype" class="frm-fld " style="width:210px" />
+			</div>
+		</div>
+
+		<div class="group">
+			<label>To:</label>
+			<div>
+				<input type="text" value="" name="cm_mimetype" class="frm-fld " style="width:210px" />
+			</div>
+		</div>
+
+		<div class="group">
+			<label>Subject:</label>
+			<div>
+				<input type="text" value="" name="cm_mimetype" class="frm-fld " style="width:280px"  />
+			</div>
+		</div>
+	    <!--  END EMAIL FORM  -->
+	</#if>
+
 	<span class="frm_desc" style="color:#333!important;">${msg("form.metadataprofile")}:</span>
 	<div class="" style="vertical-align: top; border-bottom: 1px solid rgb(204, 204, 204); margin-bottom: 5px; padding-bottom: 15px;">
 		<label style=" color: #AAAAAA; font-size: 12px;  padding-left: 0px; padding-right: 10px;  padding-top: 0 !important; display:inline-block; ">Include document type in search?</label>
