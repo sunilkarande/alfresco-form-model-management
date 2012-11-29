@@ -318,12 +318,11 @@
             // Redirect to the search page
             var url = "fmSearch?t=" + encodeURIComponent(searchText);
             // Append repository search argument if within repo browser page or previous repository search
-			if (window.location.pathname.match("/repository$") == "/repository" ||
-                (window.location.indexOf("page/site") == -1 && window.location.search.indexOf("r=true") != -1))
+            if (window.location.pathname.match("/repository$") == "/repository" ||
+                (window.location.pathname.match("/fmSearch$") == "/fmSearch" && window.location.search.indexOf("r=true") != -1))
             {
                url += "&r=true";
             }
-
             window.location = $siteURL(url);
          }
       },
