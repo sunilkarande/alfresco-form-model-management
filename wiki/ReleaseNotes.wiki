@@ -1,7 +1,7 @@
 #labels Featured,ReleaseNotes
 = Details =
 
-*Sept 12 2012 - Share extension WCS 1.2.5*
+*Nov 29 2012 - Share extension WCS 1.2.5*
   * Fixes for 4.2 Community
  
 *Sept 12 2012 - FM Module WCS 1.3.4.1*
