@@ -129,21 +129,41 @@ var AlfrescoUtil =
       if (nodeRef)
       {
          var url = '/slingshot/doclib2/node/' + nodeRef.replace('://', '/');
-         if (!site)
-         {
-            // Repository mode
-            url += "?libraryRoot=" + encodeURIComponent(AlfrescoUtil.getRootNode());
-         }
-         var result = remote.connect("alfresco").get(url);
+         return AlfrescoUtil.processNodeDetails(url, site, options);
+      }
+      return null;
+   },
 
-         if (result.status == 200)
+   processNodeDetails: function processNodeDetails(url, site, options)
+   {
+      if (!site)
+      {
+         // Repository mode
+         url += "?libraryRoot=" + encodeURIComponent(AlfrescoUtil.getRootNode());
+      }
+      var result = remote.connect("alfresco").get(url);
+
+      if (result.status == 200)
+      {
+         var details = eval('(' + result + ')');
+         if (details && (details.item || details.items))
          {
-            var details = eval('(' + result + ')');
-            if (details && (details.item || details.items))
-            {
-               DocList.processResult(details, options);
-               return details;
-            }
+            DocList.processResult(details, options);
+            return details;
+         }
+      }
+      return null;
+   },
+
+   getRemoteNodeDetails: function getRemoteNodeDetails(remoteNodeRef, remoteNetworkId, options)
+   {
+      if (remoteNodeRef)
+      {
+         var url = '/cloud/doclib2/node/' + remoteNodeRef.replace("://", "/") + "?network=" + remoteNetworkId,
+            details = AlfrescoUtil.processNodeDetails(url, true, options);
+         if (details)
+         {
+            return details;
          }
       }
       return null;
@@ -231,35 +251,26 @@ var AlfrescoUtil =
     */
    getPreferences: function getPreferences(p_filter)
    {
-      var preferences = {};
+      var userprefs = {};
 
-      try
+      // Retrieve the current user's preferences
+      var prefs = eval('(' + preferences.value + ')');
+
+      // Populate the preferences object literal for easy look-up later
+      if (typeof p_filter == "undefined" || p_filter.length == 0)
       {
-         // Request the current user's preferences
-         var result = remote.call("/api/people/" + encodeURIComponent(user.name) + "/preferences");
-         if (result.status == 200 && result != "{}")
-         {
-            var prefs = eval('try{(' + result + ')}catch(e){}');
-            // Populate the preferences object literal for easy look-up later
-            if (typeof p_filter == "undefined" || p_filter.length == 0)
-            {
-               preferences = eval('try{(prefs)}catch(e){}');
-            }
-            else
-            {
-               preferences = eval('try{(prefs.' + p_filter + ')}catch(e){}');
-            }
-            if (typeof preferences != "object")
-            {
-               preferences = {};
-            }
-         }
+         userprefs = eval('try{(prefs)}catch(e){}');
       }
-      catch (e)
+      else
       {
+         userprefs = eval('try{(prefs.' + p_filter + ')}catch(e){}');
+      }
+      if (typeof userprefs != "object")
+      {
+         userprefs = {};
       }
 
-      return preferences;
+      return userprefs;
    },
 
    /**
@@ -307,80 +318,6 @@ var AlfrescoUtil =
       return result; // Date or null
    },
 
-   /**
-    * Generate a relative time between two Date objects.
-    * 
-    * @method relativeTime
-    * @param from {Date|String} JavaScript Date object or ISO8601-formatted date string
-    * @param to {Date|string} (Optional) JavaScript Date object or ISO8601-formatted date string, defaults to now if not supplied
-    * @return {string} Relative time description
-    */
-   relativeTime: function relativeTime(from, to)
-   {
-      if (from.__proto__.hasOwnProperty("toLowerCase"))
-      {
-         from = AlfrescoUtil.fromISO8601(from);
-      }
-
-      if (typeof to == "undefined")
-      {
-         to = new Date();
-      }
-      else if (to.__proto__.hasOwnProperty("toLowerCase"))
-      {
-         to = AlfrescoUtil.fromISO8601(to);
-      }
-
-      var seconds_ago = ((to - from) / 1000),
-         minutes_ago = Math.floor(seconds_ago / 60);
-
-      if (minutes_ago <= 0)
-      {
-         return msg.get("relative.seconds", [seconds_ago]);
-      }
-      if (minutes_ago == 1)
-      {
-         return msg.get("relative.minute");
-      }
-      if (minutes_ago < 45)
-      {
-         return msg.get("relative.minutes", [minutes_ago]);
-      }
-      if (minutes_ago < 90)
-      {
-         return msg.get("relative.hour");
-      }
-      var hours_ago  = Math.round(minutes_ago / 60);
-      if (minutes_ago < 1440)
-      {
-         return msg.get("relative.hours", [hours_ago]);
-      }
-      if (minutes_ago < 2880)
-      {
-         return msg.get("relative.day");
-      }
-      var days_ago  = Math.round(minutes_ago / 1440);
-      if (minutes_ago < 43200)
-      {
-         return msg.get("relative.days", [days_ago]);
-      }
-      if (minutes_ago < 86400)
-      {
-         return msg.get("relative.month");
-      }
-      var months_ago  = Math.round(minutes_ago / 43200);
-      if (minutes_ago < 525960)
-      {
-         return msg.get("relative.months", [months_ago]);
-      }
-      if (minutes_ago < 1051920)
-      {
-         return msg.get("relative.year");
-      }
-      var years_ago  = Math.round(minutes_ago / 525960);
-      return msg.get("relative.years", [years_ago]);
-   },
-   
    /**
     * Retrieve current user's site membership.
     *
@@ -654,5 +591,30 @@ var AlfrescoUtil =
          }
       }
       return paths;
+   },
+
+   /**
+    * Fetch Information about the remote node that corresponds to the local one we've got.
+    * Used by sync to determine remote nodeRef and remote network id.
+    *
+    * @method getRemoteNodeRef
+    * @param localNodeRef {string} nodeRef of local node you want to find info for
+    * @return {object} containing nodeRef and networkId
+    */
+   getRemoteNodeRef: function getRemoteNodeRef(localNodeRef)
+   {
+      var connector = remote.connect("alfresco");
+      var result = connector.get("/enterprise/sync/remotesyncednode?nodeRef="+encodeURIComponent(localNodeRef));
+      if (result.status == 200)
+      {
+         return eval('(' + result + ')');
+      } else if (result.status == 403)
+      {
+         // Node Not Synced.
+         return {error: eval('(' + result + ')')};
+      } else
+      {
+         return null;
+      }
    }
 };
