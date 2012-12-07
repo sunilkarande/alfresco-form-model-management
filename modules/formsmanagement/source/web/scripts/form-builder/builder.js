@@ -28,7 +28,7 @@ function formToJson(){
 		jObj.description = escapeFn($('.prg-desc').val());
 		jObj.formStyle = $('#formFormat').attr("class");
 		jObj.isHidden = $('#my-frm #formFormat').hasClass("fm-aspect-hidden");
-
+		  
 	var properties = new Array();
 	var frmHTML = $('#formBuilderObj').html();
 
@@ -46,16 +46,12 @@ function formToJson(){
 		fieldObj.maxlength = parseInt(input.attr('maxlength'));
 		fieldObj.className =  input.attr('class').replace(/frm-fld/g, "").replace(/undefined/g, "").replace(/hasDatepicker/g, "");
 
-		fieldObj.multiple = false;
-		if(input.hasClass('alf-multiple')) fieldObj.multiple = true;
-
-		fieldObj.dummyfield = false;
-		if(input.hasClass('alf-dummyfield')) fieldObj.dummyfield = true;
-
-		fieldObj.mandatory = false;
-		if(input.hasClass('required')) fieldObj.mandatory = true;
-		if(input.hasClass('frm-hidden')) fieldObj.hidden = true;
-		if(input.hasClass('frm-hiddenSearch')) fieldObj.hiddenSearch = true;
+		fieldObj.multiple = input.hasClass('alf-multiple'); 
+		fieldObj.dummyfield = input.hasClass('alf-dummyfield');
+		fieldObj.readonly = input.hasClass('readonly'); 
+		fieldObj.mandatory = input.hasClass('required'); 
+		fieldObj.hidden = input.hasClass('frm-hidden');
+		fieldObj.hiddenSearch =  input.hasClass('frm-hiddenSearch');
 
 		if(input.hasClass('alf-index')){
 			fieldObj.index = {};

@@ -152,11 +152,15 @@ function indexMasks(type){
 }
 function flipClassnameSelected(className){
 	var hasClass = false;
-
-	if($(".ui-helper").find(".frm-fld").hasClass(className)){
-		$(".ui-helper").find(".frm-fld").removeClass(className);
+    var $this = $(".ui-helper");
+    
+	if($this.find(".frm-fld").hasClass(className)){
+		$this.find(".frm-fld").removeClass(className); 
+		if(className == "readonly") $this.find(".frm-fld").removeAttr('readonly');
+		  
 	}else{
-		$(".ui-helper").find(".frm-fld").addClass(className);
+		$this.find(".frm-fld").addClass(className); 
+		if(className == "readonly") $this.find(".frm-fld").attr('readonly', true);
 		hasClass = true;
 	}
 	return hasClass;
@@ -450,6 +454,9 @@ $(function () {
 	$('.prg_numOnly').live('click', function() {
 		flipClassnameSelected('numOnly');
 	});
+	$('.prg_readOnly').live('click', function() {
+		flipClassnameSelected('readonly'); 
+	});
 	$('.prg_alphanumOnly').live('click', function() {
 		flipClassnameSelected('alphanumOnly');
 	});
@@ -652,6 +659,14 @@ $(function () {
 		}else{
 			$('.prg_numOnly').attr("checked", "");
 		}
+		
+		//Is it a readonly field?
+		if(fieldNode.hasClass('readonly')){
+			$('.prg_readOnly').attr("checked", "checked");
+		}else{
+			$('.prg_readOnly').attr("checked", "");
+		}
+		
 		//Is it a numOnly field?
 		if(fieldNode.hasClass('alphanumOnly')){
 			$('.prg_alphanumOnly').attr("checked", "checked");
