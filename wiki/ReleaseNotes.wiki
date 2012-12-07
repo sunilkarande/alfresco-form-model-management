@@ -1,6 +1,9 @@
 #labels Featured,ReleaseNotes
 = Details =
 
+*Next release*
+  * Read-only added to validation list*
+
 *Nov 29 2012 - Share extension WCS 1.2.5*
   * Fixes for 4.2 Community
  
