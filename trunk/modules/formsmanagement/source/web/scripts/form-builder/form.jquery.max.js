@@ -558,7 +558,7 @@
 			return prop;
 		},
         addGlobalProperties: function (prop, addType) {
-            var propString, type = "", min = "", max = "", regEx = "";
+            var propString, type = "", min = "", max = "", regEx = "", readonly = "";
 
             if (addType) {
                 type = 'type="' + prop.fieldType + '"';
@@ -572,8 +572,11 @@
 			if (prop.regex) {
                 regEx = 'regex="' + prop.regex + '"';
             }
+			if( prop.readonly ){
+				readonly = 'readonly="' + prop.readonly + '"';
+			}
 
-            propString = regEx + ' ' + min + ' ' + max + 'id="' + prop.id + '" title="' + prop.type + '" ' + type + ' class="frm-fld ' + prop.className + '" name="' + prop.validPrefix + "_" + prop.name + '"';
+            propString = regEx + ' ' + min + ' ' + max + 'id="' + prop.id + '" title="' + prop.type + '" ' + type + ' class="frm-fld ' + prop.className + '" name="' + prop.validPrefix + "_" + prop.name + '" ' + readonly;
             return propString;
         },
         loadPropertiesToFields: function(nodeObj, $passedForm){
@@ -756,45 +759,48 @@
 			var json = [];
             $this.find('.frm-fld').each(function () {
 				var fld = {};
-
-				if ($(this).hasClass("mceEditor") ) {
-
-					var mceId = $(this).attr("id");
-						htmlval= tinyMCE.get(mceId).getContent();
-					$(this).val(htmlval );
-				}
-
-				if ($(this).attr("type") == "radio") {
-					if ($(this).is(':checked')) {
+				
+				if( ! $(this).hasClass("readonly")) {
+					 
+					if ($(this).hasClass("mceEditor") ) {
+	
+						var mceId = $(this).attr("id");
+							htmlval= tinyMCE.get(mceId).getContent();
+						$(this).val(htmlval );
+					}
+	
+					if ($(this).attr("type") == "radio") {
+						if ($(this).is(':checked')) {
+							fld = methods.getFldData($(this), $(this).val().replace('"', '||') );
+						}
+					} else if($(this).attr("type") == "checkbox" ){
+	
+						if( !$(this).hasClass("fm-dealt-with-store")){
+	
+							if( $(this).val() != "true" && $(this).val() != "false" ){
+								var t = new Array();
+	
+								$this.find("input[name='"+ $(this).attr("name") +"']").each(function(){
+									$(this).addClass("fm-dealt-with-store");
+	
+									if ($(this).is(':checked')) {
+										t.push( $(this).val().replace('"', '||') );
+									}
+								});
+							}else{
+	
+								var t = false;
+								if ($(this).is(':checked')) {
+									var t = true;
+								}
+							}
+							fld = methods.getFldData($(this), t );
+						}
+					}else{
 						fld = methods.getFldData($(this), $(this).val().replace('"', '||') );
 					}
-				} else if($(this).attr("type") == "checkbox" ){
-
-					if( !$(this).hasClass("fm-dealt-with-store")){
-
-						if( $(this).val() != "true" && $(this).val() != "false" ){
-							var t = new Array();
-
-							$this.find("input[name='"+ $(this).attr("name") +"']").each(function(){
-								$(this).addClass("fm-dealt-with-store");
-
-								if ($(this).is(':checked')) {
-									t.push( $(this).val().replace('"', '||') );
-								}
-							});
-						}else{
-
-							var t = false;
-							if ($(this).is(':checked')) {
-								var t = true;
-							}
-						}
-						fld = methods.getFldData($(this), t );
-					}
-				}else{
-					fld = methods.getFldData($(this), $(this).val().replace('"', '||') );
+					if(fld.qname) json.push(fld);
 				}
-				if(fld.qname) json.push(fld);
             });
 
 			$(".fm-dealt-with-store").removeClass("fm-dealt-with-store");
