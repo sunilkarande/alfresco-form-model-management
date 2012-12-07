@@ -30,13 +30,13 @@ function bytesToSize(bytes) {
 function docDetailTemplate(doc)
 {
 	var dTemp ="";
-	if(doc.path == "") doc.path = "%2F" + doc.name;
+	if(doc.path == "") doc.path = "%2F" + encodeURIComponent( doc.name );
 
 	var linkPath = "/share/page/repository?path=" + doc.path;
 	var siteLink = "";
 
 	if(doc.site){
-		linkPath = "/share/page/site/"  + doc.site.shortName + "/documentlibrary?path=" + doc.path;
+		linkPath = "/share/page/site/"  + doc.site.shortName + "/documentlibrary?path=" + encodeURIComponent(doc.path);
 		siteLink = 'Site: <a href="/share/page/site/'+doc.site.shortName+'/dashboard">'+doc.site.title+'</a>,';
 	}
 
@@ -143,7 +143,9 @@ function injectAlfrescoDefaults()
 	});
 
 	var nodeObj = getQueryObject();
-	if(advsearchAspects.length > 0) $('.fm-profile').form("loadPropertiesToFields", nodeObj);
+	var term = getURLParameter("t");
+	if(advsearchAspects.length > 0) $('.fm-profile').form("loadPropertiesToFields", nodeObj); 
+	if(term != "") $('.search-field, input[name = "t"]').removeClass('default').val(term);  
 }
 
 function getQueryPath()
@@ -334,11 +336,9 @@ function toggleSearchView(showSimple)
 }
 
 function setupFilterField()
-{
-
+{ 
 	var list = ".doc-search-details";
-
-
+ 
 	$('.filter-field')
 	.change( function () {
         var filter = $(this).val();
@@ -455,8 +455,8 @@ function setupYUISortMenu( curSort ){
 
 
 $(function(){
-
-	if(getURLParameter("t") != "" || getURLParameter("q") != "") search();
+	   
+	if(getURLParameter("t") != "" || getURLParameter("q") != "") search(); 
 
 	setupYUISortMenu( getURLParameter("s") );
 
