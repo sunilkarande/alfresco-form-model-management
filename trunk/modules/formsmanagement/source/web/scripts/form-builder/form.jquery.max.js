@@ -797,7 +797,10 @@
 							fld = methods.getFldData($(this), t );
 						}
 					}else{
-						fld = methods.getFldData($(this), $(this).val().replace('"', '||') );
+						var t = $(this).val();
+						if(t){ 
+							fld = methods.getFldData($(this), t.replace('"', '||') );
+						}
 					}
 					if(fld.qname) json.push(fld);
 				}
