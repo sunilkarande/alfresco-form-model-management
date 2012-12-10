@@ -143,7 +143,7 @@ function injectAlfrescoDefaults()
 	});
 
 	var nodeObj = getQueryObject();
-	var term = getURLParameter("t");
+	var term = decodeURIComponent( getURLParameter("t") );
 	if(advsearchAspects.length > 0) $('.fm-profile').form("loadPropertiesToFields", nodeObj); 
 	if(term != "") $('.search-field, input[name = "t"]').removeClass('default').val(term);  
 }
@@ -576,8 +576,10 @@ $(function(){
 	});
 
 	$('.sym-header input, .search-filter input').focus(function(){
-		$(this).removeClass("default");
-		$(this).val("");
+		if( $(this).hasClass("default") ){
+			$(this).removeClass("default");
+			$(this).val("");
+		}
 	})
 	.blur (function(){
 		if( $(this).val() == "") {
