@@ -604,8 +604,9 @@
 						nodeVal = nodeObj.node.properties[qName];
                     }else if( nodeObj.node.properties[qName] ) {
                         nodeVal = nodeObj.node.properties[qName];
-                    }
-
+                    } 
+                    if( nodeVal == null ) nodeVal == "";
+                    
                     if( $(this).hasClass('mceEditor') ){
 
 						if(settings.readonly){
@@ -620,7 +621,7 @@
 					    	if( $(this).data("type").indexOf("date") != -1 ) hasDateType = true;
 					    }
 						if( hasDateType || $(this).hasClass("date") ){
-
+							 
 							if(settings.isSearch)
 							{
 								if(nodeVal.indexOf("-TO-") > 0){
@@ -634,7 +635,7 @@
 								if( $(this).attr('name').indexOf('_toDate') > 0 ) nodeVal = $(this).val();
 
 							}else{
-								if(nodeVal != ""){
+								if(nodeVal != "" && nodeVal != null){
 									var iD = new Date( nodeVal );
 									var month = (iD.getMonth() + 1) + "";
 									var day = iD.getDate() + "";
@@ -741,10 +742,14 @@
 		getFldData: function(node, value){
 			var fld = {};
 
-			fld.qname = node.attr("name")  + "";
-			fld.value = value;
+			fld.qname = node.attr("name")  + ""; 
 			fld.type = node.data("type");
-
+			fld.value = value;
+			
+			if(value == ""){
+				fld.value = null;
+			} 
+			 
 			return fld;
 		},
         save: function (postSettings, callback) {
@@ -796,13 +801,11 @@
 							}
 							fld = methods.getFldData($(this), t );
 						}
-					}else{
-						var t = $(this).val();
-						if(t){ 
-							fld = methods.getFldData($(this), t.replace('"', '||') );
-						}
+					}else{ 
+						var t = $(this).val(); 
+						if(t != null) fld = methods.getFldData($(this), t.replace('"', '||') ); 
 					}
-					if(fld.qname) json.push(fld);
+					if(fld.qname) json.push(fld);  
 				}
             });
 
