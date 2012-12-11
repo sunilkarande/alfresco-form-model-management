@@ -47,7 +47,7 @@ function saveDataToNode(node, dataString, aspectString){
 			if(isDebug) logger.log( "FORM MANAGEMENT - Saving "+qname+ ":" + value );
 
 			if(type.indexOf("date") >= 0){
-				if(value != ""){
+				if(value != "" && value != null && value != "null" ){
 					node.properties[qname] = getDateArray( value );
 				}else{
 					node.properties[qname] = null;
