@@ -38,171 +38,159 @@ jQuery.fn.selectToUISlider=function(settings){var selects=jQuery(this);var optio
 
 */
 $(function () {
-	$( ".sliderForm" ).each(function() {
-		// read initial values from markup and remove that
-		var value = parseInt( $( this ).text(), 10 );
-		$( this ).empty().slider({
-			value:5,
-			min: 0,
-			range: "min",
-			max: 10,
-			step: 1,
-			slide: function( event, ui ) {
-				$(this).parents('.group').find('.slider-value:eq(0)').val( ui.value );
-			}
-		});
-	});
-
-	$(".frm_submit").live('click', function() {
-		return validateForm($('.fm-doctypes'));
+    $(".sliderForm").each(function () {
+        var value = parseInt($(this).text(), 10);
+        $(this).empty().slider({
+            value: 5,
+            min: 0,
+            range: "min",
+            max: 10,
+            step: 1,
+            slide: function (event, ui) {
+                $(this).parents(".group").find(".slider-value:eq(0)").val(ui.value);
+            }
+        });
     });
-
-	$('.numOnly').live('keydown', function (e) {
-        //if the letter is not digit then display error and don't type anything
+    $(".frm_submit").live("click", function () {
+        return validateForm($(".fm-doctypes"));
+    });
+    $(".numOnly").live("keydown", function (e) {
         if (e.which != 9 && e.which != 8 && e.which != 46 && e.which != 37 && e.which != 190 && e.which != 110 && e.which != 39 && e.which != 0 && (!((e.which >= 48 && e.which <= 57) || (e.which <= 105 && e.which >= 96)))) {
-        	return false;
+            return false;
         }
     });
-
-	$('.alphanumOnly').live('keyup', function () {
-       if (this.value.match(/[^a-zA-Z0-9 ]/g)) {
-			this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '');
-		}
+    $(".alphanumOnly").live("keyup", function () {
+        if (this.value.match(/[^a-zA-Z0-9 ]/g)) {
+            this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, "");
+        }
     });
-
-	$('.currency').livequery('blur', function (e) {
-		$(this).val( formatCurrency( $(this).val() ) );
-	});
-
+    $(".currency").livequery("blur", function (e) {
+        $(this).val(formatCurrency($(this).val()));
+    });
 });
 
-function setMasks(){
-	$(".date").mask("9999-99-99").datepicker({
-		"dateFormat": "yy-mm-dd",
-		changeMonth: true,
-		changeYear: true
-	});
-	$(".phn").mask("99999-9999");
+function setMasks() {
+    $(".date").mask("9999-99-99").datepicker({
+        "dateFormat": "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true
+    });
+    $(".phn").mask("99999-9999");
     $(".phone").mask("(999) 999-9999");
     $(".sin").mask("999-999-999");
     $(".phoneext").mask("(999) 999-9999? x99999");
-	$(".postcode").mask("a9a 9a9");
-
-	$('.isOtherExp').each( function (){
-		var thisId = $(this).attr('regex');
-		if(thisId){
-			var thisMask = thisId;
-			$(this).mask(thisMask);
-		}
-	});
+    $(".postcode").mask("a9a 9a9");
+    $(".isOtherExp").each(function () {
+        var thisId = $(this).attr("regex");
+        if (thisId) {
+            var thisMask = thisId;
+            $(this).mask(thisMask);
+        }
+    });
 }
 function formatCurrency(num) {
-    num = num.toString().replace(/\$|\,/g, '');
-    if (isNaN(num)) num = "0";
+    num = num.toString().replace(/\$|\,/g, "");
+    if (isNaN(num)) {
+        num = "0";
+    }
     sign = (num == (num = Math.abs(num)));
     num = Math.floor(num * 100 + 0.50000000001);
     cents = num % 100;
     num = Math.floor(num / 100).toString();
-    if (cents < 10) cents = "0" + cents;
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
-    num = num.substring(0, num.length - (4 * i + 3)) + ',' + num.substring(num.length - (4 * i + 3));
-    return (((sign) ? '' : '-') + '$' + num + '.' + cents);
+    if (cents < 10) {
+        cents = "0" + cents;
+    }
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
+        num = num.substring(0, num.length - (4 * i + 3)) + "," + num.substring(num.length - (4 * i + 3));
+    }
+    return (((sign) ? "" : "-") + "$" + num + "." + cents);
 }
-
-function validateForm(wrapper){
-	var form = wrapper.find('form');
-	var li= "";
-	form.find('.errHandleBox ul').html("");
-	form.find('.errHandleBox').hide();
-	form.find('.frmErr').removeClass('frmErr');
-	var frmValid = true;
-	form.find(".required").each( function(){
-
-		if($(this).hasClass('mceEditor')){
-			//Check tiny mce for values
-			var mceId = $(this).attr("id");
-				htmlval= tinyMCE.get(mceId).getContent();
-
-			if(htmlval == ""){
-				frmValid = false;
-				$(this).parents('.group').children('label').addClass('frmErr');
-			}
-
-		}else{
-			//Added select just becuase im used to doing that
-			if($(this).val().length == 0 || $(this).val() == "-Select-" || $(this).val() == "- select-" || $(this).val() == "select"){
-				$(this).addClass('frmErr');
-				frmValid = false;
-			}
-		}
-	});
-	if(!frmValid){ li +="<li>Please check all required fields</li>"; }
-
-	form.find(".verification").each( function(){
-
-		//Added select just becuase im used to doing that
-		var vVal = $(this);
-		var cVal = $(this).parents(".group").next().find(".verification-check");
-		var label = $(this).parents('.group').children('label');
-
-		if(vVal.val() != cVal.val()){
-			vVal.addClass('frmErr');
-			cVal.addClass('frmErr');
-
-			li +="<li>"+label.html()+" fields did not match. Please verify</li>";
-
-			frmValid = false;
-		}
-	});
-
-	form.find('.frm-fld').each( function(){
-		var minLength = parseInt($(this).attr('minlength'));
-		var maxLength = parseInt($(this).attr('maxlength'));
-		var thisLength = $(this).val().length;
-		var label = $(this).parents('.group').children('label');
-
-		if(isNaN(minLength) == false && minLength > 1 && minLength < 51 && minLength != 0){
-			if(thisLength >= minLength){ }else{
-				frmValid = false;
-				li +="<li>"+label.html()+" requires a minimum value of "+minLength+"</li>";
-				$(this).addClass('frmErr');
-			}
-		}
-		if(isNaN(maxLength) == false && maxLength > 1 && maxLength < 51 && maxLength != 0){
-			if(thisLength >= maxLength){ }else{
-				frmValid = false;
-				li +="<li>"+label.html()+" requires a maximum value of "+maxLength+"</li>";
-				$(this).addClass('frmErr');
-			}
-		}
-	});
-	if(!frmValid){
-		form.find('.errHandleBox').show();
-		form.find('.errHandleBox ul').append(li);
-		return false;
-	}
-	return true;
+function validateForm(wrapper) {
+    var form = wrapper.find("form");
+    var li = "";
+    form.find(".errHandleBox ul").html("");
+    form.find(".errHandleBox").hide();
+    form.find(".frmErr").removeClass("frmErr");
+    var frmValid = true;
+    form.find(".required").each(function () {
+        if ($(this).hasClass("mceEditor")) {
+            var mceId = $(this).attr("id");
+            htmlval = tinyMCE.get(mceId).getContent();
+            if (htmlval == "") {
+                frmValid = false;
+                $(this).parents(".group").children("label").addClass("frmErr");
+            }
+        } else if( $(this).attr("type") == "checkbox" || $(this).attr("type") == "radio" ){
+        	//Required
+        	console.log( $('input[name="' + $(this).attr("name") + '"]:checked').length > 0 );
+        	
+        	if( $('input[name="' + $(this).attr("name") + '"]:checked').length == 0 ){
+        		$(this).parent().find(".fld-lbl").addClass("frmErr");
+                frmValid = false;
+        	}
+        	
+        } else {
+            if ($(this).val().length == 0 || $(this).val() == "-Select-" || $(this).val() == "- select-" || $(this).val() == "select") {
+                $(this).addClass("frmErr");
+                frmValid = false;
+            }
+        }
+    });
+    if (!frmValid) {
+        li += "<li>Please check all required fields</li>";
+    }
+    form.find(".verification").each(function () {
+        var vVal = $(this);
+        var cVal = $(this).parents(".group").next().find(".verification-check");
+        var label = $(this).parents(".group").children("label");
+        if (vVal.val() != cVal.val()) {
+            vVal.addClass("frmErr");
+            cVal.addClass("frmErr");
+            li += "<li>" + label.html() + " fields did not match. Please verify</li>";
+            frmValid = false;
+        }
+    });
+    form.find(".frm-fld").each(function () {
+        var minLength = parseInt($(this).attr("minlength"));
+        var maxLength = parseInt($(this).attr("maxlength"));
+        var thisLength = $(this).val().length;
+        var label = $(this).parents(".group").children("label");
+        if (isNaN(minLength) == false && minLength > 1 && minLength < 51 && minLength != 0) {
+            if (thisLength >= minLength) {} else {
+                frmValid = false;
+                li += "<li>" + label.html() + " requires a minimum value of " + minLength + "</li>";
+                $(this).addClass("frmErr");
+            }
+        }
+        if (isNaN(maxLength) == false && maxLength > 1 && maxLength < 51 && maxLength != 0) {
+            if (thisLength >= maxLength) {} else {
+                frmValid = false;
+                li += "<li>" + label.html() + " requires a maximum value of " + maxLength + "</li>";
+                $(this).addClass("frmErr");
+            }
+        }
+    });
+    if (!frmValid) {
+        form.find(".errHandleBox").show();
+        form.find(".errHandleBox ul").append(li);
+        return false;
+    }
+    return true;
 }
-
-/* Tiny MCE Setup */
-function setTinyMce(){
-	tinyMCE.init({
-        mode : "textareas",
-        width : 400,
-        editor_selector : "mceEditor",
-        force_p_newlines : true,
-        theme : "advanced",
-        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-
-
-        // Theme options
-        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect",
-        theme_advanced_buttons2 : "pastetext,pasteword,|, bullist,numlist,|,outdent,indent,|,forecolor,backcolor",
-        theme_advanced_buttons3 : "",
-        theme_advanced_toolbar_location : "top",
-        theme_advanced_toolbar_align : "left",
-        theme_advanced_statusbar_location : "bottom",
-        theme_advanced_resizing : true
-
-	});
+function setTinyMce() {
+    tinyMCE.init({
+        mode: "textareas",
+        width: 400,
+        editor_selector: "mceEditor",
+        force_p_newlines: true,
+        theme: "advanced",
+        plugins: "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+        theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect",
+        theme_advanced_buttons2: "pastetext,pasteword,|, bullist,numlist,|,outdent,indent,|,forecolor,backcolor",
+        theme_advanced_buttons3: "",
+        theme_advanced_toolbar_location: "top",
+        theme_advanced_toolbar_align: "left",
+        theme_advanced_statusbar_location: "bottom",
+        theme_advanced_resizing: true
+    });
 }
