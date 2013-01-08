@@ -551,7 +551,7 @@
 			if(prop.mandatory){
 				if(prop.mandatory == "true" || prop.mandatory == true){
 					if(prop.className.indexOf("required") < 0){
-					prop.className += " required";
+						prop.className += " required";
 					}
 				}
 			}
@@ -575,7 +575,7 @@
 			if( prop.readonly ){
 				readonly = 'readonly="' + prop.readonly + '"';
 			}
-
+			 
             propString = regEx + ' ' + min + ' ' + max + 'id="' + prop.id + '" title="' + prop.type + '" ' + type + ' class="frm-fld ' + prop.className + '" name="' + prop.validPrefix + "_" + prop.name + '" ' + readonly;
             return propString;
         },
@@ -742,16 +742,17 @@
 		getFldData: function(node, value){
 			var fld = {};
 
-			fld.qname = node.attr("name")  + ""; 
+			fld.qname = node.attr("name")  + "";
 			fld.type = node.data("type");
-			fld.value = value;
-			
+			fld.value = (value);
+			  
 			if(value == ""){
 				fld.value = null;
-			} 
+			}
 			 
 			return fld;
 		},
+		 
         save: function (postSettings, callback) {
 			$this = $(this);
 			var settings = $(this).data('settings');
@@ -776,7 +777,7 @@
 	
 					if ($(this).attr("type") == "radio") {
 						if ($(this).is(':checked')) {
-							fld = methods.getFldData($(this), $(this).val().replace('"', '||') );
+							fld = methods.getFldData($(this), $(this).val() );
 						}
 					} else if($(this).attr("type") == "checkbox" ){
 	
@@ -789,7 +790,7 @@
 									$(this).addClass("fm-dealt-with-store");
 	
 									if ($(this).is(':checked')) {
-										t.push( $(this).val().replace('"', '||') );
+										t.push( $(this).val() );
 									}
 								});
 							}else{
@@ -803,7 +804,7 @@
 						}
 					}else{ 
 						var t = $(this).val(); 
-						if(t != null) fld = methods.getFldData($(this), t.replace('"', '||') ); 
+						if(t != null) fld = methods.getFldData($(this), t ); 
 					}
 					if(fld.qname) json.push(fld);  
 				}
@@ -830,8 +831,7 @@
 					if (settings.onSaveComplete) settings.onSaveComplete(e);
 					if (callback) callback(e);
                 }
-            });
-
+            }); 
         },
 
         destroy: function () {
