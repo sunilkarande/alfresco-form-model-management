@@ -129,41 +129,21 @@ var AlfrescoUtil =
       if (nodeRef)
       {
          var url = '/slingshot/doclib2/node/' + nodeRef.replace('://', '/');
-         return AlfrescoUtil.processNodeDetails(url, site, options);
-      }
-      return null;
-   },
-
-   processNodeDetails: function processNodeDetails(url, site, options)
-   {
-      if (!site)
-      {
-         // Repository mode
-         url += "?libraryRoot=" + encodeURIComponent(AlfrescoUtil.getRootNode());
-      }
-      var result = remote.connect("alfresco").get(url);
-
-      if (result.status == 200)
-      {
-         var details = eval('(' + result + ')');
-         if (details && (details.item || details.items))
+         if (!site)
          {
-            DocList.processResult(details, options);
-            return details;
+            // Repository mode
+            url += "?libraryRoot=" + encodeURIComponent(AlfrescoUtil.getRootNode());
          }
-      }
-      return null;
-   },
+         var result = remote.connect("alfresco").get(url);
 
-   getRemoteNodeDetails: function getRemoteNodeDetails(remoteNodeRef, remoteNetworkId, options)
-   {
-      if (remoteNodeRef)
-      {
-         var url = '/cloud/doclib2/node/' + remoteNodeRef.replace("://", "/") + "?network=" + remoteNetworkId,
-            details = AlfrescoUtil.processNodeDetails(url, true, options);
-         if (details)
+         if (result.status == 200)
          {
-            return details;
+            var details = eval('(' + result + ')');
+            if (details && (details.item || details.items))
+            {
+               DocList.processResult(details, options);
+               return details;
+            }
          }
       }
       return null;
@@ -251,26 +231,35 @@ var AlfrescoUtil =
     */
    getPreferences: function getPreferences(p_filter)
    {
-      var userprefs = {};
+      var preferences = {};
 
-      // Retrieve the current user's preferences
-      var prefs = eval('(' + preferences.value + ')');
+      try
+      {
+         // Request the current user's preferences
+         var result = remote.call("/api/people/" + encodeURIComponent(user.name) + "/preferences");
+         if (result.status == 200 && result != "{}")
+         {
+            var prefs = eval('try{(' + result + ')}catch(e){}');
+            // Populate the preferences object literal for easy look-up later
+            if (typeof p_filter == "undefined" || p_filter.length == 0)
+            {
+               preferences = eval('try{(prefs)}catch(e){}');
+            }
+            else
+            {
+               preferences = eval('try{(prefs.' + p_filter + ')}catch(e){}');
+            }
+            if (typeof preferences != "object")
+            {
+               preferences = {};
+            }
+         }
+      }
+      catch (e)
+      {
+      }
 
-      // Populate the preferences object literal for easy look-up later
-      if (typeof p_filter == "undefined" || p_filter.length == 0)
-      {
-         userprefs = eval('try{(prefs)}catch(e){}');
-      }
-      else
-      {
-         userprefs = eval('try{(prefs.' + p_filter + ')}catch(e){}');
-      }
-      if (typeof userprefs != "object")
-      {
-         userprefs = {};
-      }
-
-      return userprefs;
+      return preferences;
    },
 
    /**
@@ -591,30 +580,5 @@ var AlfrescoUtil =
          }
       }
       return paths;
-   },
-
-   /**
-    * Fetch Information about the remote node that corresponds to the local one we've got.
-    * Used by sync to determine remote nodeRef and remote network id.
-    *
-    * @method getRemoteNodeRef
-    * @param localNodeRef {string} nodeRef of local node you want to find info for
-    * @return {object} containing nodeRef and networkId
-    */
-   getRemoteNodeRef: function getRemoteNodeRef(localNodeRef)
-   {
-      var connector = remote.connect("alfresco");
-      var result = connector.get("/enterprise/sync/remotesyncednode?nodeRef="+encodeURIComponent(localNodeRef));
-      if (result.status == 200)
-      {
-         return eval('(' + result + ')');
-      } else if (result.status == 403)
-      {
-         // Node Not Synced.
-         return {error: eval('(' + result + ')')};
-      } else
-      {
-         return null;
-      }
    }
 };

@@ -11,8 +11,16 @@
 <#assign PORTLET=(context.attributes.portletHost!false)>
 <#--
    UTILITY METHODS
-   - <@script> & <@link> macros are now directives to improve resource handling
 -->
+<#-- Javascript import that brings in minified version in debug mode. -->
+<#macro script type src>
+   <script type="${type}" src="${DEBUG?string(src, src?replace(".js", "-min.js"))}"></script>
+</#macro>
+<#-- Stylesheets gathered and rendered using @import to workaround IEBug KB262161 -->
+<#assign templateStylesheets = []>
+<#macro link rel type href>
+   <#assign templateStylesheets = templateStylesheets + [href]>
+</#macro>
 <#--
    TEMPLATE MACROS
 -->
@@ -32,55 +40,36 @@
    <title><@region id="head-title" scope="global" chromeless="true"/></title>
    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 </#if>
-   <#-- This MUST be placed before the <@outputJavaScript> directive to ensure that the Alfresco namespace
-        gets setup before any of the other Alfresco JavaScript dependencies try to make use of it. -->
-   <@markup id="messages">
-      <#-- Common i18n msg properties -->
-      <@generateMessages type="text/javascript" src="${url.context}/service/messages.js" locale="${locale}"/>
-   </@markup>
-   
-   <#-- This is where the JavaScript and CSS dependencies will initially be added through the use of the 
-        <@script> and <@link> directives. The JavaScript can be moved through the use 
-        of the <@relocateJavaScript> directive (i.e. to move it to the end of the page). These directives 
-        must be placed before directives that add dependencies to them otherwise those resources will
-        be placed in the output of the ${head} variable (i.e. this applied to all usage of those directives
-        in *.head.ftl files) -->
-   <@outputJavaScript/>
-   <@outputCSS/>
-   
-   <#-- Common Resources -->
    <@region id="head-resources" scope="global" chromeless="true"/>
-   
-   <#-- Template Resources (nested content from < @templateHeader > call) -->
+
+   <!-- Template Resources (nested content from < @templateHeader > call) -->
    <#nested>
-   
    <@markup id="resources">
-   <#-- Additional template resources -->
+   <!-- Additional template resources -->
    </@markup>
 
-   <#if (templateStylesheets?? && templateStylesheets?size > 0)>
-      <!-- Template & Component Resources' stylesheets gathered to workaround IEBug KB262161 -->
-      <style type="text/css" media="screen">
-         <#list templateStylesheets as href>
-            @import "${href}";
-         </#list>
-      </style>
-   </#if>
-
-   <#-- Component Resources from .get.head.ftl files or from dependency directives processed before the
-        <@outputJavaScript> and <@outputCSS> directives. -->
+   <!-- Component Resources (from .get.head.ftl files) -->
    ${head}
+
+   <#if (templateStylesheets?size > 0)>
+   <!-- Template & Component Resources' stylesheets gathered to workaround IEBug KB262161 -->
+   <style type="text/css" media="screen">
+      <#list templateStylesheets as href>
+      @import "${href}";
+      </#list>
+   </style>
+   </#if>
 
    <@markup id="ieStylesheets">
    <!-- MSIE CSS fix overrides -->
-   <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href='<@checksumResource src="${url.context}/res/css/ie6.css"/>'/><![endif]-->
-   <!--[if IE 7]><link rel="stylesheet" type="text/css" href='<@checksumResource src="${url.context}/res/css/ie7.css"/>'/><![endif]-->
-   </@markup>
+   <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="${url.context}/res/css/ie6.css" /><![endif]-->
+   <!--[if IE 7]><link rel="stylesheet" type="text/css" href="${url.context}/res/css/ie7.css" /><![endif]-->
+   </@>
 
    <@markup id="ipadStylesheets">
-   <!-- Android & iPad CSS overrides -->
-   <link media="only screen and (max-device-width: 1024px),only screen and (max-device-width: 1280px)" rel="stylesheet" type="text/css" href='<@checksumResource src="${url.context}/res/css/tablet.css"/>'/>
-   </@markup>
+   <!-- iPad CSS overrides -->
+   <link media="only screen and (max-device-width: 1024px)" rel="stylesheet" type="text/css" href="${url.context}/res/css/ipad.css"/>
+   </@>
 <#if !PORTLET>
 </head>
 </#if>
@@ -90,9 +79,9 @@
    Template "templateBody" macro.
    Pulls in main template body.
 -->
-<#macro templateBody type="">
+<#macro templateBody>
 <#if !PORTLET>
-<body id="Share" class="yui-skin-${theme} alfresco-share ${type}">
+<body id="Share" class="yui-skin-${theme} alfresco-share">
 </#if>
    <div class="sticky-wrapper">
       <div id="doc3">
@@ -114,8 +103,6 @@
    </div>
 <#-- This function call MUST come after all other component includes. -->
    <div id="alfresco-yuiloader"></div>
-   <#-- <@relocateJavaScript/> -->
-   
    <#-- In portlet mode, Share doesn't own the <body> tag -->
    <script type="text/javascript">//<![CDATA[
       Alfresco.util.YUILoaderHelper.loadComponents(true);

@@ -46,7 +46,7 @@ function main()
 	//Get Advsearch profile
 	model.advsearchAspects = remote.call("/form-builder/search-config/get-profile-properties");
 
-	//if(siteid) doSiteStuff();
+	if(siteid) doSiteStuff();
 }
 
 main();
