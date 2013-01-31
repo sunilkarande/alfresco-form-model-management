@@ -78,7 +78,7 @@
 								fmAspectNode.val("");
 								if ($(this).val() != "") {
 									var getProfileData = eval("(" + settings.profile + ")");
-									methods.dynamicProfileCreate($this,  $(this).val(), getProfileData);
+									methods.dynamicProfileCreate($(this).parents('.group:eq(0)'),  $(this).val(), getProfileData);
 
 								} else {
 									$this.find(".fm-connect-container:eq(0)").html("");
@@ -148,7 +148,7 @@
 			});
         },
         dynamicProfileCreate: function ($this, val, profile) {
-
+				
 				if(val != ""){
                 	if (isDebug) console.log("Creating Profile for key: " + val + " & Profile:" + profile);
                 	isConnect = true;
@@ -160,13 +160,14 @@
         buildProfile: function ($this, key, profile) {
 
 			if (isDebug) { console.log("Check CONNECT: " + isConnect) }
-			var settings = $this.data('settings');
-
+			var settings = $this.parents("#my-frm:eq(0)").parent().data('settings'); 
+			  
             var connect = false;
             var profileHeader = "";
             if (settings.connect != "" || isConnect) connect = true;
 
             if(settings.ownDropSource) connect = false;
+				 
             //Populate Profile
             var formString = "";
             if (!connect) formString += '<form name="" class="fm-profile-root" id="my-frm" method="POST">';
@@ -182,7 +183,7 @@
                     	profile[x].profile.title = settings.customProperites.title;
                     	profile[x].profile.description = settings.customProperites.description;
                     }
-
+					
                     if (!connect) profileHeader = '		<h1 style="margin:0;" class="frm_formName">' + profile[x].profile.title + '</h1> <span class="frm_desc">' + profile[x].profile.description + '</span>';
                     $('.profileStyle').prepend(profileHeader);
                     //GO GET THE FORM DATA FOR EACH ASPECT
@@ -197,15 +198,14 @@
 						var formS = "";
 						for (a in r) {
 							if (r[a].formStyle) $('.profileStyle').attr("class", r[a].formStyle);
-							formS += methods.buildAspect($this, r[a], true);
+							formS += methods.buildAspect($this.parents("#my-frm:eq(0)").parent(), r[a], true);
 						}
 						var errForm = '<div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
 						if (!connect) if (!connect) $this.find('.f_b_root').html(errForm + "" + formS);
 						if (connect) $this.find(".fm-connect-container:eq(0)").html(formS);
 						methods.onInnerComplete();
 
-					}else{
-
+					}else{ 
 						$.ajax({
 						  url: url,
 						  dataType: 'json',
@@ -216,7 +216,7 @@
 								var formS = "";
 								for (a in r) {
 									if (r[a].formStyle) $('.profileStyle').attr("class", r[a].formStyle);
-									formS += methods.buildAspect($this, r[a], true);
+									formS += methods.buildAspect($this.parents("#my-frm:eq(0)").parent(), r[a], true);
 								}
 								var errForm = '<div class="errHandleBox" style="display:none"><p>There are some errors with your form:</p><ul><li></li></ul></div>';
 								if (!connect) if (!connect) $this.find('.f_b_root').html(errForm + "" + formS);
@@ -366,7 +366,7 @@
 												$this.find('.fmAspectCollection:eq(0)').val("");
 												if ($(this).val() != "") {
 													var getProfileData = eval("(" + $(this).parents("div:eq(0)").find(".fm-profile-data").html() + ")");
-													methods.dynamicProfileCreate($(this).parents("#my-frm:eq(0)").parent(),  $(this).val(), getProfileData);
+													methods.dynamicProfileCreate($(this).parents('.group:eq(0)'), $(this).val(), getProfileData);
 
 												} else {
 													$this.find(".fm-connect-container:eq(0)").html("");
@@ -440,7 +440,8 @@
 				if(prop.tooltip){
 					formString += '		<span class="fld-tip">'+prop.tooltip+'</span>';
 				}
-				if(!prop.hidden) formString += '		</div></div>';
+				if(!prop.hidden) formString += '		</div><div class="fm-connect-container"></div></div>';
+				//End group div here
 
 				//Create TMP Verified field if needed
 				if(prop.className.indexOf("verification") >= 0 && $('.fm-main-window').length <= 0 && settings.isSearch == false){
@@ -672,7 +673,7 @@
 	                        if ($(this).hasClass("fm-dynamic-dropdown")) {
 	                            //Get profile data
 	                            var getProfileData = eval("(" + $(this).parents("div:eq(0)").find(".fm-profile-data").html() + ")");
-								methods.dynamicProfileCreate($this, nodeVal, getProfileData);
+								methods.dynamicProfileCreate($(this).parents('.group:eq(0)'), nodeVal, getProfileData);
 								loadAutoCreateFormVal = true;
 
 	                            $(this).addClass("dontPopulateMe");
