@@ -718,20 +718,47 @@
 
 			if (uid != "") {
 	            var uidArr = uid.split("/");
+	            var nodeObj = null;
 	            var cacheUidNode = $("#fm_store_" + uidArr[uidArr.length-1] );
 	            //var cacheUidNode = $(".fm-property-store");
 
 				if( cacheUidNode.length > 0 && settings.cacheNodeProperties) {
 					 //CACHED PROPERTY VALUES
-					 var objNode = eval( "(" +  cacheUidNode.html() + ")" );
-					 methods.loadPropertiesToFields(objNode, $this);
+					 nodeObj = eval( "(" +  cacheUidNode.html() + ")" );
+					 methods.loadPropertiesToFields(nodeObj, $this);
 				}else{
-	                 var nodeObj = methods.callNodeProperties(uid, $this);
+	                 nodeObj = methods.callNodeProperties(uid, $this);
 	                 methods.loadPropertiesToFields(nodeObj, $this);
 	            }
+				
+				if(settings.readonly){
+					if(nodeObj.associations.length > 0){
+						
+						if( $('.fm-associations').length == 0) $(this).append('<div class="fm-associations"><h2>Associations</h2></div>');
+						
+						for(a in nodeObj.associations){
+							$('.fm-associations').append( methods.fileAssosicatedTemplate ( nodeObj.associations[a] ) );
+						}
+					}
+				}
             }
 			if(callback) callback( $this );
         },
+        
+        fileAssosicatedTemplate : function (node){
+        	
+        	var icoImg = '/share/res/components/images/filetypes/'+node.fileType+'-file-32.png';
+        	if(node.icon.indexOf('default') > 0) icoImg = '/alfresco' + node.icon;
+        	
+        	var tmp = '<div class="assoc-item"><div class="doc-search-icon" id="'+node.nodeRef+'"><a href="#"><img src="'+icoImg + '">		</a>	</div><div><h3> ';
+        		tmp += '<a href="document-details?nodeRef='+node.nodeRef+'"class="theme-color-1 ua-res-doc-title">'+node.name+'</a>';
+        		tmp += '</h3>';
+        	    if(node.siteid) tmp += '<span>Site: <a href="/share/page/site/'+node.siteid+'/dashboard">'+ node.siteid+'</a>, ';
+        	    tmp += 'size: '+node.size +'</span></div></div></div><p class="clear"></p></div>';
+        	
+        	    return tmp;
+        },
+        
 		storelocaldata: function(){
 			$('.frm-fld').each(function(){
 				if( $(this).attr("title") != ""){
