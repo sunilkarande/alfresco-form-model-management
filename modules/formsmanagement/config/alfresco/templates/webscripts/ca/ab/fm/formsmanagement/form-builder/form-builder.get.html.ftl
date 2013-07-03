@@ -24,9 +24,8 @@
 	<!--  END TINY CMCE  -->
 
 	<script type="text/javascript">
-		var jsonModel = '${json!}';
+		var fmModelObj = ${json!};
 		var fmAspectName = "${aspectName!}";
-		if(jsonModel != "") var fmModelObj = eval("(" + jsonModel + ")");
 	</script>
 </head>
 <body>
