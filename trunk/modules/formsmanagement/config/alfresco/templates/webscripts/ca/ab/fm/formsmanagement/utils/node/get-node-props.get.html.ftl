@@ -1,1 +1,1 @@
-{ "status": ${status}, "msg" : "${msg!}", "node" : ${node!} }
+{ "status": ${status}, "msg" : "${msg!}", "node" : ${node!} , "associations": ${associations!} }
