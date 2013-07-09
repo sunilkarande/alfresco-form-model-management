@@ -335,9 +335,9 @@ $(function () {
 	});
 
 	$(".prg_tipLabel").keyup(function() {
-		var tipObj = $(".ui-helper div").find('span.fld-tip');
+		var tipObj = $(".ui-helper div:first").find('span.fld-tip');
 		if(tipObj.length > 0){  }else{
-			$(".ui-helper div").append('<span class="fld-tip"></span>');
+			$(".ui-helper div:first").append('<span class="fld-tip"></span>');
 		}
 		$(".ui-helper").find(".fld-tip").html( $(this).val() );
 
