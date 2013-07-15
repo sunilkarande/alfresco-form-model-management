@@ -82,13 +82,16 @@ function rowTemplate(doc)
 	var rTemp = "";
 		doc.loccontext = "repo";
 	if(doc.site) doc.loccontext = "site";
-
+	
 	rTemp += '<div class="'+doc.loccontext+' ua-res-doc">';
 	rTemp += '<table style="width:100%" class="detail-list">';
 	rTemp += '	<tr>';
 	rTemp += '		<td style="  padding-left: 10px;  vertical-align: top; width: 45px;">';
 	rTemp += '			<input type="checkbox" class="fileSelect" id="'+doc.id+'" />';
 	rTemp += '			<span class="ico-'+doc.loccontext+'">&nbsp;</span> ';
+	
+	if(doc.hasAssociations) { rTemp += '<img style="left: 19px; position: relative; top: -13px;" src="/share/res/components/documentlibrary/indicators/paper-clip-16.png" alt="Document has associations" title="Has associations" />'; } 
+
 	rTemp += '		</td>';
 	rTemp += '		<td class="doc-search-details">';
 	rTemp += '			<div class="doc-search-icon">';
@@ -96,7 +99,7 @@ function rowTemplate(doc)
 
 	if( doc.type == "folder")
 	{
-		rTemp += '			<a href="#" class="detail-view" id="yui-gen126"><img title="folder" alt="folder" src="/share/res/components/search/images/folder.png" id="yui-gen125"></a>';
+		rTemp += '			<a href="#" style="display: block; height: 90px;" class="detail-view" id="yui-gen126"><img title="folder" alt="folder" src="/share/res/components/search/images/folder.png" id="yui-gen125"></a>';
 	}
 	else
 	{
@@ -118,7 +121,8 @@ function rowTemplate(doc)
 	if(doc.type == "document"){
 		if (doc.hasWriteAccess) rTemp += '<li><a href="'+doc.id+'" class="ico-move-dropbox">Move to Dropbox</a></li>';
 	}
-
+	 
+	
 	rTemp += '					<li><a target="_blank" href="/share/proxy/alfresco/api/node/content/workspace/SpacesStore//'+doc.id+'/'+doc.name+'?a=true" class="ico-download">Download</a></li>';
 	rTemp += '				</ul>';
 	rTemp += '			</div>';
