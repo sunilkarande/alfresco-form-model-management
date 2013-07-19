@@ -33,10 +33,11 @@ function docDetailTemplate(doc)
 	if(doc.path == "") doc.path = "%2F" + encodeURIComponent( doc.name );
 
 	var linkPath = "/share/page/repository?path=" + doc.path;
-	var siteLink = "";
+	var siteLink = "", siteURL = "";
 
 	if(doc.site){
-		linkPath = "/share/page/site/"  + doc.site.shortName + "/documentlibrary?path=" + encodeURIComponent(doc.path);
+		siteURL =  "/share/page/site/"  + doc.site.shortName + "/";
+		linkPath = siteURL + "documentlibrary?path=" + encodeURIComponent(doc.path);
 		siteLink = 'Site: <a href="/share/page/site/'+doc.site.shortName+'/dashboard">'+doc.site.title+'</a>,';
 	}
 
@@ -45,7 +46,7 @@ function docDetailTemplate(doc)
 
 	if(doc.type != "folder"){
 		//Go to file preview
-		dTemp += '		<a class="theme-color-1 ua-res-doc-title" href="document-details?nodeRef='+doc.nodeRef+'">'+doc.name+' </a>';
+		dTemp += '		<a class="theme-color-1 ua-res-doc-title" href="'+siteURL+'document-details?nodeRef='+doc.nodeRef+'">'+doc.name+' </a>';
 	}else{
 		//Go into folder
 		dTemp += '		<a class="theme-color-1 ua-res-doc-title" href="'+linkPath+'%2F'+doc.name+'">'+doc.name+' </a>';
@@ -77,11 +78,18 @@ function ImgError(source){
 function rowTemplate(doc)
 {
 	var fileExt = doc.name.substr( (doc.name.lastIndexOf('.') +1) ) + '-file';
+		fileExt = fileExt.toLowerCase();
+		
 	if( doc.type == "folder") fileExt = "generic-folder";
-
+	
 	var rTemp = "";
 		doc.loccontext = "repo";
-	if(doc.site) doc.loccontext = "site";
+	
+	var siteURL = "";
+	if(doc.site){
+		siteURL =  "/share/page/site/"  + doc.site.shortName + "/";
+		doc.loccontext = "site";
+	}
 	
 	rTemp += '<div class="'+doc.loccontext+' ua-res-doc">';
 	rTemp += '<table style="width:100%" class="detail-list">';
@@ -115,7 +123,7 @@ function rowTemplate(doc)
 	rTemp += '		<td style="width: 170px;">';
 	rTemp += '			<div class="resultTools">';
 	rTemp += '				<ul>';
-	rTemp += '					<li><a href="document-details?nodeRef='+doc.nodeRef+'" class="ico-view">View Metadata</a></li>';
+	rTemp += '					<li><a href="'+siteURL+'document-details?nodeRef='+doc.nodeRef+'" class="ico-view">View Metadata</a></li>';
 
 
 	if(doc.type == "document"){
