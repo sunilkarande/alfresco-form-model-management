@@ -30,167 +30,462 @@ var JSON;if(!JSON){JSON={};}(function(){function f(n){return n<10?"0"+n:n;}if(ty
  */
 jQuery.fn.selectToUISlider=function(settings){var selects=jQuery(this);var options=jQuery.extend({labels:3,tooltip:true,tooltipSrc:"text",labelSrc:"value",sliderOptions:null},settings);var handleIds=(function(){var tempArr=[];selects.each(function(){tempArr.push("handle_"+jQuery(this).attr("id"));});return tempArr;})();var selectOptions=(function(){var opts=[];selects.eq(0).find("option").each(function(){opts.push({value:jQuery(this).attr("value"),text:jQuery(this).text()});});return opts;})();var groups=(function(){if(selects.eq(0).find("optgroup").size()>0){var groupedData=[];selects.eq(0).find("optgroup").each(function(i){groupedData[i]={};groupedData[i].label=jQuery(this).attr("label");groupedData[i].options=[];jQuery(this).find("option").each(function(){groupedData[i].options.push({text:jQuery(this).text(),value:jQuery(this).attr("value")});});});return groupedData;}else{return null;}})();function isArray(obj){return obj.constructor==Array;}function ttText(optIndex){return(options.tooltipSrc=="text")?selectOptions[optIndex].text:selectOptions[optIndex].value;}var sliderOptions={step:1,min:0,orientation:"horizontal",max:selectOptions.length-1,range:selects.length>1,slide:function(e,ui){var thisHandle=jQuery(ui.handle);var textval=ttText(ui.value);thisHandle.attr("aria-valuetext",textval).attr("aria-valuenow",ui.value).find(".ui-slider-tooltip .ttContent").text(textval);var currSelect=jQuery("#"+thisHandle.attr("id").split("handle_")[1]);currSelect.find("option").eq(ui.value).attr("selected","selected");},values:(function(){var values=[];selects.each(function(){values.push(jQuery(this).get(0).selectedIndex);});return values;})()};options.sliderOptions=(settings)?jQuery.extend(sliderOptions,settings.sliderOptions):sliderOptions;selects.bind("change keyup click",function(){var thisIndex=jQuery(this).get(0).selectedIndex;var thisHandle=jQuery("#handle_"+jQuery(this).attr("id"));var handleIndex=thisHandle.data("handleNum");thisHandle.parents(".ui-slider:eq(0)").slider("values",handleIndex,thisIndex);});var sliderComponent=jQuery("<div></div>");selects.each(function(i){var hidett="";var thisLabel=jQuery("label[for="+jQuery(this).attr("id")+"]");var labelText=(thisLabel.size()>0)?"Slider control for "+thisLabel.text()+"":"";var thisLabelId=thisLabel.attr("id")||thisLabel.attr("id","label_"+handleIds[i]).attr("id");if(options.tooltip==false){hidett=' style="display: none;"';}jQuery("<a "+'href="#" tabindex="0" '+'id="'+handleIds[i]+'" '+'class="ui-slider-handle" '+'role="slider" '+'aria-labelledby="'+thisLabelId+'" '+'aria-valuemin="'+options.sliderOptions.min+'" '+'aria-valuemax="'+options.sliderOptions.max+'" '+'aria-valuenow="'+options.sliderOptions.values[i]+'" '+'aria-valuetext="'+ttText(options.sliderOptions.values[i])+'" '+'><span class="screenReaderContext">'+labelText+"</span>"+'<span class="ui-slider-tooltip ui-widget-content ui-corner-all"'+hidett+'><span class="ttContent"></span>'+'<span class="ui-tooltip-pointer-down ui-widget-content"><span class="ui-tooltip-pointer-down-inner"></span></span>'+"</span></a>").data("handleNum",i).appendTo(sliderComponent);});if(groups){var inc=0;var scale=sliderComponent.append('<dl class="ui-slider-scale ui-helper-reset" role="presentation"></dl>').find(".ui-slider-scale:eq(0)");jQuery(groups).each(function(h){scale.append('<dt style="width: '+(100/groups.length).toFixed(2)+"%"+"; left:"+(h/(groups.length-1)*100).toFixed(2)+"%"+'"><span>'+this.label+"</span></dt>");var groupOpts=this.options;jQuery(this.options).each(function(i){var style=(inc==selectOptions.length-1||inc==0)?'style="display: none;"':"";var labelText=(options.labelSrc=="text")?groupOpts[i].text:groupOpts[i].value;scale.append('<dd style="left:'+leftVal(inc)+'"><span class="ui-slider-label">'+labelText+'</span><span class="ui-slider-tic ui-widget-content"'+style+"></span></dd>");inc++;});});}else{var scale=sliderComponent.append('<ol class="ui-slider-scale ui-helper-reset" role="presentation"></ol>').find(".ui-slider-scale:eq(0)");jQuery(selectOptions).each(function(i){var style=(i==selectOptions.length-1||i==0)?'style="display: none;"':"";var labelText=(options.labelSrc=="text")?this.text:this.value;scale.append('<li style="left:'+leftVal(i)+'"><span class="ui-slider-label">'+labelText+'</span><span class="ui-slider-tic ui-widget-content"'+style+"></span></li>");});}function leftVal(i){return(i/(selectOptions.length-1)*100).toFixed(2)+"%";}if(options.labels>1){sliderComponent.find(".ui-slider-scale li:last span.ui-slider-label, .ui-slider-scale dd:last span.ui-slider-label").addClass("ui-slider-label-show");}var increm=Math.max(1,Math.round(selectOptions.length/options.labels));for(var j=0;j<selectOptions.length;j+=increm){if((selectOptions.length-j)>increm){sliderComponent.find(".ui-slider-scale li:eq("+j+") span.ui-slider-label, .ui-slider-scale dd:eq("+j+") span.ui-slider-label").addClass("ui-slider-label-show");}}sliderComponent.find(".ui-slider-scale dt").each(function(i){jQuery(this).css({"left":((100/(groups.length))*i).toFixed(2)+"%"});});sliderComponent.insertAfter(jQuery(this).eq(this.length-1)).slider(options.sliderOptions).attr("role","application").find(".ui-slider-label").each(function(){jQuery(this).css("marginLeft",-jQuery(this).width()/2);});sliderComponent.find(".ui-tooltip-pointer-down-inner").each(function(){var bWidth=jQuery(".ui-tooltip-pointer-down-inner").css("borderTopWidth");var bColor=jQuery(this).parents(".ui-slider-tooltip").css("backgroundColor");jQuery(this).css("border-top",bWidth+" solid "+bColor);});var values=sliderComponent.slider("values");if(isArray(values)){jQuery(values).each(function(i){sliderComponent.find(".ui-slider-tooltip .ttContent").eq(i).text(ttText(this));});}else{sliderComponent.find(".ui-slider-tooltip .ttContent").eq(0).text(ttText(values));}return this;};
 
-
 /*
-   Alfresco form management validation
-   Author: Mike Priest
-   Copyright (c) MPT Mozilla Public License
-
+Alfresco form management validation
+Author: Mike Priest
+Copyright (c) MPT Mozilla Public License 
 */
 $(function () {
-    $(".sliderForm").each(function () {
-        var value = parseInt($(this).text(), 10);
-        $(this).empty().slider({
-            value: 5,
-            min: 0,
-            range: "min",
-            max: 10,
-            step: 1,
-            slide: function (event, ui) {
-                $(this).parents(".group").find(".slider-value:eq(0)").val(ui.value);
-            }
-        });
-    });
-    $(".frm_submit").live("click", function () {
-        return validateForm($(".fm-doctypes"));
-    });
-    $(".numOnly").live("keydown", function (e) {
-        if (e.which != 9 && e.which != 8 && e.which != 46 && e.which != 37 && e.which != 190 && e.which != 110 && e.which != 39 && e.which != 0 && (!((e.which >= 48 && e.which <= 57) || (e.which <= 105 && e.which >= 96)))) {
-            return false;
-        }
-    });
-    $(".alphanumOnly").live("keyup", function () {
-        if (this.value.match(/[^a-zA-Z0-9 ]/g)) {
-            this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, "");
-        }
-    });
-    $(".currency").livequery("blur", function (e) {
-        $(this).val(formatCurrency($(this).val()));
-    });
+ $(".sliderForm").each(function () {
+     var value = parseInt($(this).text(), 10);
+     $(this).empty().slider({
+         value: 5,
+         min: 0,
+         range: "min",
+         max: 10,
+         step: 1,
+         slide: function (event, ui) {
+             $(this).parents(".group").find(".slider-value:eq(0)").val(ui.value);
+         }
+     });
+ });
+ $(".frm_submit").live("click", function () {
+     return validateForm($(".fm-doctypes"));
+ });
+ $(".numOnly").live("keydown", function (e) {
+     if (e.which != 9 && e.which != 8 && e.which != 46 && e.which != 37 && e.which != 190 && e.which != 110 && e.which != 39 && e.which != 0 && (!((e.which >= 48 && e.which <= 57) || (e.which <= 105 && e.which >= 96)))) {
+         return false;
+     }
+ });
+ $(".alphanumOnly").live("keyup", function () {
+     if (this.value.match(/[^a-zA-Z0-9 ]/g)) {
+         this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, "");
+     }
+ });
+ $(".currency").livequery("blur", function (e) {
+     $(this).val(formatCurrency($(this).val()));
+ });
 });
 
 function setMasks() {
-    $(".date").mask("9999-99-99").datepicker({
-        "dateFormat": "yy-mm-dd",
-        changeMonth: true,
-        changeYear: true
-    });
-    $(".phn").mask("99999-9999");
-    $(".phone").mask("(999) 999-9999");
-    $(".sin").mask("999-999-999");
-    $(".phoneext").mask("(999) 999-9999? x99999");
-    $(".postcode").mask("a9a 9a9");
-    $(".isOtherExp").each(function () {
-        var thisId = $(this).attr("regex");
-        if (thisId) {
-            var thisMask = thisId;
-            $(this).mask(thisMask);
-        }
-    });
+ $(".date").mask("9999-99-99").datepicker({
+     "dateFormat": "yy-mm-dd",
+     changeMonth: true,
+     changeYear: true
+ });
+ $(".phn").mask("99999-9999");
+ $(".phone").mask("(999) 999-9999");
+ $(".sin").mask("999-999-999");
+ $(".phoneext").mask("(999) 999-9999? x99999");
+ $(".postcode").mask("a9a 9a9");
+ $(".isOtherExp").each(function () {
+     var thisId = $(this).attr("regex");
+     if (thisId) {
+         var thisMask = thisId;
+         $(this).mask(thisMask);
+     }
+ });
 }
+
 function formatCurrency(num) {
-    num = num.toString().replace(/\$|\,/g, "");
-    if (isNaN(num)) {
-        num = "0";
-    }
-    sign = (num == (num = Math.abs(num)));
-    num = Math.floor(num * 100 + 0.50000000001);
-    cents = num % 100;
-    num = Math.floor(num / 100).toString();
-    if (cents < 10) {
-        cents = "0" + cents;
-    }
-    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
-        num = num.substring(0, num.length - (4 * i + 3)) + "," + num.substring(num.length - (4 * i + 3));
-    }
-    return (((sign) ? "" : "-") + "$" + num + "." + cents);
+ num = num.toString().replace(/\$|\,/g, "");
+ if (isNaN(num)) {
+     num = "0";
+ }
+ sign = (num == (num = Math.abs(num)));
+ num = Math.floor(num * 100 + 0.50000000001);
+ cents = num % 100;
+ num = Math.floor(num / 100).toString();
+ if (cents < 10) {
+     cents = "0" + cents;
+ }
+ for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
+     num = num.substring(0, num.length - (4 * i + 3)) + "," + num.substring(num.length - (4 * i + 3));
+ }
+ return (((sign) ? "" : "-") + "$" + num + "." + cents);
 }
+
 function validateForm(wrapper) {
-    var form = wrapper.find("form");
-    var li = "";
-    form.find(".errHandleBox ul").html("");
-    form.find(".errHandleBox").hide();
-    form.find(".frmErr").removeClass("frmErr");
-    var frmValid = true;
-    form.find(".required").each(function () {
-        if ($(this).hasClass("mceEditor")) {
-            var mceId = $(this).attr("id");
-            htmlval = tinyMCE.get(mceId).getContent();
-            if (htmlval == "") {
-                frmValid = false;
-                $(this).parents(".group").children("label").addClass("frmErr");
-            }
-        } else if( $(this).attr("type") == "checkbox" || $(this).attr("type") == "radio" ){
-        	//Required
-        	console.log( $('input[name="' + $(this).attr("name") + '"]:checked').length > 0 );
-        	
-        	if( $('input[name="' + $(this).attr("name") + '"]:checked').length == 0 ){
-        		$(this).parent().find(".fld-lbl").addClass("frmErr");
-                frmValid = false;
-        	}
-        	
-        } else {
-            if ($(this).val().length == 0 || $(this).val() == "-Select-" || $(this).val() == "- select-" || $(this).val() == "select") {
-                $(this).addClass("frmErr");
-                frmValid = false;
-            }
-        }
-    });
-    if (!frmValid) {
-        li += "<li>Please check all required fields</li>";
-    }
-    form.find(".verification").each(function () {
-        var vVal = $(this);
-        var cVal = $(this).parents(".group").next().find(".verification-check");
-        var label = $(this).parents(".group").children("label");
-        if (vVal.val() != cVal.val()) {
-            vVal.addClass("frmErr");
-            cVal.addClass("frmErr");
-            li += "<li>" + label.html() + " fields did not match. Please verify</li>";
-            frmValid = false;
-        }
-    });
-    form.find(".frm-fld").each(function () {
-        var minLength = parseInt($(this).attr("minlength"));
-        var maxLength = parseInt($(this).attr("maxlength"));
-        var thisLength = $(this).val().length;
-        var label = $(this).parents(".group").children("label");
-        if (isNaN(minLength) == false && minLength > 1 && minLength < 51 && minLength != 0) {
-            if (thisLength >= minLength) {} else {
-                frmValid = false;
-                li += "<li>" + label.html() + " requires a minimum value of " + minLength + "</li>";
-                $(this).addClass("frmErr");
-            }
-        }
-        if (isNaN(maxLength) == false && maxLength > 1 && maxLength < 51 && maxLength != 0) {
-            if (thisLength >= maxLength) {} else {
-                frmValid = false;
-                li += "<li>" + label.html() + " requires a maximum value of " + maxLength + "</li>";
-                $(this).addClass("frmErr");
-            }
-        }
-    });
-    if (!frmValid) {
-        form.find(".errHandleBox").show();
-        form.find(".errHandleBox ul").append(li);
-        return false;
-    }
-    return true;
+ var form = wrapper.find("form");
+ var li = "";
+ form.find(".errHandleBox ul").html("");
+ form.find(".errHandleBox").hide();
+ form.find(".frmErr").removeClass("frmErr");
+ var frmValid = true;
+ form.find(".required").each(function () {
+     if ($(this).hasClass("mceEditor")) {
+         var mceId = $(this).attr("id");
+         htmlval = tinyMCE.get(mceId).getContent();
+         if (htmlval == "") {
+             frmValid = false;
+             $(this).parents(".group").children("label").addClass("frmErr");
+         }
+     } else {
+         if ($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") {
+             console.log($('input[name="' + $(this).attr("name") + '"]:checked').length > 0);
+             if ($('input[name="' + $(this).attr("name") + '"]:checked').length == 0) {
+                 $(this).parent().find(".fld-lbl").addClass("frmErr");
+                 frmValid = false;
+             }
+         } else {
+             if ($(this).val().length == 0 || $(this).val() == "-Select-" || $(this).val() == "- select-" || $(this).val() == "select") {
+                 $(this).addClass("frmErr");
+                 frmValid = false;
+             }
+         }
+     }
+ });
+ if (!frmValid) {
+     li += "<li>Please check all required fields</li>";
+ }
+ form.find(".verification").each(function () {
+     var vVal = $(this);
+     var cVal = $(this).parents(".group").next().find(".verification-check");
+     var label = $(this).parents(".group").children("label");
+     if (vVal.val() != cVal.val()) {
+         vVal.addClass("frmErr");
+         cVal.addClass("frmErr");
+         li += "<li>" + label.html() + " fields did not match. Please verify</li>";
+         frmValid = false;
+     }
+ });
+ form.find(".frm-fld").each(function () {
+     var minLength = parseInt($(this).attr("minlength"));
+     var maxLength = parseInt($(this).attr("maxlength"));
+     var thisLength = $(this).val().length;
+     var label = $(this).parents(".group").children("label");
+     if (isNaN(minLength) == false && minLength > 1 && minLength < 51 && minLength != 0) {
+         if (thisLength >= minLength) {} else {
+             frmValid = false;
+             li += "<li>" + label.html() + " requires a minimum value of " + minLength + "</li>";
+             $(this).addClass("frmErr");
+         }
+     }
+     if (isNaN(maxLength) == false && maxLength > 1 && maxLength < 51 && maxLength != 0) {
+         if (thisLength >= maxLength) {} else {
+             frmValid = false;
+             li += "<li>" + label.html() + " requires a maximum value of " + maxLength + "</li>";
+             $(this).addClass("frmErr");
+         }
+     }
+ });
+ if (!frmValid) {
+     form.find(".errHandleBox").show();
+     form.find(".errHandleBox ul").append(li);
+     return false;
+ }
+ return true;
 }
+
 function setTinyMce() {
-    tinyMCE.init({
-        mode: "textareas",
-        width: 400,
-        editor_selector: "mceEditor",
-        force_p_newlines: true,
-        theme: "advanced",
-        plugins: "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
-        theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect",
-        theme_advanced_buttons2: "pastetext,pasteword,|, bullist,numlist,|,outdent,indent,|,forecolor,backcolor",
-        theme_advanced_buttons3: "",
-        theme_advanced_toolbar_location: "top",
-        theme_advanced_toolbar_align: "left",
-        theme_advanced_statusbar_location: "bottom",
-        theme_advanced_resizing: true
-    });
+ tinyMCE.init({
+     mode: "textareas",
+     width: 400,
+     editor_selector: "mceEditor",
+     force_p_newlines: true,
+     theme: "advanced",
+     plugins: "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+     theme_advanced_buttons1: "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontsizeselect",
+     theme_advanced_buttons2: "pastetext,pasteword,|, bullist,numlist,|,outdent,indent,|,forecolor,backcolor",
+     theme_advanced_buttons3: "",
+     theme_advanced_toolbar_location: "top",
+     theme_advanced_toolbar_align: "left",
+     theme_advanced_statusbar_location: "bottom",
+     theme_advanced_resizing: true
+ });
 }
+
+/* Tagging */
+(function ($) {
+ var delimiter = new Array();
+ var tags_callbacks = new Array();
+ $.fn.doAutosize = function (o) {
+     var minWidth = $(this).data("minwidth"),
+         maxWidth = $(this).data("maxwidth"),
+         val = "",
+         input = $(this),
+         testSubject = $("#" + $(this).data("tester_id"));
+     if (val === (val = input.val())) {
+         return;
+     }
+     var escaped = val.replace(/&/g, "&amp;").replace(/\s/g, " ").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+     testSubject.html(escaped);
+     var testerWidth = testSubject.width(),
+         newWidth = (testerWidth + o.comfortZone) >= minWidth ? testerWidth + o.comfortZone : minWidth,
+         currentWidth = input.width(),
+         isValidWidthChange = (newWidth < currentWidth && newWidth >= minWidth) || (newWidth > minWidth && newWidth < maxWidth);
+     if (isValidWidthChange) {
+         input.width(newWidth);
+     }
+ };
+ $.fn.resetAutosize = function (options) {
+     var minWidth = $(this).data("minwidth") || options.minInputWidth || $(this).width(),
+         maxWidth = $(this).data("maxwidth") || options.maxInputWidth || ($(this).closest(".tagsinput").width() - options.inputPadding),
+         val = "",
+         input = $(this),
+         testSubject = $("<tester/>").css({
+             position: "absolute",
+             top: -9999,
+             left: -9999,
+             width: "auto",
+             fontSize: input.css("fontSize"),
+             fontFamily: input.css("fontFamily"),
+             fontWeight: input.css("fontWeight"),
+             letterSpacing: input.css("letterSpacing"),
+             whiteSpace: "nowrap"
+         }),
+         testerId = $(this).attr("id") + "_autosize_tester";
+     if (!$("#" + testerId).length > 0) {
+         testSubject.attr("id", testerId);
+         testSubject.appendTo("body");
+     }
+     input.data("minwidth", minWidth);
+     input.data("maxwidth", maxWidth);
+     input.data("tester_id", testerId);
+     input.css("width", minWidth);
+ };
+ $.fn.addTag = function (value, options) {
+     options = jQuery.extend({
+         focus: false,
+         callback: true
+     }, options);
+     this.each(function () {
+         var id = $(this).attr("id");
+         var tagslist = $(this).val().split(delimiter[id]);
+         if (tagslist[0] == "") {
+             tagslist = new Array();
+         }
+         value = jQuery.trim(value);
+         if (options.unique) {
+             var skipTag = $(this).tagExist(value);
+             if (skipTag == true) {
+                 $("#" + id + "_tag").addClass("not_valid");
+             }
+         } else {
+             var skipTag = false;
+         } if (value != "" && skipTag != true) {
+             $("<span>").addClass("tag").append($("<span>").text(value).append("&nbsp;&nbsp;"), $('<a href="#">x</a>').click(function () {
+                 return $("#" + id).removeTag(escape(value));
+             })).insertBefore("#" + id + "_addTag");
+             tagslist.push(value);
+             $("#" + id + "_tag").val("");
+             if (options.focus) {
+                 $("#" + id + "_tag").focus();
+             } else {
+                 $("#" + id + "_tag").blur();
+             }
+             $.fn.tagsInput.updateTagsField(this, tagslist);
+             if (options.callback && tags_callbacks[id] && tags_callbacks[id]["onAddTag"]) {
+                 var f = tags_callbacks[id]["onAddTag"];
+                 f.call(this, value);
+             }
+             if (tags_callbacks[id] && tags_callbacks[id]["onChange"]) {
+                 var i = tagslist.length;
+                 var f = tags_callbacks[id]["onChange"];
+                 f.call(this, $(this), tagslist[i - 1]);
+             }
+         }
+     });
+     return false;
+ };
+ $.fn.removeTag = function (value) {
+     value = unescape(value);
+     this.each(function () {
+         var id = $(this).attr("id");
+         var old = $(this).val().split(delimiter[id]);
+         $("#" + id + "_tagsinput .tag").remove();
+         str = "";
+         for (i = 0; i < old.length; i++) {
+             if (old[i] != value) {
+                 str = str + delimiter[id] + old[i];
+             }
+         }
+         $.fn.tagsInput.importTags(this, str);
+         if (tags_callbacks[id] && tags_callbacks[id]["onRemoveTag"]) {
+             var f = tags_callbacks[id]["onRemoveTag"];
+             f.call(this, value);
+         }
+     });
+     return false;
+ };
+ $.fn.tagExist = function (val) {
+     var id = $(this).attr("id");
+     var tagslist = $(this).val().split(delimiter[id]);
+     return (jQuery.inArray(val, tagslist) >= 0);
+ };
+ $.fn.importTags = function (str) {
+     id = $(this).attr("id");
+     $("#" + id + "_tagsinput .tag").remove();
+     $.fn.tagsInput.importTags(this, str);
+ };
+ $.fn.tagsInput = function (options) {
+     var settings = jQuery.extend({
+         interactive: true,
+         defaultText: "add a tag",
+         minChars: 0,
+         width: "300px",
+         height: "100px",
+         autocomplete: {
+             selectFirst: false
+         },
+         "hide": true,
+         "delimiter": ",",
+         "unique": true,
+         removeWithBackspace: true,
+         placeholderColor: "#666666",
+         autosize: true,
+         comfortZone: 20,
+         inputPadding: 6 * 2
+     }, options);
+     this.each(function () {
+         if (settings.hide) {
+             $(this).hide();
+         }
+         var id = $(this).attr("id");
+         if (!id || delimiter[$(this).attr("id")]) {
+             id = $(this).attr("id", "tags" + new Date().getTime()).attr("id");
+         }
+         var data = jQuery.extend({
+             pid: id,
+             real_input: "#" + id,
+             holder: "#" + id + "_tagsinput",
+             input_wrapper: "#" + id + "_addTag",
+             fake_input: "#" + id + "_tag"
+         }, settings);
+         delimiter[id] = data.delimiter;
+         if (settings.onAddTag || settings.onRemoveTag || settings.onChange) {
+             tags_callbacks[id] = new Array();
+             tags_callbacks[id]["onAddTag"] = settings.onAddTag;
+             tags_callbacks[id]["onRemoveTag"] = settings.onRemoveTag;
+             tags_callbacks[id]["onChange"] = settings.onChange;
+         }
+         var markup = '<div id="' + id + '_tagsinput" class="tagsinput"><div id="' + id + '_addTag">';
+         if (settings.interactive) {
+             markup = markup + '<input id="' + id + '_tag" value="" data-default="' + settings.defaultText + '" />';
+         }
+         markup = markup + '</div><div class="tags_clear"></div></div>';
+         $(markup).insertAfter(this);
+         $(data.holder).css("width", settings.width);
+         $(data.holder).css("min-height", settings.height);
+         $(data.holder).css("height", settings.height);
+         if ($(data.real_input).val() != "") {
+             $.fn.tagsInput.importTags($(data.real_input), $(data.real_input).val());
+         }
+         if (settings.interactive) {
+             $(data.fake_input).val($(data.fake_input).attr("data-default"));
+             $(data.fake_input).css("color", settings.placeholderColor);
+             $(data.fake_input).resetAutosize(settings);
+             $(data.holder).bind("click", data, function (event) {
+                 $(event.data.fake_input).focus();
+             });
+             $(data.fake_input).bind("focus", data, function (event) {
+                 if ($(event.data.fake_input).val() == $(event.data.fake_input).attr("data-default")) {
+                     $(event.data.fake_input).val("");
+                 }
+                 $(event.data.fake_input).css("color", "#000000");
+             });
+             if (settings.autocomplete_url != undefined) {
+                 autocomplete_options = {
+                     source: settings.autocomplete_url
+                 };
+                 for (attrname in settings.autocomplete) {
+                     autocomplete_options[attrname] = settings.autocomplete[attrname];
+                 }
+                 if (jQuery.Autocompleter !== undefined) {
+                     $(data.fake_input).autocomplete(settings.autocomplete_url, settings.autocomplete);
+                     $(data.fake_input).bind("result", data, function (event, data, formatted) {
+                         if (data) {
+                             $("#" + id).addTag(data[0] + "", {
+                                 focus: true,
+                                 unique: (settings.unique)
+                             });
+                         }
+                     });
+                 } else {
+                     if (jQuery.ui.autocomplete !== undefined) {
+                         $(data.fake_input).autocomplete(autocomplete_options);
+                         $(data.fake_input).bind("autocompleteselect", data, function (event, ui) {
+                             $(event.data.real_input).addTag(ui.item.value, {
+                                 focus: true,
+                                 unique: (settings.unique)
+                             });
+                             return false;
+                         });
+                     }
+                 }
+             } else {
+                 $(data.fake_input).bind("blur", data, function (event) {
+                     var d = $(this).attr("data-default");
+                     if ($(event.data.fake_input).val() != "" && $(event.data.fake_input).val() != d) {
+                         if ((event.data.minChars <= $(event.data.fake_input).val().length) && (!event.data.maxChars || (event.data.maxChars >= $(event.data.fake_input).val().length))) {
+                             $(event.data.real_input).addTag($(event.data.fake_input).val(), {
+                                 focus: true,
+                                 unique: (settings.unique)
+                             });
+                         }
+                     } else {
+                         $(event.data.fake_input).val($(event.data.fake_input).attr("data-default"));
+                         $(event.data.fake_input).css("color", settings.placeholderColor);
+                     }
+                     return false;
+                 });
+             }
+             $(data.fake_input).bind("keypress", data, function (event) {
+                 if (event.which == event.data.delimiter.charCodeAt(0) || event.which == 13) {
+                     event.preventDefault();
+                     if ((event.data.minChars <= $(event.data.fake_input).val().length) && (!event.data.maxChars || (event.data.maxChars >= $(event.data.fake_input).val().length))) {
+                         $(event.data.real_input).addTag($(event.data.fake_input).val(), {
+                             focus: true,
+                             unique: (settings.unique)
+                         });
+                     }
+                     $(event.data.fake_input).resetAutosize(settings);
+                     return false;
+                 } else {
+                     if (event.data.autosize) {
+                         $(event.data.fake_input).doAutosize(settings);
+                     }
+                 }
+             });
+             data.removeWithBackspace && $(data.fake_input).bind("keydown", function (event) {
+                 if (event.keyCode == 8 && $(this).val() == "") {
+                     event.preventDefault();
+                     var last_tag = $(this).closest(".tagsinput").find(".tag:last").text();
+                     var id = $(this).attr("id").replace(/_tag$/, "");
+                     last_tag = last_tag.replace(/[\s]+x$/, "");
+                     $("#" + id).removeTag(escape(last_tag));
+                     $(this).trigger("focus");
+                 }
+             });
+             $(data.fake_input).blur();
+             if (data.unique) {
+                 $(data.fake_input).keydown(function (event) {
+                     if (event.keyCode == 8 || String.fromCharCode(event.which).match(/\w+|[Ã¡Ã©ÃÃ³ÃºÃÃ‰ÃÃ“ÃšÃ±Ã‘,/]+/)) {
+                         $(this).removeClass("not_valid");
+                     }
+                 });
+             }
+         }
+     });
+     return this;
+ };
+ $.fn.tagsInput.updateTagsField = function (obj, tagslist) {
+     var id = $(obj).attr("id");
+     $(obj).val(tagslist.join(delimiter[id]));
+ };
+ $.fn.tagsInput.importTags = function (obj, val) {
+     $(obj).val("");
+     var id = $(obj).attr("id");
+     var tags = val.split(delimiter[id]);
+     for (i = 0; i < tags.length; i++) {
+         $(obj).addTag(tags[i], {
+             focus: false,
+             callback: false
+         });
+     }
+     if (tags_callbacks[id] && tags_callbacks[id]["onChange"]) {
+         var f = tags_callbacks[id]["onChange"];
+         f.call(obj, obj, tags[i]);
+     }
+ };
+})(jQuery);
