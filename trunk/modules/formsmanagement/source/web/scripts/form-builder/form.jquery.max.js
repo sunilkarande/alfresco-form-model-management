@@ -612,12 +612,12 @@
                     if( nodeVal == null ) nodeVal == "";
                     
                     
-                    if( $(this).hasClass('alf-multiple') ){
+                    if( $(this).hasClass('alf-multiple') && (nodeVal instanceof Array)){
 				    	
-                    	$(this).val( nodeVal.join(',') );
-                    	$(this).parent().find('.tagsinput').remove();
-                    	$('input[type=text].alf-multiple').tagsInput({width:'auto' });
-				    	
+	                    	$(this).val( nodeVal.join(',') );
+	                    	$('.tagsinput').remove(); 
+	                    	$('input[type=text].alf-multiple').tagsInput({width:'auto' });
+                    	
 				    }else if( $(this).hasClass('mceEditor') ){
 
 						if(settings.readonly){
