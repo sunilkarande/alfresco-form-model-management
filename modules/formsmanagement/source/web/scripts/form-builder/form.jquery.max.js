@@ -584,7 +584,8 @@
             return propString;
         },
         loadPropertiesToFields: function(nodeObj, $passedForm){
-			var settings = $(this).data('settings');
+		
+        	var settings = $(this).data('settings');
 			var $this = $(this);
 
 			if($passedForm){
@@ -611,12 +612,15 @@
                     } 
                     if( nodeVal == null ) nodeVal == "";
                     
-                    
-                    if( $(this).hasClass('alf-multiple') && (nodeVal instanceof Array)){
+                    if( $(this).hasClass('alf-multiple') || nodeVal instanceof Array){
 				    	
-	                    	$(this).val( nodeVal.join(',') );
-	                    	$('.tagsinput').remove(); 
-	                    	$('input[type=text].alf-multiple').tagsInput({width:'auto' });
+                    	$(this).val( nodeVal.join(',') );
+                    	$('.tagsinput').remove();
+                    	if(settings.readonly){ 
+                    		$(this).removeClass('alf-multiple'); 
+                    		$(this).show();
+                    	}
+                    	$('input[type=text].alf-multiple').tagsInput({width:'auto' });
                     	
 				    }else if( $(this).hasClass('mceEditor') ){
 
@@ -626,6 +630,7 @@
 							$(this).val(nodeVal);
 						}
 					}else{
+						
 					    var hasDateType = false;
 
 					    if( $(this).data("type") ){
