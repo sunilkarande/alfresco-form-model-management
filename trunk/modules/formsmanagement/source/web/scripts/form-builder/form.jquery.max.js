@@ -30,6 +30,7 @@
         'readonly': false,
         'ownDropSource': false,
 		'onComplete': null,
+		'onProfileToProperty': null,
         'onSaveComplete': null,
 		'onDynamicLoad': null,
 		'demoMode': false,
@@ -125,6 +126,7 @@
 								  async: false,
 								  success:  function (r) {
 										settings.aspects = r;
+										if(settings.onProfileToProperty) settings.onProfileToProperty(r);
 								  }
 							});
 
@@ -212,6 +214,8 @@
 						  data: { profile: JSON.stringify(profile[x].profile) },
 						  async: false,
 						  success:  function (r) {
+							  	
+							  	if(settings.onProfileToProperty) settings.onProfileToProperty(r);
 								cacheProfileAspect["" + globalKey] = r;
 								var formS = "";
 								for (a in r) {
@@ -225,6 +229,7 @@
 							}
 						});
 					}
+					
                 }
             }
         },
@@ -418,7 +423,8 @@
 					}
 
 				}else if(prop.fieldType == "hidden"){
-					formString += methods.hiddenTemplate(prop);
+					if(!prop.hiddenSearch)
+						formString += methods.hiddenTemplate(prop, settings.isSearch);
 				}else{
 					if(settings.readonly){
 						formString += methods.readonlyTemplate(prop);
@@ -507,7 +513,8 @@
 			return tmp;
 		},
 		hiddenTemplate: function (prop){
-			var tmp = '<input type="hidden" id="' + prop.id + '" title="' + prop.type + '" name="' + prop.validPrefix + "_" + prop.name + '" class="frm-fld ' + prop.validPrefix + "_" + prop.name + '"  value="0" />';
+	
+			var tmp= '<input type="hidden" id="' + prop.id + '" title="' + prop.type + '" name="' + prop.validPrefix + "_" + prop.name + '" class="frm-fld ' + prop.validPrefix + "_" + prop.name + '"  value="0" />';
 			return tmp;
 		},
         selectTemplate: function (prop) {
@@ -612,17 +619,17 @@
                     } 
                     if( nodeVal == null ) nodeVal == "";
                     
-                    if( $(this).hasClass('alf-multiple') || nodeVal instanceof Array){
-				    	
-                    	$(this).val( nodeVal.join(',') );
-                    	$('.tagsinput').remove();
-                    	if(settings.readonly){ 
-                    		$(this).removeClass('alf-multiple'); 
-                    		$(this).show();
-                    	}
-                    	$('input[type=text].alf-multiple').tagsInput({width:'auto' });
-                    	
-				    }else if( $(this).hasClass('mceEditor') ){
+                    if( $(this).hasClass('alf-multiple') ){
+				    	if( nodeVal instanceof Array ){ 
+	                    	$(this).val( nodeVal.join(',') );
+	                    	$('.tagsinput').remove();
+	                    	if(settings.readonly){ 
+	                    		$(this).removeClass('alf-multiple'); 
+	                    		$(this).show();
+	                    	}
+	                    	$('input[type=text].alf-multiple').tagsInput({width:'auto' });
+				    	}
+				    } else if( $(this).hasClass('mceEditor') ){
 
 						if(settings.readonly){
 							$(".readonly-html-out").html(nodeVal);

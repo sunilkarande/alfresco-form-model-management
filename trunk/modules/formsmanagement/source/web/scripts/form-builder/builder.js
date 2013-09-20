@@ -52,6 +52,7 @@ function formToJson(){
 		fieldObj.mandatory = input.hasClass('required'); 
 		fieldObj.hidden = input.hasClass('frm-hidden');
 		fieldObj.hiddenSearch =  input.hasClass('frm-hiddenSearch');
+		fieldObj.searchGrid =  input.hasClass('frm-searchGrid');
 
 		if(input.hasClass('alf-index')){
 			fieldObj.index = {};
