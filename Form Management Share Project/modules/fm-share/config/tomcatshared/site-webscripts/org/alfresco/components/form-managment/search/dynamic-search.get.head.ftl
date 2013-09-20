@@ -27,7 +27,7 @@
 					 injectAlfrescoDefaults();
 				},
 				'onProfileToProperty': function(model){
-					dtFields = setSearchTableHeaders(model);
+					//dtFields = setSearchTableHeaders(model);
 				}
 			});
 		}else{
