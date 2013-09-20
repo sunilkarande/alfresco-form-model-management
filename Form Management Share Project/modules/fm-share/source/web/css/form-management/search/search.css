@@ -76,7 +76,42 @@
 .sym-search-body
 {
 	position: relative;
+	border-top:1px solid #ccc;
 }
+
+/* Search Grid Styles */
+.sym-search-grid {
+	position:relative;
+}
+.sym-search-grid  #dropbox_length, #dropboxEmail_length {	
+    left: 143px !important;
+    right: auto !important;
+    top: -33px !important;
+}
+.sym-search-info .grid-option { padding-top:4px; }
+.sym-search-grid .dataTables_filter {
+	background:#F8F8F8;
+    right: 6px;
+    top: -38px;
+	width:auto!important;
+}
+.sym-search-grid .dataTables_filter input {
+	height:20px; 
+	width: 155px!important;
+	background:#fff;
+}
+.sym-search-info .actions-wrapper {
+	height: 38px;
+}
+.dt-check-column { width:30px!important;}
+
+.sym-search-grid .ico-download {
+    background-position: 8px 0;
+    padding-top: 1px;
+}
+
+/* End search grid */
+
 .resultTools ul
 {
 	margin: 0;
@@ -174,9 +209,7 @@ tr .ico-record, tr .ico-document, tr .ico-site, tr .ico-repo
 	background-position: 0 0!important;
 	display: block;
 	height: 16px;
-	left: 20px;
-	position: relative;
-	top: -18px;
+	
 	width: 16px;
 }
 .recdocflip .ico-record, .recdocflip .ico-document, .recdocflip .ico-all
@@ -477,8 +510,7 @@ h3
 }
 .sym-search-info
 {
-	background-color: #F8F8F8;
-	border-bottom: 1px dashed #C0C0C0;
+	background-color: #F8F8F8; 
 	padding: 4px 0.5em 2px;
 }
 .icoTxt
@@ -834,103 +866,7 @@ a:hover
 {
 	color: #2A457F;
 	text-decoration: underline;
-}
-table.display td
-{
-	border-bottom: 1px dashed #E5E5E5;
-	border-left: 1px solid #CCC;
-	color: #3D3D3D;
-	font-size: 12px;
-	font-weight: normal !important;
-	padding: 5px 10px !important;
-	vertical-align: middle;
-}
-table.display thead th
-{
-	background: none repeat scroll 0 0 #E6F3EA;
-	border: 1px solid #BAD8C4;
-	color: #444444;
-	font-size: 13px;
-	font-style: italic;
-	outline: medium none;
-	padding: 6px 10px !important;
-}
-.dataTables_filter
-{
-	color: #AAA;
-	left: 10px;
-	position: absolute;
-	top: -38px;
-}
-.dataTables_filter input
-{
-	width: 163px;
-}
-.dataTables_length select
-{
-	width: 80px;
-}
-.dataTables_length
-{
-	color: #AAA;
-	float: right;
-	position: absolute;
-	right: 18px;
-	top: -39px;
-	width: 150px;
-}
-tr.odd, .odd td
-{
-	background-color: #FFFFFF!important;
-}
-tr.even, .even td
-{
-	background-color: #FFFFFF!important;
-}
-.paging_full_numbers span.paginate_active
-{
-	color: #1A417A;
-}
-.paging_full_numbers span.paginate_button
-{
-	background-color: #FFF!important;
-}
-.paging_full_numbers span.paginate_button, .paging_full_numbers span.paginate_active
-{
-	background: #fff!important;
-	border: 0!important;
-	border-radius: 0!important;
-	cursor: pointer;
-	margin: 0 3px;
-	padding: 2px 5px;
-}
-#search-table_filter input, #search-table_length select
-{
-	border: 1px solid #CCC!important;
-	padding: 2px 2px 2px 16px;
-}
-.dataTables_filter input
-{
-	background: url("/alfresco/images/ico-search.png") no-repeat scroll 1px 2px #FFFFFF!important;
-	border: 1px solid #CCC;
-	padding-left: 16px;
-}
-.dataTables_length
-{
-	width: 169px!important;
-}
-.sorting_asc
-{
-	background-image: url("/alfresco/images/ico-a-z.png")!important;
-	background-position: right 5px !important;
-	background-repeat: no-repeat !important;
-}
-.sorting_desc
-{
-	background-image: url("/alfresco/images/ico-z-a.png")!important;
-	background-position: right 8px !important;
-	background-repeat: no-repeat !important;
-}
+} 
 .default
 {
 	color: #aaa!important;
@@ -1316,6 +1252,10 @@ span.jPag-snext-img
 	color: #606060;
 	font-weight: bold;
 }
+a.detail-view {
+	 display: inline-block;
+    height: 90px;
+}
 .search-filter
 {
 	float: right;
@@ -1365,6 +1305,11 @@ span.jPag-snext-img
 {
 	background: url('/share/res/components/documentlibrary/images/simple-view-on-16.png') no-repeat;
 }
+.btn-grid-view span
+{
+	background: url('/share/res/components/documentlibrary/images/navbar-show-16.png') no-repeat;
+}
+
 .btn-jq
 {
 	border: 1px solid transparent;
