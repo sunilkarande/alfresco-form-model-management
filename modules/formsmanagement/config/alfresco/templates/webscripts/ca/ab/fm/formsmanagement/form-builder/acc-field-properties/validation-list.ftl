@@ -1,8 +1,8 @@
 <h3><a href="#">Validation</a></h3>
 <div>
 	<div class="val-wrapper">
-		<#assign lbl = [ "Hidden", "Hidden in search", "Required", "Read-only", "Numbers only", "Alphanumeric", "Verification"]>
-		<#assign val = [ "hidden", "hiddenSearch", "required",  "readOnly", "numOnly",     "alphanumOnly", "verification"]>
+		<#assign lbl = [ "Hidden", "Hidden in search", "In search grid", "Required", "Read-only", "Numbers only", "Alphanumeric", "Verification"]>
+		<#assign val = [ "hidden", "hiddenSearch", "searchGrid", "required",  "readOnly", "numOnly",     "alphanumOnly", "verification"]>
 
 		<!-- CHECKBOXES -->
 		<#list lbl as label>

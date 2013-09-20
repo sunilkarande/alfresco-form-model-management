@@ -468,6 +468,10 @@ $(function () {
 	$('.prg_hiddenSearch').live('click', function() {
 		$(".ui-helper").find(".frm-fld").toggleClass('frm-hiddenSearch');
 	});
+	
+	$('.prg_searchGrid').live('click', function() {
+		$(".ui-helper").find(".frm-fld").toggleClass('frm-searchGrid');
+	});
 
 	$('.frmFormat').livequery('change', function() {
 		$('#formFormat').attr('class', $(this).val() );
@@ -644,6 +648,13 @@ $(function () {
 			$('.prg_hiddenSearch').attr("checked", "checked");
 		}else{
 			$('.prg_hiddenSearch').attr("checked", "");
+		}
+		
+		//Is it a searchGrid field?
+		if(fieldNode.hasClass('frm-searchGrid')){
+			$('.prg_searchGrid').attr("checked", "checked");
+		}else{
+			$('.prg_searchGrid').attr("checked", "");
 		}
 
 		//Is it a verification field?
