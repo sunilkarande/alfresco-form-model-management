@@ -5,8 +5,9 @@
 </div>
 
 <div class="toggle-detail">
-	<a class="btn-simple-view btn-jq" href="#"><span>&nbsp;</span></a>
-	<a class="btn-detail-view btn-jq btn-jq-active" href="#"><span>&nbsp;</span></a>
+	<a title="Metadata Grid View" class="btn-grid-view btn-jq" href="#" style="display:none"><span>&nbsp;</span></a>
+	<a title="Simple View" class="btn-simple-view btn-jq" href="#"><span>&nbsp;</span></a>
+	<a title="Detail View" class="btn-detail-view btn-jq btn-jq-active" href="#"><span>&nbsp;</span></a>
 </div>
 
 <div class="search-sort">
@@ -26,6 +27,15 @@
 	    <option value=".size|true">Size</option>
 	    <option value=".mimetype">Mimetype</option>
 	    <option value="TYPE">Type</option>
+	</select>
+</div>
+
+
+<div class="grid-option" style="display:none;">
+	<input type="submit" id="selectmenu" name="sortmenu_button" value="With selected...">
+	<select id="selectmenuselect" name="selectmenuselect">
+	    <option value="print">Print</option>
+	    <option value="downloadZip">Download as Zip</option>
 	</select>
 </div>
 <p class="clear"></p>

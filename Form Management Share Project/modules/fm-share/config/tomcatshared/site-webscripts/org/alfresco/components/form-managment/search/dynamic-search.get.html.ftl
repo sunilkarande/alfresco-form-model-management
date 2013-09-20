@@ -65,12 +65,27 @@
 	</div>
 </div>
 
-<div class="sym-search-info" style="">
-	 <#include 'actions.ftl' />
+<div class="sym-search-info">
+	<div class="actions-wrapper">
+	 	<#include 'actions.ftl' />
+	 </div>
 </div>
+
+<!-- Datatable search results -->
+<div class="uofa-styles sym-search-grid" style="display:none">
+	<table id="dropbox" class="dtSelect" style="width:100%">
+		<thead>
+			<tr></tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+<!-- Regular results -->
 <div class="sym-search-body">
 	 <div class="info">${msg("search.tip")}</div>
 </div>
+
 <div class="sym-footer"></div>
 <input type="hidden" class="sb-main-id" value="" />
 <input type="hidden" class="sb-main-type" value="" />
