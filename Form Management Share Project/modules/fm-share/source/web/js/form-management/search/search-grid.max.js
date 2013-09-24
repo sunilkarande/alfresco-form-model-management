@@ -1,7 +1,7 @@
 /**
  *  Enable document type search grid
  */
-const documentTypeGrid = "prop_ua_documenttype";
+var documentTypeGrid = "prop_ua_documenttype";
 var gridEnabled = true;
 var oSearchGrid = null; 
 
@@ -48,7 +48,7 @@ function setSearchTableHeaders(aspects){
 	if(gridEnabled && query.length > 0 && documentTypeGrid){ 
 		var q = eval("(" + query + ")");
 		
-		if(q[documentTypeGrid] != ""){ 
+		if(q[documentTypeGrid] != ""){
 			
 			$('.btn-grid-view').show();
 			obj = getGridEnabled(aspects);
@@ -118,6 +118,22 @@ function printSelected(){
 	$('.dtRowSelect:checked').each(function(){
 		$(this).parents("tr").clone().appendTo("#printme table tbody");
 	});
+	
+	var q = getQueryObject();
+	
+	if(q.node.properties){
+		var dr = q.node.properties["ua:datereceived-date-range"];
+		if(dr){
+			var dateR = dr.split("|");
+			var from = dateR[0].substring(0, 10);
+			var to = "";
+			
+			if(dateR[1]) to = " - " + dateR[1].substring(0, 10);
+			
+			$('#printme').prepend('<div style="font-family:helvetica; font-size:12px; margin-bottom:20px;">Date Received Searched: '+ from + to + '</div>');
+	
+		}
+	}
 	
 	//Remove first and last column
 	$('#printme table tbody tr').each(function(){ $(this).find("td:eq(0)").remove();$(this).find("td:last").remove(); });
