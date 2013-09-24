@@ -421,8 +421,9 @@ function search(){
 		dataType:"json",
 		data:qData,
 		success:function(r){
-
-			$('.search-sort span:eq(0)').html(r.items.length);
+			var a = "";
+			if(r.items.length >= 255) a ="+";
+			$('.search-sort span:eq(0)').html(r.items.length + a);
 
 			for(i in r.items)
 			{
