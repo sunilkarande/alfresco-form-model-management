@@ -45,25 +45,27 @@
 			</div>
 		</div>
 
-		<!--
-		<div class="recdocflip">
-		 <div class="ua-menu ua-disabled">
-			<span>Selected Items...</span>
-			<ul>
-				<li><a class="ac-mvrecords" href="#">Move > Records</a></li>
-			    <li><a class="ac-mvdropbox" href="#">Move > Dropbox</a></li>
-			</ul>
+		
+		<div class="recdocflip" style="padding-right:17px;">
+<!--		 
+			<div class="ua-menu ua-disabled">
+				<span>Selected Items...</span>
+				<ul>
+					<li><a class="ac-mvrecords" href="#">Move > Records</a></li>
+				    <li><a class="ac-mvdropbox" href="#">Move > Dropbox</a></li>
+				</ul>
+			</div>
+-->
+			<div title="Show records only" class="switch show-records"><span class="ico-record" ></span></div>
+			<div title="Show all" class="switch show-all switch-selected"><span  class="ico-all"></span></div>
+			<div title="Show documents only" class="switch show-document slast"><span  class="ico-document"></span></div>
+			<p class="clear"></p>
 		</div>
-
-		<div class="switch show-records"><span class="ico-record" ></span></div>
-		<div class="switch show-all switch-selected"><span  class="ico-all"></span></div>
-		<div class="switch show-document slast"><span  class="ico-document"></span></div>
-		<p class="clear"></p>
-		 -->
-		</div>
-		<p class="clear"></p>
+		 
 	</div>
+	<p class="clear"></p>
 </div>
+
 
 <div class="sym-search-info">
 	<div class="actions-wrapper">
