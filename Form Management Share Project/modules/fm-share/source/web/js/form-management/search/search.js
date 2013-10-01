@@ -79,25 +79,25 @@ function rowTemplate(doc)
 {
 	var fileExt = doc.name.substr( (doc.name.lastIndexOf('.') +1) ) + '-file';
 		fileExt = fileExt.toLowerCase();
-		
+
 	if( doc.type == "folder") fileExt = "generic-folder";
-	
+
 	var rTemp = "";
 		doc.loccontext = "repo";
-	
+
 	var siteURL = "";
 	if(doc.site){
 		siteURL =  "/share/page/site/"  + doc.site.shortName + "/";
 		doc.loccontext = "site";
 	}
-	
+
 	rTemp += '<div class="'+doc.loccontext+' ua-res-doc">';
 	rTemp += '<table style="width:100%" class="detail-list">';
 	rTemp += '	<tr>';
 	rTemp += '		<td style="  padding-left: 10px;  vertical-align: baseline; width: 35px;">';
 	rTemp += '			<span class="ico-'+doc.loccontext+'">&nbsp;</span> ';
-	
-	if(doc.hasAssociations) { rTemp += '<img style="left: 19px; position: relative; top: -13px;" src="/share/res/components/documentlibrary/indicators/paper-clip-16.png" alt="Document has associations" title="Has associations" />'; } 
+
+	if(doc.hasAssociations) { rTemp += '<img style="left: 19px; position: relative; top: -13px;" src="/share/res/components/documentlibrary/indicators/paper-clip-16.png" alt="Document has associations" title="Has associations" />'; }
 
 	rTemp += '		</td>';
 	rTemp += '		<td class="doc-search-details">';
@@ -128,8 +128,8 @@ function rowTemplate(doc)
 	if(doc.type == "document"){
 		if (doc.hasWriteAccess) rTemp += '<li><a href="'+doc.id+'" class="ico-move-dropbox">Move to Dropbox</a></li>';
 	}
-	 
-	
+
+
 	rTemp += '					<li><a target="_blank" href="/share/proxy/alfresco/api/node/content/workspace/SpacesStore//'+doc.id+'/'+doc.name+'?a=true" class="ico-download">Download</a></li>';
 	rTemp += '				</ul>';
 	rTemp += '			</div>';
@@ -155,8 +155,8 @@ function injectAlfrescoDefaults()
 
 	var nodeObj = getQueryObject();
 	var term = decodeURIComponent( getURLParameter("t") );
-	if(advsearchAspects.length > 0) $('.fm-profile').form("loadPropertiesToFields", nodeObj); 
-	if(term != "") $('.search-field, input[name = "t"]').removeClass('default').val(term);  
+	if(advsearchAspects.length > 0) $('.fm-profile').form("loadPropertiesToFields", nodeObj);
+	if(term != "") $('.search-field, input[name = "t"]').removeClass('default').val(term);
 }
 
 function getQueryPath()
@@ -257,7 +257,7 @@ function collectQuery(){
 					queryObj[nodeProperty + "-date-range"] =  ISODateString(frDate)+ "|" + ISODateString(toDate);
 
 				} else{
-					queryObj[nodeProperty] = ISODateString(frDate);
+					queryObj[nodeProperty] = node.val();
 				}
 			}
 
@@ -334,7 +334,7 @@ function toggleSearchView(view)
 	$('.sym-search-body, .search-sort').show();
 	$('.btn-jq-active').removeClass("btn-jq-active");
 	$('.btn-'+view+'-view').addClass("btn-jq-active");
-	
+
 	switch(view)
 	{
 	case "simple":
@@ -349,16 +349,16 @@ function toggleSearchView(view)
 		$('.sym-search-grid, .grid-option').show();
 		$('.sym-search-body, .search-sort').hide();
 		$('.btn-grid-view').addClass("btn-jq-active");
-		
+
 		loadDatatable();
 		break;
 	}
 }
 
 function setupFilterField()
-{ 
+{
 	var list = ".doc-search-details";
- 
+
 	$('.filter-field')
 	.change( function () {
         var filter = $(this).val();
@@ -388,7 +388,7 @@ function getURLParameter(name) {
 }
 
 function getQueryForSearch(){
-	
+
 	var qData = {};
 	if(getURLParameter("a") == "true" ){
 		//Search all sites
@@ -401,13 +401,13 @@ function getQueryForSearch(){
 	qData.sort=getURLParameter("s");
 	qData.query=getURLParameter("q");
 	qData.repo=getURLParameter("r");
-	
+
 	return qData;
-	
+
 }
 
 function search(){
-	
+
 	$('.sym-search-body .info').hide();
 	$('.infoMessage span').html("Searching, please wait...");
 	$('.infoMessage').removeClass("good").center();
@@ -483,10 +483,10 @@ function setupYUISortMenu( curSort ){
 
 
 $(function(){
-	if(getURLParameter("t") != "" || getURLParameter("q") != "") search(); 
-	
+	if(getURLParameter("t") != "" || getURLParameter("q") != "") search();
+
 	setupYUISortMenu( getURLParameter("s") );
-	
+
 	$('a.simple-view').live("mouseover", function(){
 		$(this).parent().find('.detail-view').addClass('preview-jump-out');
 	})
@@ -503,7 +503,7 @@ $(function(){
 	$('.btn-grid-view').click(function(){
 		 toggleSearchView("grid");
 	});
-	
+
 	$('.search-type .ibg a').click(function(){
 		$('.search-type ul').toggle();
 	});
@@ -636,7 +636,7 @@ $(function(){
 		autoOpen: false,
 		width:585,
 		resizable: false,
-		modal:true,
+		modal:false,
 		draggable:false,
 		position: ['center', 15],
 		buttons: {
