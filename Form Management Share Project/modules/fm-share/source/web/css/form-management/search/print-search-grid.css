@@ -1,1 +1,3 @@
 table td, table th { border:0; padding:10px; }
+table { border-left:1px solid #ccc; }
+table td, table th { border-right:1px solid #ccc; padding:10px; }

@@ -272,7 +272,7 @@ function collectQuery(){
 		}
 	});
 
-	queryObj["datatype"] = "cm:content";
+	//queryObj["datatype"] = "cm:content";
 	var jsonString = JSON.stringify(queryObj);
 	var urlEncodedQ = keywords + "q=" + (jsonString);
 
