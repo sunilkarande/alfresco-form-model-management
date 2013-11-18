@@ -5,9 +5,9 @@
 </div>
 
 <div class="toggle-detail">
-	<a title="Metadata Grid View" class="btn-grid-view btn-jq" href="#" style="display:none"><span>&nbsp;</span></a>
-	<a title="Simple View" class="btn-simple-view btn-jq" href="#"><span>&nbsp;</span></a>
-	<a title="Detail View" class="btn-detail-view btn-jq btn-jq-active" href="#"><span>&nbsp;</span></a>
+	<a class="btn-grid-view btn-jq" href="#" style="display:none"><span>&nbsp;</span></a>
+	<a class="btn-simple-view btn-jq" href="#"><span>&nbsp;</span></a>
+	<a class="btn-detail-view btn-jq btn-jq-active" href="#"><span>&nbsp;</span></a>
 </div>
 
 <div class="search-sort">
@@ -36,6 +36,7 @@
 	<select id="selectmenuselect" name="selectmenuselect">
 	    <option value="print">Print</option>
 	    <option value="downloadZip">Download as Zip</option>
+		<option value="downloadCSV">Download as CSV</option>
 	</select>
 </div>
 <p class="clear"></p>

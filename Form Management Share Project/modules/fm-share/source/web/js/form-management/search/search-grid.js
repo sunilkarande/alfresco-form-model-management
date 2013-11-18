@@ -184,28 +184,70 @@ function setupSelectMenu(){
 	    if (oMenuItem) {
 	    	switch(oMenuItem.value)
 	    	{
-	    	case "print":
-	    		printSelected();
-	    		break;
+				case "print":
+					printSelected();
+					break;
 
-	    	case "downloadZip":
-	    		var nodes = [];
+				case "downloadZip":
+					var nodes = [];
 
-	    		$('.dtRowSelect:checked').each(function(){
+					$('.dtRowSelect:checked').each(function(){
 
-	    			var id = $(this).parents("tr:eq(0)").find("td:eq(1) > a").attr("href").split("/").reverse()[0];
-	    			nodes.push(id);
-	    		});
+						var id = $(this).parents("tr:eq(0)").find("td:eq(1) > a").attr("href").split("/").reverse()[0];
+						nodes.push(id);
+					});
 
-	    		var url = "/share/proxy/alfresco/slingshot/zipContents?nodes="+nodes.join(",")+"&filename=TranscriptsDownload&noaccent=false";
-	    		window.location.assign(url);
-	    		break;
+					var url = "/share/proxy/alfresco/slingshot/zipContents?nodes="+nodes.join(",")+"&filename=TranscriptsDownload&noaccent=false";
+					window.location.assign(url);
+					break;
+
+				case "downloadCSV":
+					exportTableToCSV($('.dtRowSelect:checked, .dt-check-column'), 'export.csv');
+					break;
 	    	}
 	    }
 	};
 
 	//  Add a "click" event listener for the Button's Menu
 	oSelectMenuButton.getMenu().subscribe("click", onSelectMenuClick);
+}
+
+function exportTableToCSV($rows, filename) {
+	// Temporary delimiter characters unlikely to be typed by keyboard
+	// This is to avoid accidentally splitting the actual contents
+	tmpColDelim = String.fromCharCode(11); // vertical tab character
+	tmpRowDelim = String.fromCharCode(0); // null character
+
+	// actual delimiter characters for CSV format
+	colDelim = '","';
+	rowDelim = '"\r\n"';
+
+	// Grab text from table into CSV formatted string
+	csv = '"' + $rows.map(function (i, row) {
+		var $row = $(row).parents("tr:eq(0)");
+		var $cols = $row.find('td,th');
+
+		return $cols.map(function (j, col) {
+			var $col = $(col),
+				text = $col.text();
+
+			// exclude the checkbox column and the Actions/Download column
+			if (j == 0 || text == "Download" || text == "Actions") {
+				return null;
+			} else {
+				return text.replace('"', '""'); // escape double quotes
+			}
+
+		}).get().join(tmpColDelim);
+
+	}).get().join(tmpRowDelim)
+		.split(tmpRowDelim).join(rowDelim)
+		.split(tmpColDelim).join(colDelim) + '"';
+
+	// Data URI
+	//csvData = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+	var blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+	saveAs(blob, "export.csv");
 }
 
 $(function(){
