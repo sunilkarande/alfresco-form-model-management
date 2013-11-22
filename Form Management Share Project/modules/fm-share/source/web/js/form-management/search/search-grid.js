@@ -98,8 +98,8 @@ function loadDatatable(){
 			        return '<input type="checkbox" class="dtRowSelect" />';
 			    }
 			}],
-			"aLengthMenu": [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
-			"iDisplayLength" : 200
+			"aLengthMenu": [[10, 25, 50, 100, 200, 255], [10, 25, 50, 100, 200, 255]],
+			"iDisplayLength" : 255
 
 	    });
 	}
