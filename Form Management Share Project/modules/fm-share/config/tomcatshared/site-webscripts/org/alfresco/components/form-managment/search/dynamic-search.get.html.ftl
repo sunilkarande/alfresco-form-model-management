@@ -15,6 +15,12 @@
 	</#if>
 </script>
 
+<!--[if lt IE 7 ]> <div id="iecheck" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <div id="iecheck" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <div id="iecheck" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <div id="iecheck" class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <div id="iecheck" class=""> <!--<![endif]-->
+
 <div style="display: none;" class="infoMessage saving"><span>${msg("search.saving")}</span></div>
 
 <div class="sym-header">
