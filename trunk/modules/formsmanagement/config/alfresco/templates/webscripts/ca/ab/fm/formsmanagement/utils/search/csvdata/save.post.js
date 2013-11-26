@@ -1,7 +1,11 @@
-var query= "PATH:\"/app:company_home/st:sites/cm:student-transcripts/cm:documentLibrary\"";  
-var result = search.luceneSearch(query); 
-destNode = result[0];
-var doc = destNode.createFile("adv_search_results" + destNode.children.length + ".csv");
+/**
+ *  Create user CSV for search results
+ */
+var filename = "Advanced Search Results Report.csv";
+var doc = userhome.childByNamePath(filename);
+
+if(!doc) doc = userhome.createFile(filename);
+
 doc.content = decodeURIComponent(requestbody.content);
 doc.save();
 model.downloadUrl = doc.getDownloadUrl();
