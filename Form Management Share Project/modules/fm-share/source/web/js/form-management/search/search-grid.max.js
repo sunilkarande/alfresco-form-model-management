@@ -249,12 +249,52 @@ function exportTableToCSV($rows, filename) {
 		.split(tmpRowDelim).join(rowDelim)
 		.split(tmpColDelim).join(colDelim) + '"';
 
-	// Data URI
-	//csvData = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-	var blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
-	saveAs(blob, "export.csv");
+	
+	"use strict";
+
+    // Detecting IE
+    var oldIE;
+	
+    if ($('#iecheck').is('.ie6, .ie7, .ie8, .ie9')) {
+        oldIE = true;
+    }
+
+    if (oldIE) {	
+		// Data URI
+		csvData = encodeURIComponent(csv);
+		
+        $.ajax( {
+			"dataType": 'json',
+			"url": "/share/service/components/form-management/ajax/csvdata/save",
+			"type": "POST",
+			"data": {"mypost" : csvData},
+			"success": function(data, textStatus, jqXHR ) {								
+				window.open(
+				  '/share/proxy/alfresco/api/node/content/workspace/SpacesStore/' + data.nodeRef.split('/').reverse()[0] + '?a=true',				  
+				  'Download_CSV'
+				);
+			}, 
+			"error" : function(jqXHR, textStatus, errorThrown) {
+				console.log('error getting CSV');
+			}
+		});
+    } else {        
+		var blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
+		saveAs(blob, "export.csv");
+	}
 }
 
 $(function(){
+	// Patch for new CSRFPolicy in enterprise 4.1.4 (http://blogs.alfresco.com/wp/ewinlof/2013/03/11/introducing-the-new-csrf-filter-in-alfresco-share/)
+	var csrf_token = Alfresco.util.CSRFPolicy.getToken();
+
+	if (csrf_token) {
+		$("body").bind("ajaxSend", function(elm, xhr, s){
+			if (s.type == "POST") {
+				xhr.setRequestHeader('Alfresco-CSRFToken', csrf_token);
+			}
+		});
+	}
+
 	setupSelectMenu();
 });
