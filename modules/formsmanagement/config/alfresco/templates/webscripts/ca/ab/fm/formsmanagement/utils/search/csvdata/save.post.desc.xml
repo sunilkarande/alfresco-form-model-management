@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Form Management search csvdata Save</shortname>
+	<description></description>
+	<url>/form-management/search/csvdata/save</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>

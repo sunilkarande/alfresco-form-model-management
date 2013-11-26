@@ -1,0 +1,4 @@
+{	
+	'nodeRef' : "${nodeRef!}",
+	'name' : "${name!}"	
+}
