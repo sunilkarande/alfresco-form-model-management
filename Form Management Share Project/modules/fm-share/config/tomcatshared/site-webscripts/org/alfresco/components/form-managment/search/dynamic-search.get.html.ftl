@@ -15,12 +15,6 @@
 	</#if>
 </script>
 
-<!--[if lt IE 7 ]> <div id="iecheck" class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <div id="iecheck" class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <div id="iecheck" class="ie8"> <![endif]-->
-<!--[if IE 9 ]>    <div id="iecheck" class="ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <div id="iecheck" class=""> <!--<![endif]-->
-
 <div style="display: none;" class="infoMessage saving"><span>${msg("search.saving")}</span></div>
 
 <div class="sym-header">
@@ -51,9 +45,9 @@
 			</div>
 		</div>
 
-		
+
 		<div class="recdocflip" style="padding-right:17px;">
-<!--		 
+<!--
 			<div class="ua-menu ua-disabled">
 				<span>Selected Items...</span>
 				<ul>
@@ -67,7 +61,7 @@
 			<div title="Show documents only" class="switch show-document slast"><span  class="ico-document"></span></div>
 			<p class="clear"></p>
 		</div>
-		 
+
 	</div>
 	<p class="clear"></p>
 </div>

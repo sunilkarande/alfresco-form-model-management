@@ -11,7 +11,9 @@
 <script type="text/javascript" src="/share/js/form-management/search/print.js"></script>
 <script type="text/javascript" src="/share/js/form-management/search/search.js"></script>
 <script type="text/javascript" src="/share/js/form-management/search/search-grid.js"></script>
-<script type="text/javascript" src="/share/js/form-management/search/file-saver.js"></script>
+<!--[if (gt IE 9)|!(IE)]><!-->
+	<script type="text/javascript" src="/share/js/form-management/search/file-saver.js"></script>
+<!--<![endif]-->
 
 <script type="text/javascript">
 	var alf_ticket = "";

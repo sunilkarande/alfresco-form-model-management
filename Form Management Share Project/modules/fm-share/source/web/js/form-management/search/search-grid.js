@@ -217,6 +217,20 @@ function setupSelectMenu(){
 	oSelectMenuButton.getMenu().subscribe("click", onSelectMenuClick);
 }
 
+/**
+* Find out if your browser is a specific IE version
+*/
+IELessThan = function(version){
+	var browserNotSupported = (function () {
+		var div = document.createElement('DIV');
+			// http://msdn.microsoft.com/en-us/library/ms537512(v=vs.85).aspx
+			div.innerHTML = '<!--[if lte IE '+version+']><I></I><![endif]-->';
+
+		return div.getElementsByTagName('I').length > 0;
+	}());
+	return browserNotSupported;
+}
+
 function exportTableToCSV($rows, filename) {
 	// Temporary delimiter characters unlikely to be typed by keyboard
 	// This is to avoid accidentally splitting the actual contents
@@ -249,36 +263,30 @@ function exportTableToCSV($rows, filename) {
 		.split(tmpRowDelim).join(rowDelim)
 		.split(tmpColDelim).join(colDelim) + '"';
 
-	
-	"use strict";
-
     // Detecting IE
     var oldIE;
-	
-    if ($('#iecheck').is('.ie6, .ie7, .ie8, .ie9')) {
+
+    if (IELessThan(10)) {
         oldIE = true;
     }
 
-    if (oldIE) {	
+    if (oldIE) {
 		// Data URI
 		csvData = encodeURIComponent(csv);
-		
+
         $.ajax( {
 			"dataType": 'json',
 			"url": "/share/service/components/form-management/ajax/csvdata/save",
 			"type": "POST",
 			"data": {"mypost" : csvData},
-			"success": function(data, textStatus, jqXHR ) {								
-				window.open(
-				  '/share/proxy/alfresco/api/node/content/workspace/SpacesStore/' + data.nodeRef.split('/').reverse()[0] + '?a=true',				  
-				  'Download_CSV'
-				);
-			}, 
+			"success": function(data, textStatus, jqXHR ) {
+				window.location.href = '/share/proxy/alfresco/api/node/content/workspace/SpacesStore/' + data.nodeRef.split('/').reverse()[0] + '?a=true';
+			},
 			"error" : function(jqXHR, textStatus, errorThrown) {
-				console.log('error getting CSV');
+				alert('error getting CSV' + jqXHR + " " + textStatus + " " + errorThrown);
 			}
 		});
-    } else {        
+    } else {
 		var blob = new Blob([csv], {type: "text/csv;charset=utf-8"});
 		saveAs(blob, "export.csv");
 	}
