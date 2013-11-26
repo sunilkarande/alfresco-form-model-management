@@ -34,9 +34,9 @@
 <div class="grid-option" style="display:none;">
 	<input type="submit" id="selectmenu" name="sortmenu_button" value="With selected...">
 	<select id="selectmenuselect" name="selectmenuselect">
-	    <option value="print">Print</option>
-	    <option value="downloadZip">Download as Zip</option>
-		<option value="downloadCSV">Download as CSV</option>
+	    <option value="print">Print list</option>
+		<option value="downloadCSV">Download list as CSV</option>
+	    <option value="downloadZip">Download document(s) as Zip</option>
 	</select>
 </div>
 <p class="clear"></p>
