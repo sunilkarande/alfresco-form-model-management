@@ -1,3 +1,9 @@
+if(!FM){
+	var FM = {};
+		FM.prefix = "ua";
+		FM.documentType = FM.prefix + "_documenttype";
+}
+
 function updateURL(url, param, paramVal){
 
     var newAdditionalURL = "";
@@ -262,7 +268,7 @@ function collectQuery(){
 
 		} else if( hasVal && node.val() != "false"){
 
-			if(node.attr("name") == "ua_documenttype"){
+			if(node.attr("name") == FM.documentType){
 				if($('.docInSearch').attr("checked")){
 					queryObj[nodeProperty] = encodeURIComponent( node.val());
 				}
