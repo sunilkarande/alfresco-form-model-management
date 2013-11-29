@@ -1,11 +1,6 @@
 /**
  *  Enable document type search grid
  */
-if(!FM){
-	var FM = {};
-		FM.prefix = "ua";
-		FM.documentType = FM.prefix + "_documenttype";
-}
 var documentTypeGrid = "prop_"+FM.documentType;
 var gridEnabled = true;
 var oSearchGrid = null;

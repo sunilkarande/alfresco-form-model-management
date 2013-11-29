@@ -1,9 +1,3 @@
-if(!FM){
-	var FM = {};
-		FM.prefix = "ua";
-		FM.documentType = FM.prefix + "_documenttype";
-}
-
 function updateURL(url, param, paramVal){
 
     var newAdditionalURL = "";
