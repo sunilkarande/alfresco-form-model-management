@@ -9,6 +9,12 @@
 	selectToUISlider (Used for custom Dropdown menu to jQuery slider)
 
 */
+if(!FM){
+	var FM = {};
+		FM.prefix = "ua";
+		FM.documentType = FM.prefix + "_documenttype";
+}
+
 (function ($) {
     var globalKey = ""; var cacheProfileAspect= {};
 	var isConnect = false; var isDebug = false;
@@ -107,7 +113,7 @@
 						//Must have a node
 						if(nodeRef != ""){
 							var json = methods.callNodeProperties(nodeRef, $this);
-							if(json.node.properties['ua:sitecontext'] && json.node.properties['ua:sitecontext'].length > 1) settings.siteid = json.node.properties['ua:sitecontext'] + "-site";
+							if(json.node.properties[FM.prefix + ':sitecontext'] && json.node.properties[FM.prefix + ':sitecontext'].length > 1) settings.siteid = json.node.properties[FM.prefix + ':sitecontext'] + "-site";
 
 							//Massage data
 							for(i in json.node.aspects){
@@ -150,7 +156,7 @@
 			});
         },
         dynamicProfileCreate: function ($this, val, profile) {
-				
+
 				if(val != ""){
                 	if (isDebug) console.log("Creating Profile for key: " + val + " & Profile:" + profile);
                 	isConnect = true;
@@ -162,14 +168,14 @@
         buildProfile: function ($this, key, profile) {
 
 			if (isDebug) { console.log("Check CONNECT: " + isConnect) }
-			var settings = $this.parents("#my-frm:eq(0)").parent().data('settings'); 
-			  
+			var settings = $this.parents("#my-frm:eq(0)").parent().data('settings');
+
             var connect = false;
             var profileHeader = "";
             if (settings.connect != "" || isConnect) connect = true;
 
             if(settings.ownDropSource) connect = false;
-				 
+
             //Populate Profile
             var formString = "";
             if (!connect) formString += '<form name="" class="fm-profile-root" id="my-frm" method="POST">';
@@ -185,7 +191,7 @@
                     	profile[x].profile.title = settings.customProperites.title;
                     	profile[x].profile.description = settings.customProperites.description;
                     }
-					
+
                     if (!connect) profileHeader = '		<h1 style="margin:0;" class="frm_formName">' + profile[x].profile.title + '</h1> <span class="frm_desc">' + profile[x].profile.description + '</span>';
                     $('.profileStyle').prepend(profileHeader);
                     //GO GET THE FORM DATA FOR EACH ASPECT
@@ -207,14 +213,14 @@
 						if (connect) $this.find(".fm-connect-container:eq(0)").html(formS);
 						methods.onInnerComplete();
 
-					}else{ 
+					}else{
 						$.ajax({
 						  url: url,
 						  dataType: 'json',
 						  data: { profile: JSON.stringify(profile[x].profile) },
 						  async: false,
 						  success:  function (r) {
-							  	
+
 							  	if(settings.onProfileToProperty) settings.onProfileToProperty(r);
 								cacheProfileAspect["" + globalKey] = r;
 								var formS = "";
@@ -229,7 +235,7 @@
 							}
 						});
 					}
-					
+
                 }
             }
         },
@@ -486,7 +492,7 @@
 				setTinyMce();
 			}
 			if( $('.fm-main-window').length > 0){
-				
+
 			}else{
 				$( ".val_slider" ).each(function() {
 					if($(this).find('option').size() > 0){
@@ -495,7 +501,7 @@
 				});
 				methods.storelocaldata();
 			}
-			
+
 			$('.tagsinput').remove();
 			$('input[type=text].alf-multiple').tagsInput({width:'auto'});
         },
@@ -513,7 +519,7 @@
 			return tmp;
 		},
 		hiddenTemplate: function (prop){
-	
+
 			var tmp= '<input type="hidden" id="' + prop.id + '" title="' + prop.type + '" name="' + prop.validPrefix + "_" + prop.name + '" class="frm-fld ' + prop.validPrefix + "_" + prop.name + '"  value="0" />';
 			return tmp;
 		},
@@ -586,12 +592,12 @@
 			if( prop.readonly ){
 				readonly = 'readonly="' + prop.readonly + '"';
 			}
-			 
+
             propString = regEx + ' ' + min + ' ' + max + 'id="' + prop.id + '" title="' + prop.type + '" ' + type + ' class="frm-fld ' + prop.className + '" name="' + prop.validPrefix + "_" + prop.name + '" ' + readonly;
             return propString;
         },
         loadPropertiesToFields: function(nodeObj, $passedForm){
-		
+
         	var settings = $(this).data('settings');
 			var $this = $(this);
 
@@ -616,15 +622,15 @@
 						nodeVal = nodeObj.node.properties[qName];
                     }else if( nodeObj.node.properties[qName] ) {
                         nodeVal = nodeObj.node.properties[qName];
-                    } 
+                    }
                     if( nodeVal == null ) nodeVal == "";
-                    
+
                     if( $(this).hasClass('alf-multiple') ){
-				    	if( nodeVal instanceof Array ){ 
+				    	if( nodeVal instanceof Array ){
 	                    	$(this).val( nodeVal.join(',') );
 	                    	$('.tagsinput').remove();
-	                    	if(settings.readonly){ 
-	                    		$(this).removeClass('alf-multiple'); 
+	                    	if(settings.readonly){
+	                    		$(this).removeClass('alf-multiple');
 	                    		$(this).show();
 	                    	}
 	                    	$('input[type=text].alf-multiple').tagsInput({width:'auto' });
@@ -637,15 +643,15 @@
 							$(this).val(nodeVal);
 						}
 					}else{
-						
+
 					    var hasDateType = false;
 
 					    if( $(this).data("type") ){
 					    	if( $(this).data("type").indexOf("date") != -1 ) hasDateType = true;
 					    }
-					    
+
 						if( hasDateType || $(this).hasClass("date") ){
-							 
+
 							if(settings.isSearch)
 							{
 								if(nodeVal.indexOf("-TO-") > 0){
@@ -753,12 +759,12 @@
 	                 nodeObj = methods.callNodeProperties(uid, $this);
 	                 methods.loadPropertiesToFields(nodeObj, $this);
 	            }
-				
+
 				if(settings.readonly){
 					if(nodeObj.associations.length > 0){
-						
+
 						if( $('.fm-associations').length == 0) $(this).append('<div class="fm-associations"><h2>Associations</h2></div>');
-						
+
 						for(a in nodeObj.associations){
 							$('.fm-associations').append( methods.fileAssosicatedTemplate ( nodeObj.associations[a] ) );
 						}
@@ -767,21 +773,21 @@
             }
 			if(callback) callback( $this );
         },
-        
+
         fileAssosicatedTemplate : function (node){
-        	
+
         	var icoImg = '/share/res/components/images/filetypes/'+node.fileType+'-file-32.png';
         	if(node.icon.indexOf('default') > 0) icoImg = '/alfresco' + node.icon;
-        	
+
         	var tmp = '<div class="assoc-item"><div class="doc-search-icon" id="'+node.nodeRef+'"><a href="#"><img src="'+icoImg + '">		</a>	</div><div><h3> ';
         		tmp += '<a href="document-details?nodeRef='+node.nodeRef+'"class="theme-color-1 ua-res-doc-title">'+node.name+'</a>';
         		tmp += '</h3>';
         	    if(node.siteid) tmp += '<span>Site: <a href="/share/page/site/'+node.siteid+'/dashboard">'+ node.siteid+'</a>, ';
         	    tmp += 'size: '+node.size +'</span></div></div></div><p class="clear"></p></div>';
-        	
+
         	    return tmp;
         },
-        
+
 		storelocaldata: function(){
 			$('.frm-fld').each(function(){
 				if( $(this).attr("title") != ""){
@@ -796,13 +802,13 @@
 			fld.qname = node.attr("name")  + "";
 			fld.type = node.data("type");
 			fld.value = (value);
-			  
+
 			if(value == "") fld.value = null;
 			if(node.hasClass('alf-multiple'))  fld.value = value.split(',');
-			
+
 			return fld;
 		},
-		 
+
         save: function (postSettings, callback) {
 			$this = $(this);
 			var settings = $(this).data('settings');
@@ -815,36 +821,36 @@
 			var json = [];
             $this.find('.frm-fld').each(function () {
 				var fld = {};
-				
+
 				if( ! $(this).hasClass("readonly")) {
-					 
+
 					if ($(this).hasClass("mceEditor") ) {
-	
+
 						var mceId = $(this).attr("id");
 							htmlval= tinyMCE.get(mceId).getContent();
 						$(this).val(htmlval );
 					}
-	
+
 					if ($(this).attr("type") == "radio") {
 						if ($(this).is(':checked')) {
 							fld = methods.getFldData($(this), $(this).val() );
 						}
 					} else if($(this).attr("type") == "checkbox" ){
-	
+
 						if( !$(this).hasClass("fm-dealt-with-store")){
-	
+
 							if( $(this).val() != "true" && $(this).val() != "false" ){
 								var t = new Array();
-	
+
 								$this.find("input[name='"+ $(this).attr("name") +"']").each(function(){
 									$(this).addClass("fm-dealt-with-store");
-	
+
 									if ($(this).is(':checked')) {
 										t.push( $(this).val() );
 									}
 								});
 							}else{
-	
+
 								var t = false;
 								if ($(this).is(':checked')) {
 									var t = true;
@@ -852,11 +858,11 @@
 							}
 							fld = methods.getFldData($(this), t );
 						}
-					}else{ 
-						var t = $(this).val(); 
-						if(t != null) fld = methods.getFldData($(this), t ); 
+					}else{
+						var t = $(this).val();
+						if(t != null) fld = methods.getFldData($(this), t );
 					}
-					if(fld.qname) json.push(fld);  
+					if(fld.qname) json.push(fld);
 				}
             });
 
@@ -881,7 +887,7 @@
 					if (settings.onSaveComplete) settings.onSaveComplete(e);
 					if (callback) callback(e);
                 }
-            }); 
+            });
         },
 
         destroy: function () {
