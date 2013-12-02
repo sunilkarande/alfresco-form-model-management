@@ -3,5 +3,13 @@
 
 <beans>
 	<!-- import require context files -->
-	<import resource="classpath:alfresco/module/ca.ab.fm.formsmanagement/context/script-context.xml" /> 
+	<import resource="classpath:alfresco/module/ca.ab.fm.formsmanagement/context/script-context.xml" />
+
+	<bean id="fm.extension.dictionaryBootstrap" parent="dictionaryModelBootstrap"  depends-on="dictionaryBootstrap">
+	  <property name="models">
+		<list>
+		   <value>alfresco/module/ca.ab.fm.formsmanagement/model/peerAssociationModel.xml</value>
+		</list>
+	  </property>
+	</bean>
 </beans>
