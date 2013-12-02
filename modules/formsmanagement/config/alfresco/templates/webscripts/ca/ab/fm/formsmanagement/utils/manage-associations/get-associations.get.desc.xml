@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>FM get associations</shortname>
+	<description>Get associations for a document using asc:assocs</description>
+	<url>/node/get-associations</url>
+	<family>Abstractive</family>
+	<format default="json">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
