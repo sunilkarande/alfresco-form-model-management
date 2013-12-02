@@ -1,0 +1,6 @@
+<webscript>
+	<shortname>Manage Node Peer Associations</shortname>
+	<description></description>
+	<url>/components/node/manage-associations</url>
+	<family>Abstractive</family>
+</webscript>

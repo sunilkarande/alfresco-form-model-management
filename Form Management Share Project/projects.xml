@@ -43,12 +43,12 @@
 
 			<echo message=' aa ${dir.module.fm-share.webscripts.target}' />
 			<echo message="${dir.module.fm-share.webscripts}" />
-			<copy todir="C:\Alfresco4\tomcat\shared\classes\alfresco\web-extension">
-				<fileset dir="C:\Workspaces\4\Form Management Share Project\modules\fm-share\config\tomcatshared">
+			<copy todir="/Volumes/Alfresco/tomcat/shared/classes/alfresco/web-extension">
+				<fileset dir="/Users/mikepriest/Documents/UofA/FM Share/modules/fm-share/config/tomcatshared">
 				</fileset>
 			</copy>
-			<copy todir="C:\Alfresco4\tomcat\webapps\share">
-				<fileset dir="C:\Workspaces\4\Form Management Share Project\modules\fm-share\source\web">
+			<copy todir="/Volumes/Alfresco/tomcat/webapps/share">
+				<fileset dir="/Users/mikepriest/Documents/UofA/FM Share/modules/fm-share/source/web">
 				</fileset>
 			</copy>
 		</target>

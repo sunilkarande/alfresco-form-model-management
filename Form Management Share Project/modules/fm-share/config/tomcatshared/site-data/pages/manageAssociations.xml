@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<page>
+   <title>Manage Associations</title>
+   <description>Manage peer associations aspect for a document</description>
+   <template-instance>manageAssociations</template-instance>
+   <authentication>user</authentication>
+</page>

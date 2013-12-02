@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component> 
+  <scope>page</scope>  
+  <region-id>center</region-id>  
+  <source-id>manage-associations</source-id>  
+  <url>/components/node/manage-associations</url>  
+  <guid>page.center.manageAssociations</guid>
+</component>
