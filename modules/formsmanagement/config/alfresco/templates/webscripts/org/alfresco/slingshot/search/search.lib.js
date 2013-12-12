@@ -25,6 +25,7 @@
  *  items - Array of objects containing the search results
  */
 
+const DEFAULT_PAGE_SIZE = 200;
 const DEFAULT_MAX_RESULTS = 250;
 const SITES_SPACE_QNAME_PATH = "/app:company_home/st:sites/";
 const DISCUSSION_QNAMEPATH = "/fm:discussion";
