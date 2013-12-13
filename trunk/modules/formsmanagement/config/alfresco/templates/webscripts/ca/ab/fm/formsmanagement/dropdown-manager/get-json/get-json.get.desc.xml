@@ -1,0 +1,9 @@
+<webscript>
+	<shortname>Get Dropdown</shortname>
+	<description></description>
+	<url>/form-builder/get-dropdown</url>
+	<family>Form Management</family>
+	<format default="html">any</format>
+	<authentication>user</authentication>
+	<transaction>required</transaction>
+</webscript>
