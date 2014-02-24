@@ -396,7 +396,7 @@ function getQueryForSearch(){
 	}
 	qData.term=decodeURIComponent( getURLParameter("t") );
 	qData.tag=getURLParameter("tag");
-	qData.maxResults=255;
+	qData.maxResults=500;
 	qData.sort=getURLParameter("s");
 	qData.query=getURLParameter("q");
 	qData.repo=getURLParameter("r");
@@ -421,7 +421,7 @@ function search(){
 		data:qData,
 		success:function(r){
 			var a = "";
-			if(r.items.length >= 255) a ="+";
+			if(r.items.length >= 500) a ="+";
 			$('.search-sort span:eq(0)').html(r.items.length + a);
 
 			for(i in r.items)
