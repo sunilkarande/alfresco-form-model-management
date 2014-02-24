@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<template-instance>
+	<template-type>ca/abstractive/manageAssociations</template-type>
+	<properties>
+		<pageFamily>Abstractive</pageFamily>
+		<container>manageAssociations</container>
+	</properties>
+</template-instance>
