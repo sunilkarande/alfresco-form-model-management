@@ -10,6 +10,7 @@
 </#list>
 </#if>
 
+<@script type="text/javascript" src="${page.url.context}/res/components/form/percentage-approve.js"></@script>
 <@script type="text/javascript" src="${page.url.context}/res/components/form/form.js"></@script>
 <@script type="text/javascript" src="${page.url.context}/res/components/form/date.js"></@script>
 <@script type="text/javascript" src="${page.url.context}/res/components/form/date-picker.js"></@script>
