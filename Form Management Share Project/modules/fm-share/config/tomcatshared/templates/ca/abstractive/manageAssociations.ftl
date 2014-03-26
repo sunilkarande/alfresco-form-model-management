@@ -1,6 +1,6 @@
-<#include "../../uofa/include/alfresco-template.ftl" />
+<#include "../../fm-share/include/alfresco-template.ftl" />
 <@templateHeader>
-   
+
 	<link rel="stylesheet" href="/share/res/css/yui-fonts-grids.css" />
 
     <@templateHtmlEditorAssets />
