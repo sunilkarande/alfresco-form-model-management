@@ -11,7 +11,10 @@
 */
 if(!FM){
 	var FM = {};
+
+		//Prefix used for ua:sitecontext
 		FM.prefix = "ua";
+		//Document type used in grid search and ignore document type search
 		FM.documentType = FM.prefix + "_documenttype";
 }
 
