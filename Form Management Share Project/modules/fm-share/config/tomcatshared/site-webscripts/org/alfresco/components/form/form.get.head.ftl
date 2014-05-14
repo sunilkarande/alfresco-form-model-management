@@ -35,20 +35,21 @@
 	<!-- NOT SPECIFIC FORM -->
 <#else>
 	<#if page.url.args.nodeRef?exists && page.url.args.nodeRef != "">
-		<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/share/forms.css"  />
-		<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/share/search.css" />
-		<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/jquery/jquery-ui.css" />
+		<link rel="stylesheet" type="text/css" href="/share/css/form-management/search.css" />
+		<link rel="stylesheet" type="text/css" href="/share/css/form-management/jquery/jquery-ui.css" />
+
 		<#if url.uri?ends_with("document-details") >
-			<link rel="stylesheet" type="text/css" href="/alfresco/css/form-builder/share/document-details.css" />
+			<link rel="stylesheet" type="text/css" href="/share/css/form-management/document-details.css" />
 		</#if>
 		<style type="text/css">
 			.share-form .form-container .form-fields { border:0!important;}
 		</style>
-		<script src="/alfresco/scripts/form-builder/jquery.js" type="text/javascript"></script>
-		<script src="/alfresco/scripts/form-builder/jquery.ui.js" type="text/javascript"></script>
-		<script type="text/javascript" src="/alfresco/scripts/form-builder/jquery.live.js"></script>
-		<script type="text/javascript" src="/alfresco/scripts/form-builder/validation.js"></script>
-		<script type="text/javascript" src="/alfresco/scripts/form-builder/form.jquery.js"></script>
+
+		<script type="text/javascript" src="/share/js/form-management/jquery.js"></script>
+		<script type="text/javascript" src="/share/js/form-management/jquery-ui.js"></script>
+		<script type="text/javascript" src="/share/js/form-management/jquery.live.js"></script>
+		<script type="text/javascript" src="/share/js/form-management/validation.js"></script>
+		<script type="text/javascript" src="/share/js/form-management/form.jquery.js"></script>
 
 		<script type="text/javascript">
 
@@ -111,6 +112,6 @@
 				setTimeout('initForm()', 1000);
 			});
 		</script>
-		<script src="/alfresco/scripts/form-builder/share/edit-metadata.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/share/js/form-management/edit-metadata.js"></script>
 	</#if>
 </#if>
