@@ -58,6 +58,11 @@ function getFieldTemplate(fieldType, attr){
 		fieldTmp += '<label>'+attr.label+'</label><div class="hasTinyMce"><textarea title="'+attr.title+'" class="mceEditor frm-fld textarea" name="'+attr.name+'"></textarea></div>';
 		fieldTmp += '</div>';
 
+	}else if(fieldTypeArr[1] == "selectsearch"){
+
+		fieldTmp = '<div class="group">';
+		fieldTmp += '<label>'+attr.label+'</label><div><select value="" title="'+attr.title+'" class="frm-fld select chosen-select" name="'+attr.name+'"></select></div>';
+		fieldTmp += '</div>';
 	}else{
 		fieldTmp = '<div class="group">';
 		fieldTmp += '<label>'+attr.label+'</label><div><'+fieldTypeArr[1]+' value="" title="'+attr.title+'" class="frm-fld '+fieldTypeArr[1]+'" name="'+attr.name+'"></'+fieldTypeArr[1]+'></div>';
@@ -153,13 +158,13 @@ function indexMasks(type){
 function flipClassnameSelected(className){
 	var hasClass = false;
     var $this = $(".ui-helper");
-    
+
 	if($this.find(".frm-fld").hasClass(className)){
-		$this.find(".frm-fld").removeClass(className); 
+		$this.find(".frm-fld").removeClass(className);
 		if(className == "readonly") $this.find(".frm-fld").removeAttr('readonly');
-		  
+
 	}else{
-		$this.find(".frm-fld").addClass(className); 
+		$this.find(".frm-fld").addClass(className);
 		if(className == "readonly") $this.find(".frm-fld").attr('readonly', true);
 		hasClass = true;
 	}
@@ -455,7 +460,7 @@ $(function () {
 		flipClassnameSelected('numOnly');
 	});
 	$('.prg_readOnly').live('click', function() {
-		flipClassnameSelected('readonly'); 
+		flipClassnameSelected('readonly');
 	});
 	$('.prg_alphanumOnly').live('click', function() {
 		flipClassnameSelected('alphanumOnly');
@@ -468,7 +473,7 @@ $(function () {
 	$('.prg_hiddenSearch').live('click', function() {
 		$(".ui-helper").find(".frm-fld").toggleClass('frm-hiddenSearch');
 	});
-	
+
 	$('.prg_searchGrid').live('click', function() {
 		$(".ui-helper").find(".frm-fld").toggleClass('frm-searchGrid');
 	});
@@ -649,7 +654,7 @@ $(function () {
 		}else{
 			$('.prg_hiddenSearch').attr("checked", "");
 		}
-		
+
 		//Is it a searchGrid field?
 		if(fieldNode.hasClass('frm-searchGrid')){
 			$('.prg_searchGrid').attr("checked", "checked");
@@ -670,14 +675,14 @@ $(function () {
 		}else{
 			$('.prg_numOnly').attr("checked", "");
 		}
-		
+
 		//Is it a readonly field?
 		if(fieldNode.hasClass('readonly')){
 			$('.prg_readOnly').attr("checked", "checked");
 		}else{
 			$('.prg_readOnly').attr("checked", "");
 		}
-		
+
 		//Is it a numOnly field?
 		if(fieldNode.hasClass('alphanumOnly')){
 			$('.prg_alphanumOnly').attr("checked", "checked");
