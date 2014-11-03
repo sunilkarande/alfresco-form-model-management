@@ -38,16 +38,15 @@ function main(){
 
 	var formFields = [];
 		formFields.push( { "id": "t_text", "label": "Text Field" } );
-		formFields.push( { "id": "t_select", "label": "Drop Down" } );
+		formFields.push( { "id": "t_select", "label": "Dropdown" } );
 		formFields.push( { "id": "t_textarea", "label": "Paragraph" } );
 		formFields.push( { "id": "t_radio", "label": "Multiple Choice" } );
 		formFields.push( { "id": "t_checkbox", "label": "Checkboxes" } );
 
 	var predefinedFields = [];
+		predefinedFields.push( { "id": "t_selectsearch", "label": "Dropdown with Search" } );
 		predefinedFields.push( { "id": "t_sliderval", "label": "Slider Options" } );
-		//predefinedFields.push( { "id": "t_multifield", "label": "Multifield" } );
 		predefinedFields.push( { "id": "t_htmlfield", "label": "HTML Editor" } );
-
 
 	if(args.jsonNode){
 		model.ready = true;
