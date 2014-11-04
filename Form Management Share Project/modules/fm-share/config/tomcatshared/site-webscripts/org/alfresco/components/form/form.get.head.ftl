@@ -86,6 +86,7 @@
 								$('.fm-form-buttons').show();
 							}
 							$('.fm-profile').form( 'loadNode', $('#nodeRef:last').val() );
+							if($('.chosen-select').length) $('.chosen-select').trigger('chosen:updated');
 						}
 					});
 
