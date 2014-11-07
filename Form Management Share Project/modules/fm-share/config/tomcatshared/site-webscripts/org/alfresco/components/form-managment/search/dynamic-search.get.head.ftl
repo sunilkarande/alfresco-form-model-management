@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/share/js/form-management/DataTables-1.8.2/media/css/demo_table.css" />
 <link rel="stylesheet" href="/share/css/uofa/plugin.css" />
 <link rel="stylesheet" type="text/css" href="/share/css/form-management/search/search.css" />
+<link href="/share/css/uofa/chosen-select.css" type="text/css" rel="stylesheet" />
 
 <script type="text/javascript">
 	var defaultLbl ="Search";
