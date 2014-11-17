@@ -502,7 +502,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbdb05', end
     margin:0;
 }
 .group {
-	padding:4px 0;
+	padding:10px 0;
+}
+.fm-profile-aspect {
+	margin-top: 25px;
+}
+form#my-frm {
+	margin-bottom:15px;
 }
 .group label {
     color: #606060;
